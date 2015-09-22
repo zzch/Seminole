@@ -1,0 +1,94 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 俱乐部管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">俱乐部信息</h4>
+    </div>
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.name' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @club.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.code' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @club.code, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.position' %></label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'club.longitude' %></span>
+              <%= text_field_tag nil, @club.longitude, readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'club.latitude' %></span>
+              <%= text_field_tag nil, @club.latitude, readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.address' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @club.address, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', admin_clubs_path, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '编辑', edit_admin_club_path(@club), class: 'btn btn-primary' %>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">操作员列表</h4>
+    </div>
+    <% if @operators.blank? %>
+    <div class="panel-body">
+      没有任何数据
+    </div>
+    <% else %>
+    <div class="table-responsive">
+      <table class="table table-striped mb30">
+        <thead>
+          <tr>
+            <th><%= brac_arat 'operator.account' %></th>
+            <th><%= brac_arat 'operator.name' %></th>
+            <th><%= brac_arat 'operator.last_signed_in_at' %></th>
+            <th><%= brac_arat 'operator.state' %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @operators.each do |operator| %>
+          <tr>
+            <td><%= operator.account %></td>
+            <td><%= operator.name %></td>
+            <td><%= operator.last_signed_in_at %></td>
+            <td><%= operator.state %></td>
+            <td class="table-action">
+              <%= link_to raw('<i class="fa fa-file-text-o"></i>'), [:admin, operator] %>
+              <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_admin_operator_path(operator) %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', admin_clubs_path, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '创建', new_admin_club_operator_path(@club), class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>

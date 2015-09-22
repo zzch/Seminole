@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title><%= @current_club.name %></title>
+    <%= stylesheet_link_tag 'bracket', media: 'all', 'data-turbolinks-track' => true %>
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="preloader">
+      <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+    </div>
+    <section>
+      <div class="leftpanel">
+        <div class="logopanel">
+          <h1><span>[</span> iGolf DRMS<span>]</span></h1>
+        </div>
+        <div class="leftpanelinner">    
+          <h5 class="sidebartitle">Navigation</h5>
+          <ul class="nav nav-pills nav-stacked nav-bracket">
+            <li><%= link_to raw('<i class="fa fa-home"></i> <span>控制台</span>'), dashboard_path %></li>
+            <li class="nav-parent"><a href=""><i class="fa fa-user"></i> <span>会员管理</span></a>
+              <ul class="children">
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 会员列表"), members_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建临时访客"), new_visitor_members_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建正式会员"), new_regular_members_path %></li>
+              </ul>
+            </li>
+            <li class="nav-parent"><a href=""><i class="fa fa-map-pin"></i> <span>打位管理</span></a>
+              <ul class="children">
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 打位列表"), tees_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建打位"), new_tee_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 批量创建打位"), bulk_new_tees_path %></li>
+              </ul>
+            </li>
+          </ul>
+          <!--div class="infosummary">
+            <h5 class="sidebartitle">Information Summary</h5>    
+            <ul>
+              <li>
+                <div class="datainfo">
+                  <span class="text-muted">今日订单数</span>
+                  <h4>526</h4>
+                </div>
+                <div id="sidebar-chart" class="chart"></div>   
+              </li>
+              <li>
+                <div class="datainfo">
+                  <span class="text-muted">本周订单数</span>
+                  <h4>618</h4>
+                </div>
+                <div id="sidebar-chart2" class="chart"></div>   
+              </li>
+            </ul>
+          </div-->
+        </div>
+      </div>
+      <div class="mainpanel">
+        <div class="headerbar">
+          <a class="menutoggle"><i class="fa fa-bars"></i></a>
+          <div class="header-right">
+            <ul class="headermenu">
+              <li>
+                <div class="btn-group">
+                  <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-envelope"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-head pull-right">
+                    <h5 class="title">您有0条未读消息</h5>
+                    <ul class="dropdown-list gen-list">
+                      <!--li class="new">
+                        <a href="">
+                        <span class="thumb"><img src="images/photos/user1.png" alt="" /></span>
+                        <span class="desc">
+                          <span class="name">Draniem Daamul <span class="badge badge-success">new</span></span>
+                          <span class="msg">Lorem ipsum dolor sit amet...</span>
+                        </span>
+                        </a>
+                      </li-->
+                      <li class="new"><a href="">查看所有消息</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="btn-group">
+                  <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i>
+                    <% unless @unread_notifications_count == 0 %><span class="badge">0</span><% end %>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-head pull-right">
+                    <h5 class="title">您有0条未读通知</h5>
+                    <ul class="dropdown-list gen-list">
+                      <!--li class="new">
+                        <a href="">
+                        <span class="thumb"><img src="images/photos/user4.png" alt="" /></span>
+                        <span class="desc">
+                          <span class="name">Zaham Sindilmaca <span class="badge badge-success">new</span></span>
+                          <span class="msg">is now following you</span>
+                        </span>
+                        </a>
+                      </li-->
+                      <li class="new"><a href="">查看所有通知</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="btn-group">
+                  <button class="btn btn-default dropdown-toggle tp-icon" data-toggle="dropdown">
+                    <span class="small">欢迎您，<%= session['operator']['name'] %></span>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                    <li><%= link_to raw('<i class="glyphicon glyphicon-user"></i> 我的信息'), edit_profile_path %></li>
+                    <li><%= link_to raw('<i class="glyphicon glyphicon-cog"></i> 修改密码'), edit_password_profile_path %></li>
+                    <li><%= link_to raw('<i class="glyphicon glyphicon-log-out"></i> 退出登录'), sign_out_path %></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <%= yield %>
+      </div>
+    </section>
+    <%= javascript_include_tag 'bracket', 'data-turbolinks-track' => true %>
+    <%= content_for :javascript %>
+  </body>
+</html>

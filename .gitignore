@@ -1,0 +1,16 @@
+.DS_Store
+.swp
+/.bundle
+/.capistrano
+/config/database.yml
+/config/secrets.yml
+/config/settings.yml
+/config/sunspot.yml
+/db/schema.rb
+/log/*.log
+!/log/.keep
+/public/uploads
+/public/assets
+/solr
+/tmp
+/vendor/bundle

@@ -1,0 +1,39 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 反馈管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-primary table-striped mb30">
+          <thead>
+            <tr>
+              <th><%= brac_arat 'feedback.feedback' %></th>
+              <th><%= brac_arat 'feedback.content' %></th>
+              <th><%= brac_arat 'created_at' %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="table-paginate"><%= brac_paginate @feedbacks %></td>
+            </tr>
+          </tfoot>
+          <tbody>
+            <% @feedbacks.each do |feedback| %>
+            <tr>
+              <td><%= feedback.user.nickname %></td>
+              <td><%= feedback.content %></td>
+              <td><%= brac_datetime(feedback.created_at) %></td>
+              <td class="table-action">
+                <%= link_to raw('<i class="fa fa-file-text-o"></i>'), [:cms, feedback] %>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="pageheader">
+  <h2><i class="fa fa-tags"></i> 我的信息</h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <%= render "cms/commons/error_messages", target: @administrator %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">编辑个人信息</h4>
+    </div>
+    <div class="panel-body panel-body-nopadding">
+      <%= form_for [:cms, @administrator], url: cms_profile_path, method: :put, html: { class: 'form-horizontal form-bordered' } do |f| %>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'administrator.account' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @administrator.account, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'administrator.name' %></label>
+          <div class="col-sm-6">
+            <%= f.text_field :name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <input type="reset" value="重置" class="btn" />
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

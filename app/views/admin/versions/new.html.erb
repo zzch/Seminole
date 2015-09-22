@@ -1,0 +1,48 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 版本管理 <span>新建</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "admin/commons/error_messages", target: @version %>
+  <div class="panel panel-default">
+    <%= form_for [:admin, @version], html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'version.latest' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, Version.latest.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'version.name' %></label>
+          <div class="col-sm-1">
+            <%= f.text_field :major, class: 'form-control' %>
+          </div>
+          <div class="col-sm-1">
+            <%= f.text_field :minor, class: 'form-control' %>
+          </div>
+          <div class="col-sm-1">
+            <%= f.text_field :point, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'version.build' %></label>
+          <div class="col-sm-6">
+            <%= f.text_field :build, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'version.content' %></label>
+          <div class="col-sm-6">
+            <%= f.text_area :content, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', admin_versions_path, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

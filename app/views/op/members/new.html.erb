@@ -1,0 +1,75 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 会员管理 <span>新建</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @member %>
+  <div class="panel panel-default">
+    <%= form_for @member, html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.type' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <div class="rdio rdio-default mt5">
+              <%= f.radio_button :type, :visitor, checked: true %>
+              <label for="member_type_visitor"><%= brac_arat 'member.visitor' %></label>
+            </div>
+            <div class="rdio rdio-default">
+              <%= f.radio_button :type, :regular %>
+              <label for="member_type_regular"><%= brac_arat 'member.regular' %></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.phone' %></label>
+          <div class="col-sm-4">
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon">+86</span>
+              <%= f.text_field :phone, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.name' %></label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'member.last_name' %></span>
+              <%= f.text_field :last_name, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'member.first_name' %></span>
+              <%= f.text_field :first_name, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.gender' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <div class="rdio rdio-default mt5">
+              <%= f.radio_button :gender, :male, checked: true %>
+              <label for="member_gender_male"><%= brac_arat 'member.male' %></label>
+            </div>
+            <div class="rdio rdio-default">
+              <%= f.radio_button :gender, :female %>
+              <label for="member_gender_female"><%= brac_arat 'member.female' %></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', members_path, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      jQuery("#member_phone").mask("999 - 9999 - 9999");
+    });
+  </script>
+<% end %>

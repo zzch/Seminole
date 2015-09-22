@@ -1,0 +1,39 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 操作员管理 <span>编辑</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "admin/commons/error_messages", target: @operator %>
+  <div class="panel panel-default">
+    <%= form_for [:admin, @club, @operator], html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'operator.account' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @operator.account, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'operator.name' %></label>
+          <div class="col-sm-6">
+            <%= f.text_field :name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'operator.omnipotent' %></label>
+          <div class="col-sm-6">
+            <div class="ckbox ckbox-default mt10">
+              <%= f.check_box :omnipotent %>
+              <label for="operator_omnipotent"></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', [:admin, @operator.club], class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

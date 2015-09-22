@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Signin | Booking ManagementSystem</title>
+  <%= stylesheet_link_tag 'bracket_minimize', media: 'all', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <!--[if lt IE 9]>
+  <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="signin">
+<div id="preloader">
+  <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
+</div>
+<section>
+  <div class="signinpanel">
+    <div class="row">
+      <div class="col-md-7">
+      </div>
+      <div class="col-md-5">
+        <%= form_tag admin_sign_in_path, method: :post do %>
+          <h4 class="nomargin">管理员登录</h4>
+          <p class="mt5 mb20 text-danger"><%= flash[:alert] %></p>
+          <%= text_field_tag :account, nil, class: 'form-control uname', placeholder: '账号' %>
+          <%= password_field_tag :password, nil, class: 'form-control pword', placeholder: '密码' %>
+          <a href=""><small>忘记密码?</small></a>
+          <%= submit_tag '登录', class: 'btn btn-success btn-block' %>
+        <% end %>
+      </div>
+    </div>
+    <div class="signup-footer">
+      <div class="pull-left">Beijing iSports Co., Ltd. &copy; 2015. All Rights Reserved.</div>
+    </div>
+  </div>
+</section>
+<%= javascript_include_tag 'bracket_minimize', 'data-turbolinks-track' => true %>
+</body>
+</html>

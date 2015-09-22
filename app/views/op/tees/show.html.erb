@@ -1,0 +1,43 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 打位管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'tee.name' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @tee.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'tee.floor' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @tee.floor, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'tee.state' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @tee.aasm.human_state, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', tees_path, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '编辑', edit_tee_path(@tee), class: 'btn btn-primary' %>&nbsp;
+      <div class="btn-group mt10">
+        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+          操作 <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <%= content_tag :li, link_to('开放打位', open_tee_path(@tee), method: :put) if @tee.closed? %>
+          <%= content_tag :li, link_to('关闭打位', close_tee_path(@tee), method: :put) if @tee.opened?  %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
