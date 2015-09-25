@@ -24,6 +24,12 @@
           <h5 class="sidebartitle">Navigation</h5>
           <ul class="nav nav-pills nav-stacked nav-bracket">
             <li><%= link_to raw('<i class="fa fa-home"></i> <span>控制台</span>'), dashboard_path %></li>
+            <li class="nav-parent"><a href=""><i class="fa fa-jpy"></i> <span>营业管理</span></a>
+              <ul class="children">
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 消费单列表"), orders_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建消费单"), new_order_path %></li>
+              </ul>
+            </li>
             <li class="nav-parent"><a href=""><i class="fa fa-user"></i> <span>会员管理</span></a>
               <ul class="children">
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 会员列表"), members_path %></li>

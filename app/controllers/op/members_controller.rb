@@ -1,30 +1,17 @@
 # -*- encoding : utf-8 -*-
 class Op::MembersController < Op::BaseController
-  before_action :find_member, only: %w( show edit update )
+  before_action :find_member, only: %w(show edit update)
   
   def index
-    @members = Member.page(params[:page])
+    @members = Member.order(created_at: :desc).page(params[:page])
   end
   
   def show
     @member = Member.find(params[:id])
   end
   
-  def new
-    @member = Member.new
-  end
-  
   def edit
     @member = Member.find(params[:id])
-  end
-  
-  def create
-    @member = Member.new(member_params)
-    if @member.save
-      redirect_to [:cms, @member], notice: '创建成功！'
-    else
-      render action: 'new'
-    end
   end
   
   def update

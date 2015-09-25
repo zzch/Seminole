@@ -215,6 +215,7 @@ zh:
         gender: 性别
       member:
         type: 类型
+        created_at: 注册时间
       tee:
         name: 名称
         floor: 楼层
@@ -222,9 +223,20 @@ zh:
         state/opened: 开放
         state/closed: 关闭
         state/trashed: 删除
+      order:
+        tee: 打位
+        member: 会员
   activemodel:
     attributes:
       op/create_visitor_member:
+        phone: 电话
+        name: 姓名
+        first_name: 名
+        last_name: 姓
+        gender: 性别
+        male: 男
+        female: 女
+      op/create_regular_member:
         phone: 电话
         name: 姓名
         first_name: 名

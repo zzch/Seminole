@@ -3,38 +3,34 @@
 </div>
 <div class="contentpanel">
   <%= brac_flash %>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="table-responsive">
-        <table class="table table-primary table-striped mb30">
-          <thead>
-            <tr>
-              <th><%= brac_arat 'tee.name' %></th>
-              <th><%= brac_arat 'tee.floor' %></th>
-              <th><%= brac_arat 'tee.state' %></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <td colspan="4" class="table-paginate"><%= brac_paginate @tees %></td>
-            </tr>
-          </tfoot>
-          <tbody>
-            <% @tees.each do |tee| %>
-            <tr>
-              <td><%= tee.name %></td>
-              <td><%= tee.floor %></td>
-              <td><%= tee.aasm.human_state %></td>
-              <td class="table-action">
-                <%= link_to raw('<i class="fa fa-file-text-o"></i>'), tee %>
-                <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_tee_path(tee) %>
-              </td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <div class="table-responsive">
+    <table class="table table-primary table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'tee.name' %></th>
+          <th><%= brac_arat 'tee.floor' %></th>
+          <th><%= brac_arat 'tee.state' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="table-paginate"><%= brac_paginate @tees %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @tees.each do |tee| %>
+        <tr>
+          <td><%= tee.name %></td>
+          <td><%= tee.floor %></td>
+          <td><%= tee.aasm.human_state %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), tee %>
+            <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_tee_path(tee) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

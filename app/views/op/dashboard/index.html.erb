@@ -3,8 +3,38 @@
 </div>
 <div class="contentpanel">
   <div class="panel panel-default">
-    <div class="panel-body">
-      
+    <div class="panel-heading">
+      <h4 class="panel-title">打位概览</h4>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-primary table-striped">
+        <tfoot>
+          <tr>
+            <td class="text-right">
+              <span class="label label-primary">可用</span>
+              <span class="label label-danger">使用中</span>
+              <span class="label label-warning">已预约</span>
+              <span class="label label-default">已关闭</span>
+            </td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <% (1..@current_club.floors).each do |floor| %>
+          <tr>
+            <td><%= floor %>F</td>
+          </tr>
+          <tr>
+            <td>
+              <div class="row">
+                <% @current_club.tees.on_floor(floor).each do |tee| %>
+                <div class="col-xs-1"><%= link_to tee.name, new_order_path(tee_uuid: tee.uuid), class: 'btn btn-primary btn-block mt10 mb10' %></div>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

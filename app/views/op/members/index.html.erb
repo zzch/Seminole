@@ -1,0 +1,39 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 会员管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'member.type' %></th>
+          <th><%= brac_arat 'user.phone' %></th>
+          <th><%= brac_arat 'user.name' %></th>
+          <th><%= brac_arat 'user.gender' %></th>
+          <th><%= brac_arat 'member.created_at' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="6" class="table-paginate"><%= brac_paginate @members %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @members.each do |member| %>
+        <tr>
+          <td><%= te_member_type(member.type) %></td>
+          <td><%= member.user.phone %></td>
+          <td><%= member.user.name %></td>
+          <td><%= te_user_gender(member.user.gender) %></td>
+          <td><%= brac_datetime(member.created_at) %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), member %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

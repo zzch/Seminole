@@ -30,6 +30,7 @@ Rails.application.routes.draw do
         post :create_regular
       end
     end
+    resources :orders
     resources :tees do
       collection do
         get :bulk_new
@@ -47,6 +48,5 @@ Rails.application.routes.draw do
     get 'sign_in', to: 'sessions#new', as: :sign_in
     post 'sign_in', to: 'sessions#create'
     get 'sign_out', to: 'sessions#destroy', as: :sign_out
-    get '*not_found', to: 'errors#error_404'
   end
 end

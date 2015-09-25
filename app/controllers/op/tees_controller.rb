@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Op::TeesController < Op::BaseController
-  before_action :find_tee, only: %w( show edit update open close )
+  before_action :find_tee, only: %w(show edit update open close)
   
   def index
     @tees = Tee.page(params[:page])

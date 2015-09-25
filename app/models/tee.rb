@@ -1,6 +1,7 @@
 class Tee < ActiveRecord::Base
   include UUID, AASM
   belongs_to :club
+  has_many :line_items
   aasm column: 'state' do
     state :opened, initial: true
     state :closed
@@ -15,7 +16,12 @@ class Tee < ActiveRecord::Base
       transitions to: :trashed
     end
   end
+  scope :on_floor, ->(floor) { where(floor: floor) }
   validates :name, presence: true, length: { in: 1..10 }, format: { with: /\A[A-Za-z0-9]+\z/, message: "只能使用字母和数字" }, uniqueness: { scope: :club_id }
+
+  def occupied?
+    line_items.where('started_at >= ?', Time.now).where(ended_at: nil).first
+  end
 
   class << self
     def bulk_create form

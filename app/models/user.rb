@@ -6,4 +6,8 @@ class User < ActiveRecord::Base
   def name
     "#{last_name}#{first_name}"
   end
+
+  def name_with_initial_and_phone
+    "#{PinYin.abbr(name).upcase} / #{last_name}#{first_name} / #{phone}"
+  end
 end
