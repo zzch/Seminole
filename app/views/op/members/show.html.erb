@@ -4,30 +4,27 @@
 <div class="contentpanel">
   <%= brac_flash %>
   <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">会籍信息</h4>
+    </div>
     <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
       <div class="panel-body panel-body-nopadding">
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'member.type' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.card' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, te_member_type(@member.type), readonly: true, class: 'form-control' %>
+            <%= text_field_tag nil, @member.card.name, readonly: true, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'user.name' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.number' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, @member.user.name, readonly: true, class: 'form-control' %>
+            <%= text_field_tag nil, @member.number, readonly: true, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'user.phone' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.state' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, @member.user.phone, readonly: true, class: 'form-control' %>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'user.gender' %></label>
-          <div class="col-sm-6">
-            <%= text_field_tag nil, te_user_gender(@member.user.gender), readonly: true, class: 'form-control' %>
+            <%= text_field_tag nil, @member.aasm.human_state, readonly: true, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
@@ -36,10 +33,49 @@
             <%= text_field_tag nil, brac_datetime(@member.created_at), readonly: true, class: 'form-control' %>
           </div>
         </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.expired_at' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_datetime(@member.expired_at), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
       </div>
     <% end %>
-    <div class="panel-footer">
-      <%= link_to '返回', members_path, class: 'btn btn-default' %>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">用户列表</h4>
+    </div>
+    <div class="table-responsive">
+      <table class="table mb30">
+        <thead>
+          <tr>
+            <th><%= brac_arat 'membership.role' %></th>
+            <th><%= brac_arat 'user.name' %></th>
+            <th><%= brac_arat 'user.phone' %></th>
+            <th><%= brac_arat 'membership.state' %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @member.memberships.each do |membership| %>
+          <tr>
+            <td><%= te_membership_role(membership.role) %></td>
+            <td><%= membership.user.phone %></td>
+            <td><%= membership.user.name %></td>
+            <td><%= membership.aasm.human_state %></td>
+            <td class="table-action">
+              <%= link_to raw('<i class="fa fa-file-text-o"></i>'), membership %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-body">
+      <%= link_to '返回', members_path, class: 'btn btn-default' %>&nbsp;
     </div>
   </div>
 </div>

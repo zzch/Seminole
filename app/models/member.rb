@@ -1,31 +1,26 @@
 class Member < ActiveRecord::Base
-  include UUID
-  attr_accessor :phone, :first_name, :last_name, :gender
-  as_enum :type, [:visitor, :regular], map: :string
-  belongs_to :user
+  include UUID, AASM
   belongs_to :club
+  belongs_to :card
+  has_many :memberships
+  has_many :users, through: :memberships
+  aasm column: 'state' do
+    state :activated, initial: true
+    state :deactivated
+  end
   scope :alphabetic, -> { joins(:user).includes(:user).order('CONVERT(users.last_name USING GBK) ASC, CONVERT(users.first_name USING GBK) ASC') }
 
-  def name_with_initial_and_phone
-    user.name_with_initial_and_phone
-  end
-
   class << self
-    def search options = {}
-      where(phone: options[:phone])
+    def search club, keyword
+      User.where(id: club.members.map{|member| member.users.map{|user| user.id}}.flatten).where('phone LIKE ? OR CONCAT(last_name, first_name) LIKE ?', "%#{keyword}%", "%#{keyword}%").first || raise(DoesNotExist.new)
     end
 
-    def create_visitor form
+    def create_with_user club, form
       ActiveRecord::Base.transaction do
-        user = User.create!(phone: form.phone.gsub(' ', '').gsub('-', ''), first_name: form.first_name, last_name: form.last_name, gender: form.gender, activated: false)
-        create!(user: user, type: :visitor)
-      end
-    end
-
-    def create_regular form
-      ActiveRecord::Base.transaction do
+        raise InvalidCard.new unless club.card_ids.include?(form.card_id.to_i)
+        card = Card.find(form.card_id)
         user = User.create!(phone: form.phone.gsub(' ', '').gsub('-', ''), first_name: form.first_name, last_name: form.last_name, gender: form.gender, activated: true)
-        create!(user: user, type: :regular)
+        create!(club: club, card: card, number: form.number, expired_at: Time.now + card.valid_months.months).tap {|member| member.memberships.create!(user: user, role: :owner)}
       end
     end
   end

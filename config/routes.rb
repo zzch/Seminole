@@ -24,12 +24,10 @@ Rails.application.routes.draw do
     get 'dashboard', to: 'dashboard#index', as: :dashboard
     resources :members do
       collection do
-        get :new_visitor
-        get :new_regular
-        post :create_visitor
-        post :create_regular
+        get :async_search
       end
     end
+    resources :memberships
     resources :orders
     resources :tees do
       collection do
@@ -41,6 +39,7 @@ Rails.application.routes.draw do
         put :open
       end
     end
+    resources :cards
     resource :profile do
       get 'edit_password'
       put 'update_password'

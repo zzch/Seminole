@@ -7,7 +7,6 @@
     <table class="table table-primary table-striped mb30">
       <thead>
         <tr>
-          <th><%= brac_arat 'member.type' %></th>
           <th><%= brac_arat 'user.phone' %></th>
           <th><%= brac_arat 'user.name' %></th>
           <th><%= brac_arat 'user.gender' %></th>
@@ -23,7 +22,6 @@
       <tbody>
         <% @members.each do |member| %>
         <tr>
-          <td><%= te_member_type(member.type) %></td>
           <td><%= member.user.phone %></td>
           <td><%= member.user.name %></td>
           <td><%= te_user_gender(member.user.gender) %></td>

@@ -1,0 +1,33 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 消费单管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'order.operator' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @order.operator.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'order.member' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @order.user.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'order.state' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @order.aasm.human_state, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', orders_path, class: 'btn btn-default' %>
+    </div>
+  </div>
+</div>

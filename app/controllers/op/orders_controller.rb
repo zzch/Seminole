@@ -11,19 +11,18 @@ class Op::OrdersController < Op::BaseController
   
   def new
     @order = Order.new
-    @tee = Tee.find_uuid(params[:tee_uuid]) if params[:tee_uuid]
-    @members = @current_club.members.alphabetic
+    @tee = @current_club.tees.find(params[:tee_id]) if params[:tee_id]
+    @nar_form = Op::CreateOrderWithVisitor.new
   end
   
   def edit
   end
   
   def create
-    @order = @current_club.orders.new(order_params)
-    @order.operator_id = session['operator']['id']
-    if @order.save
+    begin
+      @order = Order.create_by_tee(order_params.merge({ club_id: @current_club.id, operator_id: session['operator']['id'] }), params[:tee_uuid])
       redirect_to @order, notice: '创建成功！'
-    else
+    rescue AlreadyInUse
       render action: 'new'
     end
   end

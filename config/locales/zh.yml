@@ -214,8 +214,20 @@ zh:
         name: 姓名
         gender: 性别
       member:
-        type: 类型
+        card: 卡类型
+        number: 卡号
+        balance: 余额
+        expired_at: 有效期
+        state: 状态
+        state/activated: 正常
+        state/forzen: 已冻结
         created_at: 注册时间
+        expired_at: 到期时间
+      membership:
+        role: 角色
+        state: 状态
+        state/activated: 正常
+        state/deactivated: 停用
       tee:
         name: 名称
         floor: 楼层
@@ -226,9 +238,15 @@ zh:
       order:
         tee: 打位
         member: 会员
+        state/progressing: 进行中
+        state/finished: 已完成
+      card:
+        type: 类型
+        name: 名称
+        price: 价格
   activemodel:
     attributes:
-      op/create_visitor_member:
+      op/create_member:
         phone: 电话
         name: 姓名
         first_name: 名
@@ -236,7 +254,9 @@ zh:
         gender: 性别
         male: 男
         female: 女
-      op/create_regular_member:
+        card: 卡类型
+        number: 卡号
+      op/create_order_with_visitor:
         phone: 电话
         name: 姓名
         first_name: 名

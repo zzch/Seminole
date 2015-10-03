@@ -27,7 +27,11 @@
             <td>
               <div class="row">
                 <% @current_club.tees.on_floor(floor).each do |tee| %>
-                <div class="col-xs-1"><%= link_to tee.name, new_order_path(tee_uuid: tee.uuid), class: 'btn btn-primary btn-block mt10 mb10' %></div>
+                <% if tee.occupied? %>
+                <div class="col-xs-1"><%= link_to tee.name, tee.order, class: 'btn btn-danger btn-block mt10 mb10' %></div>
+                <% else %>
+                <div class="col-xs-1"><%= link_to tee.name, new_order_path(tee_id: tee.id), class: 'btn btn-primary btn-block mt10 mb10' %></div>
+                <% end %>
                 <% end %>
               </div>
             </td>

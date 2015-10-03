@@ -1,0 +1,36 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 储值卡管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'card.type' %></th>
+          <th><%= brac_arat 'card.name' %></th>
+          <th><%= brac_arat 'card.price' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="table-paginate"><%= brac_paginate @cards %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @cards.each do |card| %>
+        <tr>
+          <td><%= te_card_type(card.type) %></td>
+          <td><%= card.name %></td>
+          <td><%= card.price %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), card %>
+            <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_card_path(card) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

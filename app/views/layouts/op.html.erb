@@ -33,8 +33,7 @@
             <li class="nav-parent"><a href=""><i class="fa fa-user"></i> <span>会员管理</span></a>
               <ul class="children">
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 会员列表"), members_path %></li>
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建临时访客"), new_visitor_members_path %></li>
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建正式会员"), new_regular_members_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建会员"), new_member_path %></li>
               </ul>
             </li>
             <li class="nav-parent"><a href=""><i class="fa fa-map-pin"></i> <span>打位管理</span></a>
@@ -42,6 +41,12 @@
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 打位列表"), tees_path %></li>
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建打位"), new_tee_path %></li>
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 批量创建打位"), bulk_new_tees_path %></li>
+              </ul>
+            </li>
+            <li class="nav-parent"><a href=""><i class="fa fa-credit-card"></i> <span>储值卡管理</span></a>
+              <ul class="children">
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 储值卡列表"), cards_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建储值卡"), new_card_path %></li>
               </ul>
             </li>
           </ul>

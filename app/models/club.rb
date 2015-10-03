@@ -3,6 +3,7 @@ class Club < ActiveRecord::Base
   has_many :members
   has_many :operators
   has_many :tees
+  has_many :cards
   has_many :product_categories
   has_many :orders
   validates :name, presence: true, length: { maximum: 50 }
