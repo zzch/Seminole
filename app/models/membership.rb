@@ -1,6 +1,6 @@
 class Membership < ActiveRecord::Base
   include UUID, AASM
-  as_enum :role, [:owner, :user], prefix: true, map: :string
+  as_enum :role, [:holder, :user], prefix: true, map: :string
   belongs_to :user
   belongs_to :member
   aasm column: 'state' do

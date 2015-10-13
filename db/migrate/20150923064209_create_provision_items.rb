@@ -1,0 +1,11 @@
+class CreateProvisionItems < ActiveRecord::Migration
+  def change
+    create_table :provision_items do |t|
+      t.references :tab, null: false
+      t.references :provision, null: false
+      t.integer :quantity, limit: 1
+      t.decimal :price, precision: 7, scale: 2, limit: 1
+      t.timestamps null: false
+    end
+  end
+end

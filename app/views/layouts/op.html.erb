@@ -26,8 +26,10 @@
             <li><%= link_to raw('<i class="fa fa-home"></i> <span>控制台</span>'), dashboard_path %></li>
             <li class="nav-parent"><a href=""><i class="fa fa-jpy"></i> <span>营业管理</span></a>
               <ul class="children">
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 消费单列表"), orders_path %></li>
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建消费单"), new_order_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 进行中消费单"), progressing_tabs_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 已完成消费单"), finished_tabs_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 已取消消费单"), cancelled_tabs_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建消费单"), new_tab_path %></li>
               </ul>
             </li>
             <li class="nav-parent"><a href=""><i class="fa fa-user"></i> <span>会员管理</span></a>
@@ -38,15 +40,23 @@
             </li>
             <li class="nav-parent"><a href=""><i class="fa fa-map-pin"></i> <span>打位管理</span></a>
               <ul class="children">
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 打位列表"), tees_path %></li>
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建打位"), new_tee_path %></li>
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 批量创建打位"), bulk_new_tees_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 打位列表"), vacancies_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建打位"), new_vacancy_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 批量创建打位"), bulk_new_vacancies_path %></li>
               </ul>
             </li>
             <li class="nav-parent"><a href=""><i class="fa fa-credit-card"></i> <span>储值卡管理</span></a>
               <ul class="children">
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 储值卡列表"), cards_path %></li>
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建储值卡"), new_card_path %></li>
+              </ul>
+            </li>
+            <li class="nav-parent"><a href=""><i class="fa fa-glass"></i> <span>餐饮管理</span></a>
+              <ul class="children">
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 餐饮分类列表"), provision_categories_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建餐饮分类"), new_provision_category_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 餐饮列表"), provisions_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建餐饮"), new_provision_path %></li>
               </ul>
             </li>
           </ul>

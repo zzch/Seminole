@@ -7,10 +7,11 @@
     <table class="table table-primary table-striped mb30">
       <thead>
         <tr>
-          <th><%= brac_arat 'user.phone' %></th>
-          <th><%= brac_arat 'user.name' %></th>
-          <th><%= brac_arat 'user.gender' %></th>
+          <th><%= brac_arat 'member.holder' %></th>
+          <th><%= brac_arat 'card.type' %></th>
+          <th><%= brac_arat 'card.name' %></th>
           <th><%= brac_arat 'member.created_at' %></th>
+          <th><%= brac_arat 'member.expired_at' %></th>
           <th></th>
         </tr>
       </thead>
@@ -22,10 +23,11 @@
       <tbody>
         <% @members.each do |member| %>
         <tr>
-          <td><%= member.user.phone %></td>
-          <td><%= member.user.name %></td>
-          <td><%= te_user_gender(member.user.gender) %></td>
-          <td><%= brac_datetime(member.created_at) %></td>
+          <td><%= member.holder.name %></td>
+          <td><%= te_card_type(member.card.type) %></td>
+          <td><%= member.card.name %></td>
+          <td><%= brac_date(member.created_at) %></td>
+          <td><%= brac_date(member.expired_at) %></td>
           <td class="table-action">
             <%= link_to raw('<i class="fa fa-file-text-o"></i>'), member %>
           </td>

@@ -10,16 +10,15 @@ class Op::CardsController < Op::BaseController
   end
 
   def new
-    @nar_form = Op::CreateCard.new
+    @card = Card.new
   end
   
   def edit
   end
 
   def create
-    @nar_form = Op::CreateCard.new(params[:op_create_card])
-    if @nar_form.valid?
-      @card = Card.create_with_user(@current_club, @nar_form)
+    @card = @current_club.cards.new(card_params)
+    if @card.save
       redirect_to @card, notice: '创建成功！'
     else
       render action: 'new'

@@ -1,0 +1,36 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 打位管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'vacancy.name' %></th>
+          <th><%= brac_arat 'vacancy.floor' %></th>
+          <th><%= brac_arat 'vacancy.state' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="table-paginate"><%= brac_paginate @vacancies %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @vacancies.each do |vacancy| %>
+        <tr>
+          <td><%= vacancy.name %></td>
+          <td><%= vacancy.floor %></td>
+          <td><%= vacancy.aasm.human_state %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), vacancy %>
+            <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_vacancy_path(vacancy) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

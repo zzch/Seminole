@@ -1,0 +1,38 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 餐饮管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'provision.category' %></th>
+          <th><%= brac_arat 'provision.name' %></th>
+          <th><%= brac_arat 'provision.price' %></th>
+          <th><%= brac_arat 'provision.state' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="2" class="table-paginate"><%= brac_paginate @provisions %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @provisions.each do |provision| %>
+        <tr>
+          <td><%= provision.category.name %></td>
+          <td><%= provision.name %></td>
+          <td><%= provision.price %></td>
+          <td><%= provision.aasm.human_state %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), provision %>
+            <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_provision_path(provision) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

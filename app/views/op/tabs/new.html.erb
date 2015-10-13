@@ -1,0 +1,112 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 消费单管理 <span>新建</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @tab %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">打位信息</h4>
+    </div>
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+          <% if @vacancy %>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><%= brac_arat 'tab.vacancy' %></label>
+            <div class="col-sm-6">
+              <%= text_field_tag nil, @vacancy.name, readonly: true, class: 'form-control' %>
+            </div>
+          </div>
+          <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">会员身份</h4>
+        </div>
+        <%= form_for @tab, url: member_set_up_tabs_path, html: { class: 'form-horizontal form-bordered' } do |f| %>
+          <%= hidden_field_tag :vacancy_id, nil, value: @vacancy.id if @vacancy %>
+          <div class="panel-body panel-body-nopadding">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">会员</label>
+              <div class="col-sm-8">
+                <%= f.select :user_id, user_options_for_set_up_tab, prompt: '请选择' %>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12 text-center">
+                <%= f.submit '创建', class: 'btn btn-primary' %>&nbsp;
+                <%= link_to '返回', dashboard_path, class: 'btn btn-default' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">访客身份</h4>
+        </div>
+        <%= form_for @nar_form, url: visitor_set_up_tabs_path, html: { class: 'form-horizontal form-bordered' } do |f| %>
+          <%= hidden_field_tag :vacancy_id, nil, value: @vacancy.id if @vacancy %>
+          <div class="panel-body panel-body-nopadding">
+            <div class="form-group">
+              <label class="col-sm-3 control-label"><%= brac_amat 'op/visitor_set_up_tab.phone' %></label>
+              <div class="col-sm-8">
+                <div class="input-group input-group-lg">
+                  <span class="input-group-addon">+86</span>
+                  <%= f.text_field :phone, class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label"><%= brac_amat 'op/visitor_set_up_tab.name' %></label>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <span class="input-group-addon"><%= brac_amat 'op/visitor_set_up_tab.last_name' %></span>
+                  <%= f.text_field :last_name, class: 'form-control' %>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="input-group">
+                  <span class="input-group-addon"><%= brac_amat 'op/visitor_set_up_tab.first_name' %></span>
+                  <%= f.text_field :first_name, class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label"><%= brac_amat 'op/visitor_set_up_tab.gender' %> <span class="asterisk">*</span></label>
+              <div class="col-sm-6">
+                <div class="rdio rdio-default mt5">
+                  <%= f.radio_button :gender, :male, checked: true %>
+                  <label for="op_visitor_set_up_tab_gender_male"><%= brac_amat 'op/visitor_set_up_tab.male' %></label>
+                </div>
+                <div class="rdio rdio-default">
+                  <%= f.radio_button :gender, :female %>
+                  <label for="op_visitor_set_up_tab_gender_female"><%= brac_amat 'op/visitor_set_up_tab.female' %></label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-12 text-center">
+                <%= f.submit '创建', class: 'btn btn-primary' %>&nbsp;
+                <%= link_to '返回', dashboard_path, class: 'btn btn-default' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      $('#tab_user_id').chosen({'width': '100%', 'white-space': 'nowrap'});
+      $('#op_visitor_set_up_tab_phone').mask("999 - 9999 - 9999");
+    });
+  </script>
+<% end %>

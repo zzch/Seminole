@@ -223,27 +223,52 @@ zh:
         state/forzen: 已冻结
         created_at: 注册时间
         expired_at: 到期时间
+        holder: 持卡人
       membership:
         role: 角色
         state: 状态
         state/activated: 正常
         state/deactivated: 停用
-      tee:
+      vacancy:
         name: 名称
         floor: 楼层
         state: 状态
         state/opened: 开放
         state/closed: 关闭
         state/trashed: 删除
-      order:
-        tee: 打位
+      tab:
+        vacancy: 打位
+        operator: 操作员
         member: 会员
+        state: 状态
         state/progressing: 进行中
         state/finished: 已完成
+        state/cancelled: 已取消
+        created_at: 下单时间
+      playing_item:
+        started_at: 开始时间
+        finished_at: 结束时间
+      provision_item:
+        provision: 商品名称
+        price: 价格
+        quantity: 数量
+        total_price: 小计
+        created_at: 下单时间
       card:
         type: 类型
         name: 名称
         price: 价格
+      provision_category:
+        name: 名称
+      provision:
+        category: 分类
+        name: 名称
+        price: 价格
+        description: 描述
+        state: 状态
+        state/on_sale: 销售中
+        state/discontinued: 已停售
+        state/out_of_stock: 缺货
   activemodel:
     attributes:
       op/create_member:
@@ -256,7 +281,7 @@ zh:
         female: 女
         card: 卡类型
         number: 卡号
-      op/create_order_with_visitor:
+      op/visitor_set_up_tab:
         phone: 电话
         name: 姓名
         first_name: 名
@@ -264,7 +289,7 @@ zh:
         gender: 性别
         male: 男
         female: 女
-      op/bulk_create_tees:
+      op/bulk_create_vacancies:
         prefix: 前缀
         start_number: 开始编号
         end_number: 结束编号

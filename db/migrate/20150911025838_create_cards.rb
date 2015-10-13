@@ -8,7 +8,7 @@ class CreateCards < ActiveRecord::Migration
       t.decimal :price, precision: 7, scale: 2, null: false
       t.integer :total_amount, null: false
       t.integer :valid_months, null: false
-      t.integer :maximum_tees, null: false
+      t.integer :maximum_vacancies, null: false
       t.integer :ball_amount
       t.integer :minute_amount
       t.integer :minimum_charging_minutes
@@ -16,6 +16,8 @@ class CreateCards < ActiveRecord::Migration
       t.integer :maximum_discard_minutes
       t.integer :maximum_daily_balls
       t.integer :maximum_daily_hours
+      t.decimal :price_per_hour, precision: 7, scale: 2
+      t.decimal :price_per_ball, precision: 7, scale: 2
       t.timestamps null: false
     end
   end

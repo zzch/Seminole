@@ -1,6 +1,7 @@
 class BaseNarForm
   include ActiveModel::Validations
   include ActiveModel::Conversion
+  include ActiveModel::Serialization
   extend ActiveModel::Naming
 
   def initialize(attributes = {})

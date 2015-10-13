@@ -1,4 +1,4 @@
-source 'http://ruby.taobao.org'
+source 'https://ruby.taobao.org'
 
 gem 'rails', '4.2.0'
 gem 'sass-rails', '~> 5.0'
@@ -6,6 +6,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails', '~> 4.0.3'
 gem 'turbolinks', '~> 2.5.3'
+gem 'rack-cors', '~> 0.3.1'
+gem 'hashie-forbidden_attributes'
 gem 'mysql2', '~> 0.3.17'
 gem 'kaminari', '~> 0.16.2'
 gem 'kaminari-bootstrap', '~> 3.0.1'
@@ -19,6 +21,9 @@ gem 'carrierwave-imageoptimizer', '~> 1.2.1'
 gem 'sunspot_rails', '~> 2.1.1'
 gem 'sunspot_solr', '~> 2.1.1'
 gem 'geocoder', '~> 1.2.6'
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-swagger'
 
 group :development, :test do
   gem 'byebug', '~> 3.5.1'
@@ -42,7 +47,7 @@ group :doc do
   gem 'sdoc', '~> 0.4.0', require: false
 end
 
-group :production do
+group :provisionion do
   gem 'execjs', '~> 2.3.0'
   gem 'therubyracer', '~> 0.12.1'
 end

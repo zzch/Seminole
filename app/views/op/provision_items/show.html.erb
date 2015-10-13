@@ -1,0 +1,48 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 餐饮消费管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.provision' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @provision_item.provision.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.price' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_price(@provision_item.price), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.quantity' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @provision_item.quantity, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.total_price' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_price(@provision_item.total_price), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.created_at' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @provision_item.created_at.strftime('%H点%M分'), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', @provision_item.tab, class: 'btn btn-default' %>&nbsp;
+      <% if @provision_item.tab.progressing? %>
+      <%= link_to '删除', @tab, method: :delete, data: { confirm: '确定要删除该笔消费吗？' }, class: 'btn btn-danger' %>
+      <% end %>
+    </div>
+  </div>
+</div>

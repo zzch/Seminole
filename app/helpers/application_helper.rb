@@ -9,7 +9,7 @@ module ApplicationHelper
 
   def te_membership_role role
     case role
-    when :owner then '持卡人'
+    when :holder then '持卡人'
     when :user then '使用者'
     end
   end
@@ -23,7 +23,14 @@ module ApplicationHelper
     end
   end
 
-  def user_options_for_create_order
+  def te_provision_item_type type
+    case type
+    when :primary then '打球消费'
+    when :secondary then '其它消费'
+    end
+  end
+
+  def user_options_for_set_up_tab
     User.where(id: Membership.where(member_id: Club.last.member_ids).map(&:user_id).uniq).map{|user| ["#{PinYin.abbr(user.name).upcase} | #{user.name} | #{user.phone}", user.id]}
   end
 end

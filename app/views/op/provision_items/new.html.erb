@@ -1,0 +1,67 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 餐饮管理 <span>新建</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @provision_item %>
+  <div class="panel panel-default">
+    <%= form_for [@tab, @provision_item], html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.provision' %></label>
+          <div class="col-sm-6">
+            <%= f.collection_select :provision_id, @current_club.provisions, :id, :name, prompt: '请选择', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.price' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag :price, nil, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.quantity' %></label>
+          <div class="col-sm-6">
+            <%= f.select :quantity, 1..99, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.total_price' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag :total_price, nil, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', @tab, class: 'btn btn-default' %>&nbsp;
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      $('#provision_item_provision_id').chosen({'width': '100%', 'white-space': 'nowrap'});
+      $('#provision_item_quantity').chosen({'width': '100%', 'white-space': 'nowrap'});
+      $('#provision_item_provision_id').on('change', function() {
+        calcPriceAndTotalPrice();
+      });
+      $('#provision_item_quantity').on('change', function() {
+        calcPriceAndTotalPrice();
+      });
+
+      function calcPriceAndTotalPrice() {
+        $.ajax({
+          dataType: 'json',
+          url: '/provisions/' + $('#provision_item_provision_id').val() + '/async_show',
+          success: function(data) {
+            $('#price').val(data.message.price);
+            $('#total_price').val((data.message.price * parseInt($('#provision_item_quantity').val())).toFixed(2));
+          }
+        });
+      }
+    });
+  </script>
+<% end %>
