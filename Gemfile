@@ -21,9 +21,9 @@ gem 'carrierwave-imageoptimizer', '~> 1.2.1'
 gem 'sunspot_rails', '~> 2.1.1'
 gem 'sunspot_solr', '~> 2.1.1'
 gem 'geocoder', '~> 1.2.6'
-gem 'grape'
-gem 'grape-entity'
-gem 'grape-swagger'
+gem 'grape', '~> 0.13.0'
+gem 'grape-entity', '~> 0.4.8'
+gem 'grape-swagger', '~> 0.10.2'
 
 group :development, :test do
   gem 'byebug', '~> 3.5.1'

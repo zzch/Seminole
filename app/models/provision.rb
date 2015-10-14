@@ -1,5 +1,6 @@
 class Provision < ActiveRecord::Base
   include UUID, AASM
+  mount_uploader :image, ProvisionImageUploader
   belongs_to :category, class_name: 'ProvisionCategory'
   aasm column: 'state' do
     state :on_sale, initial: true

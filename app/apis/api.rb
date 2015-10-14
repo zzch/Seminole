@@ -8,7 +8,11 @@ end
 module ErrorFormatter
   def self.call message, backtrace, options, env
     if message.to_s =~ /\d{5}/
-      { error_code: message, message: APIError.message(message) }.to_json
+      if message < 20000
+        { error_code: message, message: APIError.message(message) }.to_json
+      else
+        { exception_code: message, message: APIException.message(message) }.to_json
+      end
     else
       { error_code: 10000, message: message }.to_json
     end
@@ -18,46 +22,44 @@ end
 class API < Grape::API
   version :v1
   format :json
-  prefix :api
   error_formatter :json, ErrorFormatter
   content_type :json, 'application/json; charset=utf8'
 
   helpers do
-    def api_error! code
-      error!(code)
+    def api_error_or_exception code
+      error!(code, 200)
     end
 
-    def api_exception! code
-      error!(code)
-    end
-
-    def current_user
-      @current_user ||= User.authorize!(params[:token])
+    def api_success
+      { result: :success }
     end
 
     def authenticate!
-      api_error!(10001) unless current_user
+      params[:token] = User.where(phone: 13911320927).first.token if Rails.env == 'development' and params[:token] == 'seairy'
+      api_error_or_exception(10002) if params[:token].nil? or (@current_user = User.authorize(params[:token])).nil?
     end
 
-    def successful_json
-      { result: :success }
-    end
-  end
-
-  resource :what do
-    desc 'Return a public timeline.'
-    get :the_fuck do
-      { fuck: 'fuck'}
+    def find_current_club
+      params[:club_uuid] = Club.where(code: 'perfect').first.uuid if Rails.env == 'development' and params[:club_uuid] == 'seairy'
+      begin
+        @current_club = Club.find_uuid(params[:club_uuid])
+      rescue ActiveRecord::RecordNotFound
+        api_error_or_exception(10003)
+      end
     end
   end
 
   mount V1::SessionsAPI
   
-  # namespace do
-  #   before do
-  #     authenticate!
-  #   end
-  # end
+  namespace do
+    before do
+      authenticate!
+    end
+    mount V1::ClubsAPI
+    mount V1::AnnouncementsAPI
+    mount V1::CoachesAPI
+    mount V1::CoursesAPI
+  end
 
   namespace :doc do
     formatter :json, DocFormatter 

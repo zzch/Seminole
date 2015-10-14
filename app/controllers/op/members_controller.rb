@@ -19,6 +19,7 @@ class Op::MembersController < Op::BaseController
   def create
     @nar_form = Op::CreateMember.new(params[:op_create_member])
     if @nar_form.valid?
+      @nar_form.phone.gsub!(/[ -]/, '')
       @member = Member.create_with_user(@current_club, @nar_form)
       redirect_to @member, notice: '创建成功！'
     else

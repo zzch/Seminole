@@ -9,7 +9,7 @@ class Member < ActiveRecord::Base
     state :activated, initial: true
     state :deactivated
   end
-  scope :alphabetic, -> { joins(:user).includes(:user).order('CONVERT(users.last_name USING GBK) ASC, CONVERT(users.first_name USING GBK) ASC') }
+  scope :by_club, ->(club) { where(club_id: club.id) }
 
   def holder
     memberships.select{|membership| membership.role_holder?}.first.user
@@ -24,7 +24,7 @@ class Member < ActiveRecord::Base
       ActiveRecord::Base.transaction do
         raise InvalidCard.new unless club.card_ids.include?(form.card_id.to_i)
         card = Card.find(form.card_id)
-        user = User.create!(phone: form.phone.gsub(' ', '').gsub('-', ''), first_name: form.first_name, last_name: form.last_name, gender: form.gender, activated: true)
+        user = User.find_or_create_member(form)
         create!(club: club, card: card, number: form.number, expired_at: Time.now + card.valid_months.months).tap {|member| member.memberships.create!(user: user, role: :holder)}
       end
     end

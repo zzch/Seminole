@@ -5,6 +5,7 @@ class CreateCards < ActiveRecord::Migration
       t.references :club, null: false
       t.string :type_cd, limit: 20, null: false
       t.string :name, limit: 100, null: false
+      t.string :background_color, limit: 6, null: false
       t.decimal :price, precision: 7, scale: 2, null: false
       t.integer :total_amount, null: false
       t.integer :valid_months, null: false

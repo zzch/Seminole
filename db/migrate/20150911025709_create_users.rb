@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :gender_cd, limit: 6
       t.date :birthday
       t.string :portrait, limit: 100
+      t.string :token, limit: 22
       t.boolean :activated, null: false
       t.timestamps null: false
     end

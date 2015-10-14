@@ -11,6 +11,7 @@
 !/log/.keep
 /public/uploads
 /public/assets
+/public/abstract_images
 /solr
 /tmp
 /vendor/bundle
