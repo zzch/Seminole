@@ -18,7 +18,7 @@ namespace :data do
       Version.create!([
         { major: 0, minor: 0, point: 1, build: '4BC01F', content: '初始化项目', state: :published },
         { major: 0, minor: 0, point: 2, build: '97EDA2', content: '构建基础框架', state: :published },
-        { major: 0, minor: 0, point: 3, build: 'CF805F', content: '重构用户体系', state: :published }
+        { major: 0, minor: 0, point: 3, build: 'CF805F', content: '重构用户体系', state: :published },
         { major: 0, minor: 0, point: 4, build: 'CF805F', content: '构建API框架', state: :published }
       ])
       Club.last.tap do |club|
