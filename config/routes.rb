@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  mount API => '/api'
+  mount API => '/'
   namespace :public do
     get :welcome, to: 'home#welcome', as: :welcome
   end

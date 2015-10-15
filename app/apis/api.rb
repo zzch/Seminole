@@ -22,6 +22,7 @@ end
 class API < Grape::API
   version :v1
   format :json
+  prefix :api
   error_formatter :json, ErrorFormatter
   content_type :json, 'application/json; charset=utf8'
 
