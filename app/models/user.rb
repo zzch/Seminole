@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include UUID
+  mount_uploader :portrait, UserPortraitUploader
   as_enum :gender, [:male, :female], prefix: true, map: :string
   has_many :memberships
   has_many :members, through: :memberships
@@ -27,6 +28,10 @@ class User < ActiveRecord::Base
 
   def membership_clubs
     self.members.map(&:club).uniq
+  end
+
+  def sign_out
+    update!(token: nil)
   end
 
   class << self

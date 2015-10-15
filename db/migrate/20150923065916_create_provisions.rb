@@ -7,7 +7,6 @@ class CreateProvisions < ActiveRecord::Migration
       t.string :name, limit: 100, null: false
       t.string :image, limit: 100
       t.decimal :price, precision: 7, scale: 2, null: false
-      t.string :image, limit: 100
       t.text :description
       t.string :state, limit: 20, null: false
       t.timestamps null: false

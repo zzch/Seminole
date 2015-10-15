@@ -19,7 +19,7 @@ module V1
 
       class SignIn < Grape::Entity
         expose :user do |m, o|
-          { token: m.token }
+          { name: m.name, gender: m.gender, portrait: m.portrait.w150_h150_fl_q50.url, birthday: m.birthday.try(:to_i), token: m.token }
         end
         expose :club do |m, o|
           { uuid: o[:club].uuid }
@@ -75,7 +75,9 @@ module V1
     resource :sign_out do
       desc '用户登出'
       delete do
-        present successful_json
+        authenticate!
+        @current_user.sign_out
+        present api_success
       end
     end
   end

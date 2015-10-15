@@ -6,7 +6,6 @@ class Op::CreateMember < BaseNarForm
   validates :gender, presence: true, inclusion: { in: User.genders.keys, message: "格式无效" }
   validates :card_id, presence: true
   validates :number, length: { maximum: 50 }
-  validates_with DuplicatedPhoneValidator
 
   def attributes
     { phone: nil, last_name: nil, first_name: nil, gender: nil, card_id: nil, number: nil }

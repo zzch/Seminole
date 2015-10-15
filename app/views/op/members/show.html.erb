@@ -61,8 +61,8 @@
           <% @member.memberships.each do |membership| %>
           <tr>
             <td><%= te_membership_role(membership.role) %></td>
-            <td><%= membership.user.phone %></td>
             <td><%= membership.user.name %></td>
+            <td><%= membership.user.phone %></td>
             <td><%= membership.aasm.human_state %></td>
             <td class="table-action">
               <%= link_to raw('<i class="fa fa-file-text-o"></i>'), membership %>
