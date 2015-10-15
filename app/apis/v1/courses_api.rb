@@ -21,8 +21,8 @@ module V1
     resource :courses do
       desc '课程详情'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
-        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
         requires :uuid, type: String, desc: '公告UUID'
       end
       get :detail do

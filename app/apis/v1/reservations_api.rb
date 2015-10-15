@@ -8,8 +8,8 @@ module V1
     resource :reservations do
       desc '预订打位'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
-        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
         requires :reserve_at, type: Integer, desc: '预订时间'
       end
       post do

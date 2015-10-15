@@ -33,8 +33,8 @@ module V1
     resource :clubs do
       desc '球场首页'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
-        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
       end
       get :home do
         find_current_club
@@ -44,7 +44,7 @@ module V1
 
       desc '会籍球场列表'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
+        requires :token, type: String, desc: 'Token'
       end
       get :membership do
         present @current_user.membership_clubs, with: Clubs::Entities::Membership

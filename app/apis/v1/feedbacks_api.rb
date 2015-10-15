@@ -8,8 +8,8 @@ module V1
     resource :feedbacks do
       desc '提交意见反馈'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
-        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
         requires :content, type: String, desc: '内容'
       end
       post do

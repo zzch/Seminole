@@ -25,8 +25,8 @@ module V1
     resource :weathers do
       desc '近期天气'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
-        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
       end
       get :recently do
         begin

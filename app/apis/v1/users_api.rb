@@ -19,7 +19,7 @@ module V1
     resource :users do
       desc '用户详情'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
+        requires :token, type: String, desc: 'Token'
       end
       get :detail do
         present @current_user, with: Users::Entities::Detail
@@ -27,7 +27,7 @@ module V1
 
       desc '更新头像'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
+        requires :token, type: String, desc: 'Token'
         requires :portrait, desc: '头像'
       end
       put :portrait do
@@ -37,7 +37,7 @@ module V1
 
       desc '更新生日'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
+        requires :token, type: String, desc: 'Token'
         requires :birthday, type: Integer, desc: '生日'
       end
       put :birthday do

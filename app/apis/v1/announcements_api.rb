@@ -27,8 +27,8 @@ module V1
     resource :announcements do
       desc '公告列表'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
-        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
         optional :page, type: Integer, desc: '页码'
       end
       get do
@@ -38,8 +38,8 @@ module V1
 
       desc '公告详情'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
-        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
         requires :uuid, type: String, desc: '公告UUID'
       end
       get :detail do

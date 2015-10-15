@@ -25,8 +25,8 @@ module V1
     resource :provisions do
       desc '餐饮列表'
       params do
-        requires :token, type: TokenParam, desc: 'Token'
-        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
       end
       get do
         provision_categories = @current_club.provision_categories
