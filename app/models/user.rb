@@ -6,7 +6,13 @@ class User < ActiveRecord::Base
   has_many :members, through: :memberships
 
   def name
-    "#{last_name}#{first_name}"
+    if !last_name.blank? and !first_name.blank?
+      "#{last_name}#{first_name}"
+    elsif !last_name.blank? and first_name.blank?
+      "#{last_name}#{human_gender}"
+    else
+      '访客'
+    end
   end
 
   def human_gender
@@ -32,6 +38,10 @@ class User < ActiveRecord::Base
 
   def sign_out
     update!(token: nil)
+  end
+
+  def member_of? club
+    members.map(&:club_id).include?(club.id)
   end
 
   class << self

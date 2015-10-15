@@ -3,7 +3,7 @@ class Op::ProvisionCategoriesController < Op::BaseController
   before_action :find_provision_category, only: %w(show edit update)
   
   def index
-    @provision_categories = ProvisionCategory.page(params[:page])
+    @provision_categories = @current_club.provision_categories.page(params[:page])
   end
   
   def show
@@ -39,6 +39,6 @@ class Op::ProvisionCategoriesController < Op::BaseController
     end
 
     def find_provision_category
-      @provision_category = ProvisionCategory.find(params[:id])
+      @provision_category = @current_club.provision_categories.find(params[:id])
     end
 end

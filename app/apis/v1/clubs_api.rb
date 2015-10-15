@@ -13,7 +13,7 @@ module V1
       class Home < Grape::Entity
         present_collection true, :members
         expose :club do |m, o|
-          { name: o[:club].name }
+          { name: o[:club].name, logo: o[:club].logo.w150_h150_fl_q50.url }
         end
         expose :members do |m, o|
           m[:members].map do |member|

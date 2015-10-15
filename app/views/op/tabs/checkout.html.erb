@@ -7,13 +7,11 @@
     <div class="panel-body">
       <div class="row">
           <div class="col-sm-6">
-            <h5 class="subtitle mb10">From</h5>
-            <img src="images/themeforest.png" class="img-responsive mb10" alt="" />
+            <h5 class="subtitle mb10">顾客信息</h5>
             <address>
-              <strong>ThemeForest Web Services, Inc.</strong><br>
-              795 Folsom Ave, Suite 600<br>
-              San Francisco, CA 94107<br>
-              <abbr title="Phone">P:</abbr> (123) 456-7890
+              <strong>姓名：</strong><%= @tab.user.name %><br>
+              <strong>电话：</strong><%= @tab.user.phone %><br>
+              <strong>身份：</strong><%= @tab.user.member_of?(@current_club) ? '会员' : '访客' %><br>
             </address>
           </div>
           <div class="col-sm-6 text-right">
@@ -31,54 +29,54 @@
           </div>
         </div>
         <div class="table-responsive">
-        <table class="table table-invoice">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Quantity</th>
-            <th>Unit Price</th>
-            <th>Total Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="text-primary"><strong>Wordpress Template Customization</strong></div>
-              <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
-            </td>
-            <td>1</td>
-            <td>$99.00</td>
-            <td>$99.00</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="text-primary"><strong>PSD to HTML5 Conversion</strong></div>
-              <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
-            </td>
-            <td>3</td>
-            <td>$150.00</td>
-            <td>$450.00</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="text-primary"><strong>Email Template</strong></div>
-              <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
-            </td>
-            <td>2</td>
-            <td>$35.00</td>
-            <td>$70.00</td>
-          </tr>
-          <tr>
-            <td>
-              <div class="text-primary"><strong>Wordpress Theme Development</strong></div>
-              <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
-            </td>
-            <td>1</td>
-            <td>$230.00</td>
-            <td>$230.00</td>
-          </tr>
-        </tbody>
-      </table>
+          <table class="table table-invoice">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="text-primary"><strong>Wordpress Template Customization</strong></div>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
+              </td>
+              <td>1</td>
+              <td>$99.00</td>
+              <td>$99.00</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="text-primary"><strong>PSD to HTML5 Conversion</strong></div>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
+              </td>
+              <td>3</td>
+              <td>$150.00</td>
+              <td>$450.00</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="text-primary"><strong>Email Template</strong></div>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
+              </td>
+              <td>2</td>
+              <td>$35.00</td>
+              <td>$70.00</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="text-primary"><strong>Wordpress Theme Development</strong></div>
+                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
+              </td>
+              <td>1</td>
+              <td>$230.00</td>
+              <td>$230.00</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <table class="table table-total">
         <tbody>
