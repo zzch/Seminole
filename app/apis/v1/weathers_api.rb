@@ -24,6 +24,10 @@ module V1
 
     resource :weathers do
       desc '近期天气'
+      params do
+        requires :token, type: TokenParam, desc: 'Token'
+        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+      end
       get :recently do
         begin
           weahters = @current_club.weathers.recently(Time.now + (Time.now.hour < 18 ? 0 : 1).day, 3)

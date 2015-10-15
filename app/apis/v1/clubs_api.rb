@@ -32,6 +32,10 @@ module V1
   class ClubsAPI < Grape::API
     resource :clubs do
       desc '球场首页'
+      params do
+        requires :token, type: TokenParam, desc: 'Token'
+        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
+      end
       get :home do
         find_current_club
         announcements = @current_club.announcements.published.order(published_at: :desc).limit(3)
@@ -39,6 +43,9 @@ module V1
       end
 
       desc '会籍球场列表'
+      params do
+        requires :token, type: TokenParam, desc: 'Token'
+      end
       get :membership do
         present @current_user.membership_clubs, with: Clubs::Entities::Membership
       end

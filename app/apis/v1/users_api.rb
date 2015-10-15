@@ -18,12 +18,16 @@ module V1
   class UsersAPI < Grape::API
     resource :users do
       desc '用户详情'
+      params do
+        requires :token, type: TokenParam, desc: 'Token'
+      end
       get :detail do
         present @current_user, with: Users::Entities::Detail
       end
 
       desc '更新头像'
       params do
+        requires :token, type: TokenParam, desc: 'Token'
         requires :portrait, desc: '头像'
       end
       put :portrait do
@@ -33,6 +37,7 @@ module V1
 
       desc '更新生日'
       params do
+        requires :token, type: TokenParam, desc: 'Token'
         requires :birthday, type: Integer, desc: '生日'
       end
       put :birthday do

@@ -41,6 +41,8 @@ module V1
     resource :coaches do
       desc '教练列表'
       params do
+        requires :token, type: TokenParam, desc: 'Token'
+        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
         optional :page, type: Integer, desc: '页码'
       end
       get do
@@ -50,6 +52,8 @@ module V1
 
       desc '教练详情'
       params do
+        requires :token, type: TokenParam, desc: 'Token'
+        requires :club_uuid, type: UUIDParam, desc: '球场UUID'
         requires :uuid, type: String, desc: '公告UUID'
       end
       get :detail do

@@ -74,6 +74,9 @@ module V1
 
     resource :sign_out do
       desc '用户登出'
+      params do
+        requires :token, type: TokenParam, desc: 'Token'
+      end
       delete do
         authenticate!
         @current_user.sign_out
