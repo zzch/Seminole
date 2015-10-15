@@ -31,11 +31,15 @@ class Tab < ActiveRecord::Base
   class << self
     def set_up attributes, vacancy_id
       ActiveRecord::Base.transaction do
-        vacancy = Vacancy.lock.find(vacancy_id)
-        raise AlreadyInUse.new if vacancy.occupied?
-        (Tab.lock.where(club_id: attributes[:club_id]).where(user_id: attributes[:user_id]).first || create!(attributes)).tap do |tab|
-          vacancy.update(tab: tab, played_at: Time.now)
-          tab.playing_items.create!(vacancy: vacancy, started_at: Time.now)
+        if vacancy_id.blank?
+          create!(attributes) if Tab.where(club_id: attributes[:club_id]).where(user_id: attributes[:user_id]).where(state: :progressing).first.blank?
+        else
+          vacancy = Vacancy.lock.find(vacancy_id)
+          raise AlreadyInUse.new if vacancy.occupied?
+          (Tab.lock.where(club_id: attributes[:club_id]).where(user_id: attributes[:user_id]).where(state: :progressing).first || create!(attributes)).tap do |tab|
+            vacancy.update(tab: tab, played_at: Time.now)
+            tab.playing_items.create!(vacancy: vacancy, started_at: Time.now)
+          end
         end
       end
     end
