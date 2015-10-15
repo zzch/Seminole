@@ -1,5 +1,3 @@
-require 'faker'
-
 namespace :data do
   desc 'Cleanup all data.'
   task reset: :environment do
