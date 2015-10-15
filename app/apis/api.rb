@@ -36,12 +36,12 @@ class API < Grape::API
     end
 
     def authenticate!
-      params[:token] = User.where(phone: 13911320927).first.token if Rails.env == 'development' and params[:token] == 'seairy'
+      params[:token] = User.where(phone: 13911320927).first.token if Rails.env == 'development' and params[:token] == 'test'
       api_error_or_exception(10002) if params[:token].nil? or (@current_user = User.authorize(params[:token])).nil?
     end
 
     def find_current_club
-      params[:club_uuid] = Club.where(code: 'perfect').first.uuid if Rails.env == 'development' and params[:club_uuid] == 'seairy'
+      params[:club_uuid] = Club.where(code: 'perfect').first.uuid if Rails.env == 'development' and params[:club_uuid] == 'test'
       begin
         @current_club = Club.find_uuid(params[:club_uuid])
       rescue ActiveRecord::RecordNotFound

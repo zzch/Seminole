@@ -44,7 +44,7 @@
         </button>
         <ul class="dropdown-menu" role="menu">
           <%= content_tag :li, link_to('点餐', new_tab_provision_item_path(@tab)) %>
-          <%= content_tag :li, link_to('结账', checkout_tab_path(@tab), method: :put) %>
+          <%= content_tag :li, link_to('结账', checkout_tab_path(@tab)) %>
           <li class="divider"></li>
           <%= content_tag :li, link_to('取消', cancel_tab_path(@tab), method: :put, data: { confirm: '确定要取消该消费单吗' }) %>
         </ul>
@@ -71,12 +71,14 @@
             <%= text_field_tag nil, brac_datetime(@tab.playing_items.by_vacancy(vacancy).finished_at), readonly: true, class: 'form-control' %>
           </div>
         </div>
-        <% unless @tab.playing_items.by_vacancy(vacancy).balls.empty? %>
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'playing_item.balls' %></label>
           <div class="col-sm-6">
+            <% if @tab.playing_items.by_vacancy(vacancy).balls.empty? %>
+            <p class="mt10">无</p>
+            <% else %>
             <% @tab.playing_items.by_vacancy(vacancy).balls.each do |ball| %>
-            <div class="input-group input-group-sm mb5">
+            <div class="input-group input-group-sm mt5 mb5">
               <span class="input-group-addon"><%= ball.created_at.strftime('%H:%M') %></span>
               <%= text_field_tag nil, "#{ball.amount}颗", readonly: true, class: 'form-control' %>
               <span class="input-group-btn">
@@ -84,23 +86,26 @@
               </span>
             </div>
             <% end %>
+            <% end %>
           </div>
         </div>
-        <% end %>
       </div>
     <% end %>
+    <% unless @tab.playing_items.by_vacancy(vacancy).finished? %>
     <div class="panel-footer">
-      <div class="btn-group">
+      <div class="btn-group mt10">
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
           加球 <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <%= content_tag :li, link_to('50', playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: 50), method: :post) %>
-          <%= content_tag :li, link_to('100', playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: 100), method: :post) %>
-          <%= content_tag :li, link_to('200', playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: 200), method: :post) %>
+          <%= content_tag :li, link_to('50颗', playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: 50), method: :post) %>
+          <%= content_tag :li, link_to('100颗', playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: 100), method: :post) %>
+          <%= content_tag :li, link_to('200颗', playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: 200), method: :post) %>
         </ul>
-      </div>
+      </div>&nbsp;
+      <%= link_to '结束', finish_playing_item_path(@tab.playing_items.by_vacancy(vacancy)), method: :put, data: { confirm: '确定要结束该打位的计费吗？' }, class: 'btn btn-danger' %>
     </div>
+    <% end %>
   </div>
   <% end %>
   <div class="panel">

@@ -21,7 +21,7 @@ class Admin::ClubsController < Admin::BaseController
   def create
     @club = Club.new(club_params)
     if @club.save
-      redirect_to [:admin, @club], notice: '创建成功！'
+      redirect_to [:admin, @club], notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -30,7 +30,7 @@ class Admin::ClubsController < Admin::BaseController
   def update
     @club = Club.find(params[:id])
     if @club.update(club_params)
-      redirect_to [:admin, @club], notice: '更新成功！'
+      redirect_to [:admin, @club], notice: '操作成功！'
     else
       render action: 'edit'
     end

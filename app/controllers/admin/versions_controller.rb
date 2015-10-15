@@ -20,7 +20,7 @@ class Admin::VersionsController < Admin::BaseController
   def create
     @version = Version.new(version_params)
     if @version.save
-      redirect_to [:admin, @version], notice: '创建成功！'
+      redirect_to [:admin, @version], notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -29,7 +29,7 @@ class Admin::VersionsController < Admin::BaseController
   def update
     @version = Version.find(params[:id])
     if @version.update(version_params)
-      redirect_to [:admin, @version], notice: '更新成功！'
+      redirect_to [:admin, @version], notice: '操作成功！'
     else
       render action: 'edit'
     end

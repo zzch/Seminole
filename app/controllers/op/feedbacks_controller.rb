@@ -20,7 +20,7 @@ class Op::FeedbacksController < Op::BaseController
   def create
     @feedback = Feedback.new(feedback_params)
     if @feedback.save
-      redirect_to [:cms, @feedback], notice: '创建成功！'
+      redirect_to [:cms, @feedback], notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -29,7 +29,7 @@ class Op::FeedbacksController < Op::BaseController
   def update
     @feedback = Feedback.find(params[:id])
     if @feedback.update_attributes(feedback_params)
-      redirect_to [:cms, @feedback], notice: '更新成功！'
+      redirect_to [:cms, @feedback], notice: '操作成功！'
     else
       render action: 'edit'
     end
@@ -38,7 +38,7 @@ class Op::FeedbacksController < Op::BaseController
   def destroy
     @feedback = Feedback.find(params[:id])
     @feedback.trash
-    redirect_to cms_feedbacks_path, notice: '删除成功！'
+    redirect_to cms_feedbacks_path, notice: '操作成功！'
   end
 
   protected

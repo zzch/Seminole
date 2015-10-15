@@ -19,7 +19,7 @@ class Op::ProvisionsController < Op::BaseController
   def create
     @provision = @current_club.provisions.new(provision_params)
     if @provision.save
-      redirect_to @provision, notice: '创建成功！'
+      redirect_to @provision, notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -27,7 +27,7 @@ class Op::ProvisionsController < Op::BaseController
   
   def update
     if @provision.update(provision_params)
-      redirect_to @provision, notice: '更新成功！'
+      redirect_to @provision, notice: '操作成功！'
     else
       render action: 'edit'
     end

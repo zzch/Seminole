@@ -19,7 +19,7 @@ class Op::ProvisionCategoriesController < Op::BaseController
   def create
     @provision_category = @current_club.provision_categories.new(provision_category_params)
     if @provision_category.save
-      redirect_to @provision_category, notice: '创建成功！'
+      redirect_to @provision_category, notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -27,7 +27,7 @@ class Op::ProvisionCategoriesController < Op::BaseController
   
   def update
     if @provision_category.update(provision_category_params)
-      redirect_to @provision_category, notice: '更新成功！'
+      redirect_to @provision_category, notice: '操作成功！'
     else
       render action: 'edit'
     end

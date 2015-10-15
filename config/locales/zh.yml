@@ -248,6 +248,7 @@ zh:
       playing_item:
         started_at: 开始时间
         finished_at: 结束时间
+        balls: 用球记录
       provision_item:
         provision: 商品名称
         price: 价格

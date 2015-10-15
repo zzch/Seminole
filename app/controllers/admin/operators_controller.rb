@@ -21,7 +21,7 @@ class Admin::OperatorsController < Admin::BaseController
   def create
     @operator = @club.operators.new(operator_params)
     if @operator.save
-      redirect_to [:admin, @operator], notice: '创建成功！'
+      redirect_to [:admin, @operator], notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -30,7 +30,7 @@ class Admin::OperatorsController < Admin::BaseController
   def update
     @operator = Operator.find(params[:id])
     if @operator.update(operator_params)
-      redirect_to [:admin, @operator], notice: '更新成功！'
+      redirect_to [:admin, @operator], notice: '操作成功！'
     else
       render action: 'edit'
     end

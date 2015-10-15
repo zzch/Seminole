@@ -1,5 +1,6 @@
 exceptions = %w(
   PermissionDenied
+  InvalidState
   DuplicatedPhone
   DuplicatedName
   InvalidCard

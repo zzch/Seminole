@@ -19,7 +19,7 @@ class Op::VacanciesController < Op::BaseController
   def create
     @vacancy = @current_club.vacancies.new(vacancy_params)
     if @vacancy.save
-      redirect_to @vacancy, notice: '创建成功！'
+      redirect_to @vacancy, notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -27,7 +27,7 @@ class Op::VacanciesController < Op::BaseController
   
   def update
     if @vacancy.update(vacancy_params)
-      redirect_to @vacancy, notice: '更新成功！'
+      redirect_to @vacancy, notice: '操作成功！'
     else
       render action: 'edit'
     end
@@ -41,7 +41,7 @@ class Op::VacanciesController < Op::BaseController
     @nar_form = Op::BulkCreateVacancies.new(params[:op_bulk_create_vacancies])
     if @nar_form.valid?
       @current_club.vacancies.bulk_create(@nar_form)
-      redirect_to vacancies_path, notice: '创建成功！'
+      redirect_to vacancies_path, notice: '操作成功！'
     else
       render action: 'bulk_new'
     end

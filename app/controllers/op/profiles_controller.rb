@@ -9,7 +9,7 @@ class Op::ProfilesController < Op::BaseController
     @administrator = Administrator.find(session['administrator']['id'])
     if @administrator.update(profile_params)
       session['administrator']['name'] = @administrator.name
-      redirect_to edit_cms_profile_path, notice: '更新成功！'
+      redirect_to edit_cms_profile_path, notice: '操作成功！'
     else
       render action: 'edit'
     end

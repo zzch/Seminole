@@ -19,7 +19,7 @@ class Op::CardsController < Op::BaseController
   def create
     @card = @current_club.cards.new(card_params)
     if @card.save
-      redirect_to @card, notice: '创建成功！'
+      redirect_to @card, notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -27,7 +27,7 @@ class Op::CardsController < Op::BaseController
   
   def update
     if @card.update(card_params)
-      redirect_to @card, notice: '更新成功！'
+      redirect_to @card, notice: '操作成功！'
     else
       render action: 'edit'
     end

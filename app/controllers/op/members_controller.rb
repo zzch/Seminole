@@ -21,7 +21,7 @@ class Op::MembersController < Op::BaseController
     if @nar_form.valid?
       @nar_form.phone.gsub!(/[ -]/, '')
       @member = Member.create_with_user(@current_club, @nar_form)
-      redirect_to @member, notice: '创建成功！'
+      redirect_to @member, notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -29,7 +29,7 @@ class Op::MembersController < Op::BaseController
   
   def update
     if @member.update(member_params)
-      redirect_to @member, notice: '更新成功！'
+      redirect_to @member, notice: '操作成功！'
     else
       render action: 'edit'
     end

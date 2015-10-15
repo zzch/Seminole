@@ -37,11 +37,14 @@ Rails.application.routes.draw do
       end
       member do
         put :cancel
-        put :checkout
+        get :checkout
       end
     end
     resources :playing_items do
       resources :balls
+      member do
+        put :finish
+      end
     end
     resources :balls
     resources :provision_items

@@ -20,7 +20,7 @@ class Op::AdministratorsController < Op::BaseController
   def create
     @administrator = Administrator.new(administrator_params)
     if @administrator.save
-      redirect_to [:cms, @administrator], notice: '创建成功！'
+      redirect_to [:cms, @administrator], notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -29,7 +29,7 @@ class Op::AdministratorsController < Op::BaseController
   def update
     @administrator = Administrator.find(params[:id])
     if @administrator.update(administrator_params)
-      redirect_to [:cms, @administrator], notice: '更新成功！'
+      redirect_to [:cms, @administrator], notice: '操作成功！'
     else
       render action: 'edit'
     end

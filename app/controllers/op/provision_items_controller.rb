@@ -13,7 +13,7 @@ class Op::ProvisionItemsController < Op::BaseController
   def create
     @provision_item = @tab.provision_items.new(provision_item_params)
     if @provision_item.save
-      redirect_to @tab, notice: '创建成功！'
+      redirect_to @tab, notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -21,7 +21,7 @@ class Op::ProvisionItemsController < Op::BaseController
 
   def destroy
     @provision_item.destroy
-    redirect_to @provision_item.tab, notice: '删除成功！'
+    redirect_to @provision_item.tab, notice: '操作成功！'
   end
 
   protected
