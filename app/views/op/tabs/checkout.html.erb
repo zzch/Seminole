@@ -15,66 +15,42 @@
             </address>
           </div>
           <div class="col-sm-6 text-right">
-            <h5 class="subtitle mb10">Invoice No.</h5>
-            <h4 class="text-primary">INV-000464F4-00</h4>
-            <h5 class="subtitle mb10">To</h5>
-            <address>
-              <strong>ThemePixels, Inc.</strong><br>
-              795 Folsom Ave, Suite 600<br>
-              San Francisco, CA 94107<br>
-              <abbr title="Phone">P:</abbr> (123) 456-7890
-            </address>
-            <p><strong>Invoice Date:</strong> January 20, 2014</p>
-            <p><strong>Due Date:</strong> January 22, 2014</p>
+            <h5 class="subtitle mb10">消费单信息</h5>
+            <h4 class="text-primary">INV-000464</h4>
+            <p><strong>开单时间：</strong> <%= @tab.created_at.strftime('%Y-%m-%d %H:%M') %></p>
           </div>
         </div>
         <div class="table-responsive">
           <table class="table table-invoice">
           <thead>
             <tr>
-              <th>Item</th>
-              <th>Quantity</th>
-              <th>Unit Price</th>
-              <th>Total Price</th>
+              <th>名称</th>
+              <th>数量</th>
+              <th>单价</th>
+              <th>小计</th>
             </tr>
           </thead>
           <tbody>
+            <% @tab.playing_items.each do |playing_item| %>
             <tr>
               <td>
-                <div class="text-primary"><strong>Wordpress Template Customization</strong></div>
-                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
+                <div class="text-primary"><strong><%= playing_item.vacancy.name %>打位</strong></div>
               </td>
-              <td>1</td>
-              <td>$99.00</td>
-              <td>$99.00</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
             </tr>
+            <% end %>
+            <% @tab.provision_items.each do |provision_item| %>
             <tr>
               <td>
-                <div class="text-primary"><strong>PSD to HTML5 Conversion</strong></div>
-                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
+                <div class="text-primary"><strong><%= provision_item.provision.category.name %> - <%= provision_item.provision.name %></strong></div>
               </td>
-              <td>3</td>
-              <td>$150.00</td>
-              <td>$450.00</td>
+              <td><%= provision_item.quantity %></td>
+              <td><%= brac_price(provision_item.price) %></td>
+              <td><%= brac_price(provision_item.total_price) %></td>
             </tr>
-            <tr>
-              <td>
-                <div class="text-primary"><strong>Email Template</strong></div>
-                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
-              </td>
-              <td>2</td>
-              <td>$35.00</td>
-              <td>$70.00</td>
-            </tr>
-            <tr>
-              <td>
-                <div class="text-primary"><strong>Wordpress Theme Development</strong></div>
-                <small>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</small>
-              </td>
-              <td>1</td>
-              <td>$230.00</td>
-              <td>$230.00</td>
-            </tr>
+            <% end %>
           </tbody>
         </table>
       </div>
@@ -95,8 +71,8 @@
         </tbody>
       </table>
       <div class="text-right btn-invoice">
-        <button class="btn btn-primary mr5"><i class="fa fa-dollar mr5"></i> Make A Payment</button>
-        <button class="btn btn-white"><i class="fa fa-print mr5"></i> Print Invoice</button>
+        <button class="btn btn-primary mr5"><i class="fa fa-rmb mr5"></i> 付款</button>
+        <button class="btn btn-white"><i class="fa fa-print mr5"></i> 打印</button>
       </div>
       <div class="mb40"></div>
       <div class="well">

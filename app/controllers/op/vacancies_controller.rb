@@ -3,7 +3,7 @@ class Op::VacanciesController < Op::BaseController
   before_action :find_vacancy, only: %w(show edit update open close)
   
   def index
-    @vacancies = Vacancy.page(params[:page])
+    @vacancies = @current_club.vacancies.page(params[:page])
   end
   
   def show
@@ -71,6 +71,6 @@ class Op::VacanciesController < Op::BaseController
     end
 
     def find_vacancy
-      @vacancy = Vacancy.find(params[:id])
+      @vacancy = @current_club.vacancies.find(params[:id])
     end
 end

@@ -10,15 +10,15 @@ class Weather < ActiveRecord::Base
         http.use_ssl = true
         request = Net::HTTP::Get.new(uri.request_uri)
         response = http.request(request)
-        JSON.parse(response.body)['weather'][0]['future'].each do |weather|
-          Weather.find_or_create_by!(club_id: club.id, date: weather['date']).tap do |weather|
-            weather.content = weather['text']
-            weather.day_code = weather['code1']
-            weather.night_code = weather['code2']
-            weather.maximum_temperature = weather['high']
-            weather.minimum_temperature = weather['low']
-            weather.probability_of_precipitation = weather['cop']
-            weather.wind = weather['wind']
+        JSON.parse(response.body)['weather'][0]['future'].each do |future_weather|
+          Weather.find_or_create_by!(club_id: club.id, date: future_weather['date']).tap do |weather|
+            weather.content = future_weather['text']
+            weather.day_code = future_weather['code1']
+            weather.night_code = future_weather['code2']
+            weather.maximum_temperature = future_weather['high']
+            weather.minimum_temperature = future_weather['low']
+            weather.probability_of_precipitation = future_weather['cop']
+            weather.wind = future_weather['wind']
             weather.save!
           end
         end
