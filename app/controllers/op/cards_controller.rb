@@ -3,7 +3,7 @@ class Op::CardsController < Op::BaseController
   before_action :find_card, only: %w(show edit update)
   
   def index
-    @cards = Card.order(created_at: :desc).page(params[:page])
+    @cards = @current_club.cards.order(created_at: :desc).page(params[:page])
   end
   
   def show
@@ -39,6 +39,6 @@ class Op::CardsController < Op::BaseController
     end
 
     def find_card
-      @card = Card.find(params[:id])
+      @card = @current_club.cards.find(params[:id])
     end
 end

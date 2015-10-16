@@ -18,7 +18,7 @@ class Vacancy < ActiveRecord::Base
     end
   end
   scope :on_floor, ->(floor) { where(floor: floor) }
-  validates :name, presence: true, length: { in: 1..10 }, format: { with: /\A[A-Za-z0-9]+\z/, message: "只能使用字母和数字" }, uniqueness: { scope: :club_id }
+  validates :name, presence: true, length: { in: 1..10 }, uniqueness: { scope: :club_id }
 
   def occupied?
     self.tab
@@ -28,7 +28,7 @@ class Vacancy < ActiveRecord::Base
     def bulk_create form
       ActiveRecord::Base.transaction do
         (form.start_number.to_i..form.end_number.to_i).each do |number|
-          find_or_create_by(name: "#{form.prefix}#{number}", floor: form.floor)
+          find_or_create_by!(name: "#{form.prefix}#{number}#{form.suffix}", floor: form.floor)
         end
       end
     end

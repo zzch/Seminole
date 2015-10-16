@@ -34,7 +34,7 @@
             <% @tab.playing_items.each do |playing_item| %>
             <tr>
               <td>
-                <div class="text-primary"><strong><%= playing_item.vacancy.name %>打位</strong></div>
+                <div class="text-primary"><strong><%= playing_item.vacancy.name %>打位</strong> - <%= brac_seconds(playing_item.seconds) %> / <%= playing_item.total_balls %>颗球</div>
               </td>
               <td>-</td>
               <td>-</td>
@@ -44,7 +44,7 @@
             <% @tab.provision_items.each do |provision_item| %>
             <tr>
               <td>
-                <div class="text-primary"><strong><%= provision_item.provision.category.name %> - <%= provision_item.provision.name %></strong></div>
+                <div class="text-success"><strong><%= provision_item.provision.category.name %> - <%= provision_item.provision.name %></strong></div>
               </td>
               <td><%= provision_item.quantity %></td>
               <td><%= brac_price(provision_item.price) %></td>

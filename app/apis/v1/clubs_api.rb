@@ -17,7 +17,7 @@ module V1
         end
         expose :members do |m, o|
           m[:members].map do |member|
-            { uuid: member.uuid, number: member.number, balance: 'N/A', card: { name: member.card.name, background_color: member.card.background_color, font_color: member.card.font_color } }
+            { uuid: member.uuid, number: member.number, balance: 'N/A', expired_at: member.expired_at.to_i, card: { name: member.card.name, background_color: member.card.background_color, font_color: member.card.font_color } }
           end
         end
         expose :announcements do |m, o|

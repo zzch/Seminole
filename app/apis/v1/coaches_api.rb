@@ -9,7 +9,7 @@ module V1
         expose :lessons
       end
 
-      class List < Grape::Entity
+      class Course < Grape::Entity
         expose :uuid
         expose :name
         expose :portrait do |m, o|
@@ -17,7 +17,11 @@ module V1
         end
         expose :gender
         expose :title
-        expose :featured
+      end
+
+      class List < Grape::Entity
+        expose :featured, using: Coaches::Entities::Course
+        expose :normal, using: Coaches::Entities::Course
       end
 
       class Detail < Grape::Entity
@@ -46,8 +50,10 @@ module V1
         optional :page, type: Integer, desc: '页码'
       end
       get do
-        coaches = @current_club.coaches.order(featured: :desc)
-        present coaches, with: Coaches::Entities::List
+        featured_coaches = @current_club.coaches.select{|coach| coach.featured?}
+        normal_coaches = @current_club.coaches.select{|coach| !coach.featured?}
+        list = { featured: featured_coaches, normal: normal_coaches }
+        present list, with: Coaches::Entities::List
       end
 
       desc '教练详情'

@@ -5,4 +5,6 @@ class Coach < ActiveRecord::Base
   belongs_to :club
   has_many :curriculums
   has_many :courses, through: :curriculums
+  scope :featured, -> { where(featured: true) }
+  scope :normal, -> { where(featured: false) }
 end
