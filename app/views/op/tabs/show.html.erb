@@ -38,17 +38,8 @@
     <div class="panel-footer">
       <%= link_to '返回', progressing_tabs_path, class: 'btn btn-default' %>&nbsp;
       <% if @tab.progressing? %>
-      <div class="btn-group mt10">
-        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-          操作 <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <%= content_tag :li, link_to('点餐', new_tab_provision_item_path(@tab)) %>
-          <%= content_tag :li, link_to('结账', checkout_tab_path(@tab)) %>
-          <li class="divider"></li>
-          <%= content_tag :li, link_to('取消', cancel_tab_path(@tab), method: :put, data: { confirm: '确定要取消该消费单吗' }) %>
-        </ul>
-      </div>
+      <%= link_to '结账', checkout_tab_path(@tab), class: 'btn btn-success' %>&nbsp;
+      <%= link_to '取消', cancel_tab_path(@tab), method: :put, data: { confirm: '确定要取消该消费单吗' }, class: 'btn btn-danger' %>
       <% end %>
     </div>
   </div>
@@ -82,7 +73,7 @@
               <span class="input-group-addon"><%= ball.created_at.strftime('%H:%M') %></span>
               <%= text_field_tag nil, "#{ball.amount}颗", readonly: true, class: 'form-control' %>
               <span class="input-group-btn">
-                <%= link_to '撤销', ball, method: :delete, data: { confirm: '确定要删除吗？' }, class: 'btn btn-danger' %>
+                <%= link_to '撤销', ball, method: :delete, data: { confirm: '确定要撤销吗？' }, class: 'btn btn-danger' %>
               </span>
             </div>
             <% end %>
@@ -113,7 +104,7 @@
       <h4 class="panel-title">餐饮消费</h4>
     </div>
     <div class="table-responsive">
-      <table class="table mb30">
+      <table class="table table-bordered table-striped mb30">
         <thead>
           <tr>
             <th><%= brac_arat 'provision_item.provision' %></th>
@@ -133,15 +124,63 @@
             <td><%= brac_price(provision_item.total_price) %></td>
             <td><%= provision_item.created_at.strftime('%H:%M') %></td>
             <td class="table-action">
-              <%= link_to raw('<i class="fa fa-file-text-o"></i>'), provision_item %>
               <% if @tab.progressing? %>
-              <%= link_to raw('<i class="fa fa-trash-o"></i>'), provision_item, method: :delete, data: { confirm: '确定要删除该笔消费吗？' } %>
+              <%= link_to raw('<span class="label label-danger">撤销</span>'), provision_item, method: :delete, data: { confirm: '确定要删除该笔消费吗？' } %>
               <% end %>
             </td>
           </tr>
           <% end %>
         </tbody>
       </table>
+    </div>
+    <div class="panel-footer">
+      <% if @tab.progressing? %>
+      <%= link_to '点餐', new_tab_provision_item_path(@tab), class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">其它消费</h4>
+    </div>
+    <% if @tab.extra_items.blank? %>
+    <div class="panel-body">
+      无任何消费
+    </div>
+    <% else %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped mb30">
+        <thead>
+          <tr>
+            <th><%= brac_arat 'extra_item.type' %></th>
+            <th><%= brac_arat 'extra_item.price' %></th>
+            <th><%= brac_arat 'extra_item.remarks' %></th>
+            <th><%= brac_arat 'extra_item.created_at' %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @tab.extra_items.each do |extra_item| %>
+          <tr>
+            <td><%= te_extra_item_type(extra_item.type) %></td>
+            <td><%= brac_price(extra_item.price) %></td>
+            <td><%= extra_item.remarks %></td>
+            <td><%= extra_item.created_at.strftime('%H:%M') %></td>
+            <td class="table-action">
+              <% if @tab.progressing? %>
+              <%= link_to raw('<span class="label label-danger">撤销</span>'), extra_item, method: :delete, data: { confirm: '确定要删除该笔消费吗？' } %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
+    <div class="panel-footer">
+      <% if @tab.progressing? %>
+      <%= link_to '新增', new_tab_extra_item_path(@tab), class: 'btn btn-primary' %>
+      <% end %>
     </div>
   </div>
 </div>

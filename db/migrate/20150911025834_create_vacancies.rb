@@ -4,9 +4,12 @@ class CreateVacancies < ActiveRecord::Migration
       t.string :uuid, limit: 36, null: false
       t.references :club, null: false
       t.string :name, limit: 20, null: false
-      t.integer :floor, limit: 1, null: false
+      t.string :location_cd, limit: 20, null: false
+      t.decimal :usual_price_per_hour, precision: 7, scale: 2
+      t.decimal :usual_price_per_ball, precision: 7, scale: 2
+      t.decimal :holiday_price_per_hour, precision: 7, scale: 2
+      t.decimal :holiday_price_per_ball, precision: 7, scale: 2
       t.references :tab
-      t.datetime :played_at
       t.string :state, limit: 20, null: false
       t.timestamps null: false
     end

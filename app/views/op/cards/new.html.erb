@@ -1,5 +1,5 @@
 <div class="pageheader">
-  <h2><i class="fa fa-pencil-square-o"></i> 储值卡管理 <span>新建</span></h2>
+  <h2><i class="fa fa-pencil-square-o"></i> 卡种管理 <span>新建</span></h2>
 </div>
 <div class="contentpanel">
   <%= render "op/commons/error_messages", target: @card %>
@@ -7,15 +7,133 @@
     <%= form_for @card, html: { class: 'form-horizontal form-bordered' } do |f| %>
       <div class="panel-body panel-body-nopadding">
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'card.type' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.type' %> <span class="asterisk">*</span></label>
           <div class="col-sm-6">
-            <%= f.select :type, Card.types.keys, class: 'form-control' %>
+            <%= f.select :type, card_type_options, prompt: '请选择', class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'card.name' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.name' %> <span class="asterisk">*</span></label>
           <div class="col-sm-6">
             <%= f.text_field :name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.background_color' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <span class="input-group-addon">#</span>
+              <%= f.text_field :background_color, maxlength: 6, class: 'form-control' %>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label"><%= brac_arat 'card.font_color' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <span class="input-group-addon">#</span>
+              <%= f.text_field :font_color, maxlength: 6, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.price' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <%= f.text_field :price, class: 'form-control' %>
+              <span class="input-group-addon">元</span>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label"><%= brac_arat 'card.total_amount' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <%= f.check_box :unlimited_total_amount %> 不限
+              </span>
+              <%= f.text_field :total_amount, maxlength: 4, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.valid_months' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <%= f.text_field :valid_months, class: 'form-control' %>
+              <span class="input-group-addon">月</span>
+            </div>
+          </div>
+          <label class="col-sm-2 control-label"><%= brac_arat 'card.maximum_vacancies' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-2">
+            <div class="input-group">
+              <span class="input-group-addon">
+                <%= f.check_box :unlimited_maximum_vacancies %> 不限
+              </span>
+              <%= f.text_field :maximum_vacancies, maxlength: 4, class: 'form-control' %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.use_rights' %></label>
+          <div class="col-sm-6">
+            <%= f.collection_select :vacancy_tag_ids, @current_club.vacancy_tags, :id, :name, { class: 'form-control' }, { multiple: true } %>
+          </div>
+        </div>
+        <div class="form-group type-group type-by-ball">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.ball_amount' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :ball_amount, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group type-group type-by-time">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.hour_amount' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :hour_amount, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group type-group type-by-time">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.minimum_charging_minutes' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :minimum_charging_minutes, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group type-group type-by-time">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.unit_charging_minutes' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :unit_charging_minutes, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group type-group type-by-time">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.maximum_discard_minutes' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :maximum_discard_minutes, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group type-group type-unlimited">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.maximum_daily_balls' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :maximum_daily_balls, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group type-group type-unlimited">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.maximum_daily_hours' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :maximum_daily_hours, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group type-group type-stored">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.deposit' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :deposit, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group type-group type-stored">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.price_per_hour' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :price_per_hour, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group type-group type-stored">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.price_per_ball' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :price_per_ball, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
@@ -31,7 +149,50 @@
 <% content_for :javascript do %>
   <script>
     jQuery(document).ready(function(){
+      $('.type-group').hide();
       $('#card_type').chosen({'width': '100%', 'white-space': 'nowrap'});
+      if ($('#card_type').val() == 'by_ball') {
+        $('.type-by-ball').show();
+      } else if ($('#card_type').val() == 'by_time') {
+        $('.type-by-time').show();
+      } else if ($('#card_type').val() == 'unlimited') {
+        $('.type-unlimited').show();
+      } else if ($('#card_type').val() == 'stored') {
+        $('.type-stored').show();
+      }
+      $('#card_type').on('change', function() {
+        $('.type-group').hide();
+        if (this.value == 'by_ball') {
+          $('.type-by-ball').show();
+        } else if (this.value == 'by_time') {
+          $('.type-by-time').show();
+        } else if (this.value == 'unlimited') {
+          $('.type-unlimited').show();
+        } else if (this.value == 'stored') {
+          $('.type-stored').show();
+        }
+      });
+      if ($('#card_unlimited_total_amount').is(':checked')) {
+        $('#card_total_amount').prop('readonly', true);
+      }
+      if ($('#card_unlimited_maximum_vacancies').is(':checked')) {
+        $('#card_maximum_vacancies').prop('readonly', true);
+      }
+      $('#card_unlimited_total_amount').click(function () {
+        if ($(this).is(':checked')) {
+          $('#card_total_amount').prop('readonly', true);
+        } else {
+          $('#card_total_amount').prop('readonly', false);
+        }
+      });
+      $('#card_unlimited_maximum_vacancies').click(function () {
+        if ($(this).is(':checked')) {
+          $('#card_maximum_vacancies').prop('readonly', true);
+        } else {
+          $('#card_maximum_vacancies').prop('readonly', false);
+        }
+      });
+      $('#card_vacancy_tag_ids').chosen({'width': '100%', 'white-space': 'nowrap', 'placeholder_text_multiple': '请选择标签'});
     });
   </script>
 <% end %>

@@ -9,6 +9,7 @@
 //= require bracket/jquery.cookies
 //= require bracket/jquery.autogrow-textarea
 //= require bracket/jquery.autosize
+//= require bracket/jquery.tagsinput
 //= require bracket/bootstrap-timepicker.min
 //= require bracket/bootstrap-editable.min
 //= require bracket/flot/flot.min

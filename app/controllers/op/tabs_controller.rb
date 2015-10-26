@@ -35,6 +35,11 @@ class Op::TabsController < Op::BaseController
   end
 
   def checkout
+    @playing_items = @tab.playing_items.includes(:balls).includes(:vacancy)
+    @provision_items = @tab.provision_items
+    @extra_items = @tab.extra_items
+    @members = @tab.user.members.by_club(@current_club).includes(:card)
+    @stored_card_members = @members.select{|member| member.card.type_stored?}
   end
   
   def cancel
@@ -64,6 +69,6 @@ class Op::TabsController < Op::BaseController
     end
 
     def find_tab
-      @tab = Tab.find(params[:id])
+      @tab = @current_club.tabs.find(params[:id])
     end
 end

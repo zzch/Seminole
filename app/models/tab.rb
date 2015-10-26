@@ -5,6 +5,7 @@ class Tab < ActiveRecord::Base
   belongs_to :operator
   has_many :provision_items
   has_many :playing_items
+  has_many :extra_items
   has_many :vacancies
   aasm column: 'state' do
     state :progressing, initial: true
@@ -28,6 +29,10 @@ class Tab < ActiveRecord::Base
     end
   end
 
+  def cash
+    (self.provision_items.map(&:total_price).reduce(:+) || 0) + (self.extra_items.map(&:price).reduce(:+) || 0)
+  end
+
   class << self
     def set_up attributes, vacancy_id
       ActiveRecord::Base.transaction do
@@ -37,7 +42,7 @@ class Tab < ActiveRecord::Base
           vacancy = Vacancy.lock.find(vacancy_id)
           raise AlreadyInUse.new if vacancy.occupied?
           (Tab.lock.where(club_id: attributes[:club_id]).where(user_id: attributes[:user_id]).where(state: :progressing).first || create!(attributes)).tap do |tab|
-            vacancy.update(tab: tab, played_at: Time.now)
+            vacancy.update(tab: tab)
             tab.playing_items.create!(vacancy: vacancy, started_at: Time.now)
           end
         end

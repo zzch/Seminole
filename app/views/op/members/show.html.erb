@@ -22,6 +22,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.salesman' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, (@member.salesman.try(:name) || '无'), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'member.state' %></label>
           <div class="col-sm-6">
             <%= text_field_tag nil, @member.aasm.human_state, readonly: true, class: 'form-control' %>
@@ -41,6 +47,10 @@
         </div>
       </div>
     <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', members_path, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '创建使用者', new_member_membership_path(@member), class: 'btn btn-primary' %>&nbsp;
+    </div>
   </div>
   <div class="panel">
     <div class="panel-heading">
@@ -71,11 +81,6 @@
           <% end %>
         </tbody>
       </table>
-    </div>
-  </div>
-  <div class="panel">
-    <div class="panel-body">
-      <%= link_to '返回', members_path, class: 'btn btn-default' %>&nbsp;
     </div>
   </div>
 </div>

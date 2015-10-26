@@ -1,0 +1,122 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 卡种管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.type' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, te_card_type(@card.type), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.name' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.background_color' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.background_color, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.font_color' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.font_color, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.price' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.price, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.total_amount' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.total_amount, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.valid_months' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.valid_months, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.maximum_vacancies' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.maximum_vacancies, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.use_rights' %></label>
+          <div class="col-sm-6">
+            <%= vacancy_tags(@card.vacancy_tags) %>
+          </div>
+        </div>
+        <% if @card.type_by_ball? %>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.ball_amount' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.ball_amount, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <% elsif @card.type_by_time? %>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.hour_amount' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.minute_amount / 60, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.minimum_charging_minutes' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.minimum_charging_minutes, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.unit_charging_minutes' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.unit_charging_minutes, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.maximum_discard_minutes' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @card.maximum_discard_minutes, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <% elsif @card.type_stored? %>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.deposit' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_price(@card.deposit), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.price_per_hour' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_price(@card.price_per_hour), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.price_per_ball' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_price(@card.price_per_ball), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', cards_path, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '编辑', edit_card_path(@card), class: 'btn btn-primary' %>&nbsp;
+    </div>
+  </div>
+</div>

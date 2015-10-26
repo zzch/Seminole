@@ -4,7 +4,7 @@
 <div class="contentpanel">
   <%= brac_flash %>
   <div class="table-responsive">
-    <table class="table table-primary table-striped mb30">
+    <table class="table table-primary table-bordered table-striped mb30">
       <thead>
         <tr>
           <th><%= brac_arat 'provision.category' %></th>
@@ -24,7 +24,7 @@
         <tr>
           <td><%= provision.category.name %></td>
           <td><%= provision.name %></td>
-          <td><%= provision.price %></td>
+          <td><%= brac_price(provision.price) %></td>
           <td><%= provision.aasm.human_state %></td>
           <td class="table-action">
             <%= link_to raw('<i class="fa fa-file-text-o"></i>'), provision %>

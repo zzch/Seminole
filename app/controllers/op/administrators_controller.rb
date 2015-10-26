@@ -42,7 +42,7 @@ class Op::AdministratorsController < Op::BaseController
   end
 
   protected
-  def administrator_params
-    params.require(:administrator).permit(:account, :password, :password_confirmation, :name, :available)
-  end
+    def administrator_params
+      params.require(:administrator).permit!
+    end
 end

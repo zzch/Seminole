@@ -7,6 +7,7 @@ class Provision < ActiveRecord::Base
     state :discontinued
     state :out_of_stock
   end
+  default_scope { includes(:category) }
   validates :name, presence: true, length: { maximum: 50 }
   validates :price, numericality: { greater_than: 0 }
 end

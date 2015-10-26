@@ -7,19 +7,25 @@
     <%= form_for [:admin, @club], html: { class: 'form-horizontal form-bordered' } do |f| %>
       <div class="panel-body panel-body-nopadding">
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'club.name' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.name' %> <span class="asterisk">*</span></label></label>
           <div class="col-sm-6">
             <%= f.text_field :name, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'club.code' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.code' %> <span class="asterisk">*</span></label></label>
           <div class="col-sm-6">
             <%= f.text_field :code, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'club.position' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.floors' %> <span class="asterisk">*</span></label></label>
+          <div class="col-sm-6">
+            <%= f.select :floors, 1..3, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.position' %> <span class="asterisk">*</span></label></label>
           <div class="col-sm-3">
             <div class="input-group">
               <span class="input-group-addon"><%= brac_arat 'club.longitude' %></span>
@@ -49,3 +55,10 @@
     <% end %>
   </div>
 </div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      $('#club_floors').chosen({'width': '100%', 'white-space': 'nowrap'});
+    });
+  </script>
+<% end %>

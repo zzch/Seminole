@@ -23,11 +23,14 @@ Rails.application.routes.draw do
   scope module: :op do
     root 'dashboard#index'
     get :dashboard, to: 'dashboard#index', as: :dashboard
-    resources :members
+    resources :members do
+      resources :memberships
+    end
     resources :memberships
     resources :tabs do
       resources :playing_items
       resources :provision_items
+      resources :extra_items
       collection do
         get :progressing
         get :finished
@@ -44,10 +47,20 @@ Rails.application.routes.draw do
       resources :balls
       member do
         put :finish
+        patch :payment_method
       end
     end
     resources :balls
-    resources :provision_items
+    resources :provision_items do
+      member do
+        patch :payment_method
+      end
+    end
+    resources :extra_items do
+      member do
+        patch :payment_method
+      end
+    end
     resources :vacancies do
       collection do
         get :bulk_new

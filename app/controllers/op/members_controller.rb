@@ -3,7 +3,7 @@ class Op::MembersController < Op::BaseController
   before_action :find_member, only: %w(show edit update)
   
   def index
-    @members = Member.order(created_at: :desc).page(params[:page])
+    @members = @current_club.members.order(created_at: :desc).page(params[:page])
   end
   
   def show

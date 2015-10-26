@@ -1,0 +1,43 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 其它消费管理 <span>新建</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @extra_item %>
+  <div class="panel panel-default">
+    <%= form_for [@tab, @extra_item], html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'extra_item.type' %></label>
+          <div class="col-sm-6">
+            <%= f.select :type, extra_item_type_options, prompt: '请选择', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'extra_item.price' %></label>
+          <div class="col-sm-6">
+            <%= f.text_field :price, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'extra_item.remarks' %></label>
+          <div class="col-sm-6">
+            <%= f.text_area :remarks, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', @tab, class: 'btn btn-default' %>&nbsp;
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      $('#extra_item_type').chosen({'width': '100%', 'white-space': 'nowrap'});
+    });
+  </script>
+<% end %>

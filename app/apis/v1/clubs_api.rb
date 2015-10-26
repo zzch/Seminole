@@ -8,6 +8,8 @@ module V1
         expose :logo do |m, o|
           m.logo.w150_h150_fl_q50.url
         end
+        expose :phone_number
+        expose :address
       end
 
       class Home < Grape::Entity

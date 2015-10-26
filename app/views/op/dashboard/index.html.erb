@@ -1,5 +1,5 @@
 <div class="pageheader">
-  <h2><i class="fa fa-home"></i> 控制台</h2>
+  <h2><i class="fa fa-home"></i> 控制面板</h2>
 </div>
 <div class="contentpanel">
   <div class="panel panel-default">
@@ -16,14 +16,15 @@
           </tr>
         </tfoot>
         <tbody>
-          <% (1..@current_club.floors).each do |floor| %>
+          <% Vacancy.locations.keys.each do |location| %>
+          <% unless @current_club.vacancies.located(location).blank? %>
           <tr>
-            <td><%= floor %>F</td>
+            <td><%= te_vacancy_location(location.to_sym) %></td>
           </tr>
           <tr>
             <td>
               <div class="row">
-                <% @current_club.vacancies.on_floor(floor).each do |vacancy| %>
+                <% @current_club.vacancies.located(location).each do |vacancy| %>
                 <% if vacancy.occupied? %>
                 <div class="col-xs-1"><%= link_to vacancy.name, vacancy.tab, class: 'btn btn-danger btn-block mt10 mb10' %></div>
                 <% elsif vacancy.closed? %>
@@ -35,6 +36,7 @@
               </div>
             </td>
           </tr>
+          <% end %>
           <% end %>
         </tbody>
       </table>

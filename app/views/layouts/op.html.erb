@@ -23,7 +23,7 @@
         <div class="leftpanelinner">    
           <h5 class="sidebartitle">Navigation</h5>
           <ul class="nav nav-pills nav-stacked nav-bracket">
-            <li><%= link_to raw('<i class="fa fa-home"></i> <span>控制台</span>'), dashboard_path %></li>
+            <li><%= link_to raw('<i class="fa fa-home"></i> <span>控制面板</span>'), dashboard_path %></li>
             <li class="nav-parent"><a href=""><i class="fa fa-jpy"></i> <span>营业管理</span></a>
               <ul class="children">
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 进行中消费单"), progressing_tabs_path %></li>
@@ -35,7 +35,7 @@
             <li class="nav-parent"><a href=""><i class="fa fa-user"></i> <span>会员管理</span></a>
               <ul class="children">
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 会员列表"), members_path %></li>
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建会员"), new_member_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 办理会籍"), new_member_path %></li>
               </ul>
             </li>
             <li class="nav-parent"><a href=""><i class="fa fa-map-pin"></i> <span>打位管理</span></a>
@@ -45,10 +45,10 @@
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 批量创建打位"), bulk_new_vacancies_path %></li>
               </ul>
             </li>
-            <li class="nav-parent"><a href=""><i class="fa fa-credit-card"></i> <span>储值卡管理</span></a>
+            <li class="nav-parent"><a href=""><i class="fa fa-credit-card"></i> <span>卡种管理</span></a>
               <ul class="children">
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 储值卡列表"), cards_path %></li>
-                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建储值卡"), new_card_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 卡种列表"), cards_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建卡种"), new_card_path %></li>
               </ul>
             </li>
             <li class="nav-parent"><a href=""><i class="fa fa-glass"></i> <span>餐饮管理</span></a>

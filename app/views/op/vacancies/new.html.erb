@@ -7,15 +7,55 @@
     <%= form_for @vacancy, html: { class: 'form-horizontal form-bordered' } do |f| %>
       <div class="panel-body panel-body-nopadding">
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'vacancy.name' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'vacancy.name' %> <span class="asterisk">*</span></label>
           <div class="col-sm-6">
             <%= f.text_field :name, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'vacancy.floor' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'vacancy.tags' %> <span class="asterisk">*</span></label></label>
           <div class="col-sm-6">
-            <%= f.select :floor, 1..@current_club.floors, class: 'form-control' %>
+            <%= f.text_area :raw_tags, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'vacancy.location' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.select :location, vacancy_location_options, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'vacancy.price_per_hour' %></label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'vacancy.usual_price' %></span>
+              <%= f.text_field :usual_price_per_hour, class: 'form-control' %>
+              <span class="input-group-addon">元</span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'vacancy.holiday_price' %></span>
+              <%= f.text_field :holiday_price_per_hour, class: 'form-control' %>
+              <span class="input-group-addon">元</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'vacancy.price_per_ball' %></label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'vacancy.usual_price' %></span>
+              <%= f.text_field :usual_price_per_ball, class: 'form-control' %>
+              <span class="input-group-addon">元</span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'vacancy.holiday_price' %></span>
+              <%= f.text_field :holiday_price_per_ball, class: 'form-control' %>
+              <span class="input-group-addon">元</span>
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -31,7 +71,8 @@
 <% content_for :javascript do %>
   <script>
     jQuery(document).ready(function(){
-      $('#vacancy_floor').chosen({'width': '100%', 'white-space': 'nowrap'});
+      $('#vacancy_raw_tags').tagsInput({'width': 'auto', 'defaultText': '添加标签'});
+      $('#vacancy_location').chosen({'width': '100%', 'white-space': 'nowrap'});
     });
   </script>
 <% end %>

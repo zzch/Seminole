@@ -213,11 +213,22 @@ zh:
         phone: 电话
         name: 姓名
         gender: 性别
+      club:
+        name: 名称
+        code: 代号
+        floors: 楼层
+        position: 位置
+        longitude: 经度
+        latitude: 纬度
+        address: 地址
+        price_per_hour: 每小时价格
+        price_per_ball: 每颗球价格
       member:
         card: 卡类型
         number: 卡号
         balance: 余额
         expired_at: 有效期
+        salesman: 销售
         state: 状态
         state/activated: 正常
         state/forzen: 已冻结
@@ -231,7 +242,12 @@ zh:
         state/deactivated: 停用
       vacancy:
         name: 名称
-        floor: 楼层
+        tags: 标签
+        location: 位置
+        price_per_hour: 每小时费用
+        price_per_ball: 每粒球费用
+        usual_price: 平日价
+        holiday_price: 假日价
         state: 状态
         state/opened: 开放
         state/closed: 关闭
@@ -255,10 +271,31 @@ zh:
         quantity: 数量
         total_price: 小计
         created_at: 下单时间
+      extra_item:
+        type: 类型
+        price: 价格
+        remarks: 备注
+        created_at: 下单时间
       card:
         type: 类型
         name: 名称
+        background_color: 背景色
+        font_color: 字体色
         price: 价格
+        total_amount: 总数量
+        valid_months: 有效期
+        maximum_vacancies: 最大打位数
+        use_rights: 打位使用权
+        ball_amount: 球数
+        minute_amount: 分钟数
+        hour_amount: 小时数
+        minimum_charging_minutes: 最小费用时间
+        unit_charging_minutes: 单位费用时间
+        maximum_discard_minutes: 最大舍弃时间
+        maximum_daily_balls: 每日最多用球
+        maximum_daily_hours: 每日最多小时
+        price_per_hour: 每小时价格
+        price_per_ball: 每颗球价格
       provision_category:
         name: 名称
       provision:
@@ -282,6 +319,7 @@ zh:
         female: 女
         card: 卡类型
         number: 卡号
+        salesman: 销售
       op/visitor_set_up_tab:
         phone: 电话
         name: 姓名
@@ -295,3 +333,11 @@ zh:
         start_number: 开始编号
         end_number: 结束编号
         suffix: 后缀
+      op/create_membership:
+        phone: 电话
+        name: 姓名
+        first_name: 名
+        last_name: 姓
+        gender: 性别
+        male: 男
+        female: 女

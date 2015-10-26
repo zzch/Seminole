@@ -58,7 +58,7 @@ module BracHelper
   end
 
   def brac_price price
-    "#{sprintf('%0.02f', price)}元"
+    "#{sprintf('%0.02f', price)}元" if price
   end
 
   def brac_seconds total_seconds

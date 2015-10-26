@@ -3,7 +3,7 @@ class Op::CardsController < Op::BaseController
   before_action :find_card, only: %w(show edit update)
   
   def index
-    @cards = @current_club.cards.order(created_at: :desc).page(params[:page])
+    @cards = @current_club.cards.order("CASE cards.type_cd WHEN 'visitor' THEN 1 ELSE 2 END").order(created_at: :desc).page(params[:page])
   end
   
   def show
@@ -19,6 +19,7 @@ class Op::CardsController < Op::BaseController
   def create
     @card = @current_club.cards.new(card_params)
     if @card.save
+      @card.reset_use_rights_by_vacancy_tag_ids
       redirect_to @card, notice: '操作成功！'
     else
       render action: 'new'
@@ -27,6 +28,7 @@ class Op::CardsController < Op::BaseController
   
   def update
     if @card.update(card_params)
+      @card.reset_use_rights_by_vacancy_tag_ids
       redirect_to @card, notice: '操作成功！'
     else
       render action: 'edit'

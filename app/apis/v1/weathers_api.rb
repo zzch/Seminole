@@ -10,7 +10,6 @@ module V1
         expose :content
         expose :day_code
         expose :maximum_temperature
-        expose :minimum_temperature
         expose :probability_of_precipitation
         expose :wind
       end

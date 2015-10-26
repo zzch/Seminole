@@ -3,7 +3,7 @@ class Op::VacanciesController < Op::BaseController
   before_action :find_vacancy, only: %w(show edit update open close)
   
   def index
-    @vacancies = @current_club.vacancies.page(params[:page])
+    @vacancies = @current_club.vacancies.includes(:tags)
   end
   
   def show
@@ -19,6 +19,7 @@ class Op::VacanciesController < Op::BaseController
   def create
     @vacancy = @current_club.vacancies.new(vacancy_params)
     if @vacancy.save
+      @vacancy.reset_tags_by_raw_string
       redirect_to @vacancy, notice: '操作成功！'
     else
       render action: 'new'
@@ -27,6 +28,7 @@ class Op::VacanciesController < Op::BaseController
   
   def update
     if @vacancy.update(vacancy_params)
+      @vacancy.reset_tags_by_raw_string
       redirect_to @vacancy, notice: '操作成功！'
     else
       render action: 'edit'
@@ -40,7 +42,7 @@ class Op::VacanciesController < Op::BaseController
   def bulk_create
     @nar_form = Op::BulkCreateVacancies.new(params[:op_bulk_create_vacancies])
     if @nar_form.valid?
-      @current_club.vacancies.bulk_create(@nar_form)
+      Vacancy.bulk_create(@current_club, @nar_form)
       redirect_to vacancies_path, notice: '操作成功！'
     else
       render action: 'bulk_new'
