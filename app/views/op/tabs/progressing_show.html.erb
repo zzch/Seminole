@@ -103,6 +103,11 @@
     <div class="panel-heading">
       <h4 class="panel-title">餐饮消费</h4>
     </div>
+    <% if @tab.provision_items.blank? %>
+    <div class="panel-body">
+      无任何消费
+    </div>
+    <% else %>
     <div class="table-responsive">
       <table class="table table-bordered table-striped mb30">
         <thead>
@@ -133,6 +138,7 @@
         </tbody>
       </table>
     </div>
+    <% end %>
     <div class="panel-footer">
       <% if @tab.progressing? %>
       <%= link_to '点餐', new_tab_provision_item_path(@tab), class: 'btn btn-primary' %>

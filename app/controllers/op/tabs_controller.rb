@@ -1,12 +1,22 @@
 # -*- encoding : utf-8 -*-
 class Op::TabsController < Op::BaseController
-  before_action :find_tab, only: %w(show cancel checkout)
+  before_action :find_tab, only: %w(show cancel checkout confirm)
   
   def index
     @tabs = Tab.page(params[:page])
   end
   
   def show
+    if @tab.progressing?
+      render 'progressing_show'
+    else
+      @playing_items = @tab.playing_items.includes(:balls).includes(:vacancy)
+      @provision_items = @tab.provision_items
+      @extra_items = @tab.extra_items
+      @members = @tab.user.members.by_club(@current_club).includes(:card)
+      @stored_card_members = @members.select{|member| member.card.type_stored?}
+      render 'finished_show'
+    end
   end
   
   def new
@@ -40,6 +50,15 @@ class Op::TabsController < Op::BaseController
     @extra_items = @tab.extra_items
     @members = @tab.user.members.by_club(@current_club).includes(:card)
     @stored_card_members = @members.select{|member| member.card.type_stored?}
+  end
+
+  def confirm
+    begin
+      @tab.confirm(params[:method])
+      redirect_to @tab, notice: '操作成功！'
+    rescue UndeterminedItem
+      redirect_to checkout_tab_path(@tab), alert: '操作失败！存在未确定的消费条目！'
+    end
   end
   
   def cancel

@@ -8,7 +8,7 @@ module V1
           m.date.wday
         end
         expose :content
-        expose :day_code
+        expose :code
         expose :maximum_temperature
         expose :probability_of_precipitation
         expose :wind

@@ -1,6 +1,6 @@
 class PlayingItem < ActiveRecord::Base
   attr_accessor :effect_all
-  as_enum :charing_type, [:by_ball, :by_time], prefix: true, map: :string
+  as_enum :charging_type, [:by_ball, :by_time], prefix: true, map: :string
   as_enum :payment_method, [:by_ball_member, :by_time_member, :unlimited_member, :stored_member, :credit_card, :cash, :check, :on_account, :signing, :coupon], prefix: true, map: :string
   belongs_to :tab
   belongs_to :vacancy
@@ -26,12 +26,12 @@ class PlayingItem < ActiveRecord::Base
   end
 
   def total_price
-    unless [:by_ball_member, :by_time_member, :unlimited_member, :stored_member].include?(self.payment_method)
+    unless [:by_ball_member, :by_time_member, :unlimited_member].include?(self.payment_method)
       prefix = (Time.now.saturday? or Time.now.sunday?) ? 'holiday' : 'usual'
-      if self.charing_type_by_ball?
+      if self.charging_type_by_ball?
         self.vacancy.send("#{prefix}_price_per_ball") * total_balls
-      elsif self.charing_type_by_time?
-        (self.vacancy.send("#{prefix}_price_per_hour") / 60 / 60).round * seconds
+      elsif self.charging_type_by_time?
+        self.vacancy.send("#{prefix}_price_per_hour") * (seconds / 60 / 60)
       end
     end
   end
@@ -56,7 +56,7 @@ class PlayingItem < ActiveRecord::Base
   protected
     def effect_all?
       self.tab.playing_items.each do |playing_item|
-        playing_item.update!(charing_type: self.charing_type, payment_method: self.payment_method, member_id: self.member_id)
+        playing_item.update!(charging_type: self.charging_type, payment_method: self.payment_method, member_id: self.member_id)
       end if self.effect_all == '1'
     end
 end

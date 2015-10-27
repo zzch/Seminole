@@ -1,12 +1,12 @@
 class Vacancy < ActiveRecord::Base
   include UUID, AASM
   attr_accessor :raw_tags
+  as_enum :location, [:first_floor, :second_floor, :third_floor, :green, :simulator], prefix: true, map: :string
   belongs_to :club
   belongs_to :tab
   has_many :taggables, class_name: 'VacancyTaggable'
   has_many :tags, through: :taggables
   has_many :provision_items
-  as_enum :location, [:first_floor, :second_floor, :third_floor, :green, :simulator], prefix: true, map: :string
   aasm column: 'state' do
     state :opened, initial: true
     state :closed
@@ -21,6 +21,7 @@ class Vacancy < ActiveRecord::Base
       transitions to: :trashed
     end
   end
+  before_save :set_price
   scope :located, ->(location) { where(location_cd: location) }
   validates :name, presence: true, length: { maximum: 10 }, uniqueness: { scope: :club_id }
   validates :location, presence: true
@@ -28,6 +29,14 @@ class Vacancy < ActiveRecord::Base
 
   def occupied?
     self.tab
+  end
+
+  def pay_by_ball?
+    !self.usual_price_per_ball.blank? and !self.holiday_price_per_ball.blank?
+  end
+
+  def pay_by_time?
+    !self.usual_price_per_hour.blank? and !self.holiday_price_per_hour.blank?
   end
 
   def reset_tags_by_raw_string
@@ -60,11 +69,7 @@ class Vacancy < ActiveRecord::Base
   end
 
   protected
-    def check_before_close
-
-    end
-
-    def check_before_trash
-
+    def set_price
+      
     end
 end

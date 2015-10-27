@@ -9,10 +9,10 @@ class Op::PlayingItemsController < Op::BaseController
 
   def payment_method
     begin
-      raise InvalidParameter.new if playing_item_params[:charing_type].blank? or (playing_item_params[:payment_method].blank? and playing_item_params[:member_id].blank?)
+      raise InvalidParameter.new if playing_item_params[:charging_type].blank? or (playing_item_params[:payment_method].blank? and playing_item_params[:member_id].blank?)
       unless playing_item_params[:member_id].blank?
         @current_club.members.find(playing_item_params[:member_id]).tap do |member|
-          raise InvalidMember.new if (member.card.type_by_ball? and playing_item_params[:charing_type] == 'by_time') or (member.card.type_by_time? and playing_item_params[:charing_type] == 'by_ball')
+          raise InvalidMember.new if (member.card.type_by_ball? and playing_item_params[:charging_type] == 'by_time') or (member.card.type_by_time? and playing_item_params[:charging_type] == 'by_ball')
           playing_item_params[:payment_method] = "#{member.card.type}_member"
         end
       end

@@ -2,6 +2,28 @@ class Weather < ActiveRecord::Base
   belongs_to :club
   scope :recently, ->(started_at, days) { where('date >= ?', started_at.to_date).where('date < ?', (started_at + days.days).to_date) }
 
+  def code
+    if %w(0 1 2 3).include?(self.day_code)
+      1
+    elsif %w(5 6).include?(self.day_code)
+      2
+    elsif %w(4 7 8).include?(self.day_code)
+      3
+    elsif %w(9).include?(self.day_code)
+      4
+    elsif %w(10 11 12 13 14 15 16 17 18 19 20).include?(self.day_code)
+      5
+    elsif %w(21 22 23 24 25).include?(self.day_code)
+      6
+    elsif %w(30).include?(self.day_code)
+      7
+    elsif %w(31).include?(self.day_code)
+      8
+    else
+      1
+    end
+  end
+
   class << self
     def fetch
       Club.all.each do |club|

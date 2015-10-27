@@ -1,0 +1,103 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 消费单管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+          <div class="col-sm-3">
+            <div class="well">
+              <p><strong>姓名：</strong><%= @tab.user.name %></p>
+              <p><strong>电话：</strong><%= @tab.user.phone %></p>
+              <p><strong>身份：</strong><%= @tab.user.member_of?(@current_club) ? '会员' : '访客' %></p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-sm-offset-3 text-right">
+            <h4 class="mb10">消费单信息</h4>
+            <h4 class="text-primary">No. <%= @tab.id.to_s.rjust(6, '0') %></h4>
+            <p><strong>开单时间：</strong> <%= @tab.created_at.strftime('%Y-%m-%d %H:%M') %></p>
+            <p><strong>结单时间：</strong> <%= @tab.finished_at.strftime('%Y-%m-%d %H:%M') %></p>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover table-checkout">
+          <thead>
+            <tr>
+              <th>类型</th>
+              <th>内容</th>
+              <th>单价</th>
+              <th>数量</th>
+              <th>小计</th>
+              <th>付款方式</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @playing_items.each do |playing_item| %>
+            <tr>
+              <td><strong class="text-primary">打球</strong></td>
+              <td>
+                <div class="text-primary"><%= playing_item.vacancy.name %>打位 - <%= brac_seconds(playing_item.seconds) %> / <%= playing_item.total_balls %>颗球</div>
+              </td>
+              <td>-</td>
+              <td>-</td>
+              <td>
+                <% if playing_item.payment_method.blank? %>
+                -
+                <% elsif playing_item.payment_method_by_ball_member? %>
+                <%= playing_item.total_balls %>粒球
+                <% elsif playing_item.payment_method_by_time_member? %>
+                <%= brac_seconds(playing_item.seconds) %>
+                <% elsif playing_item.payment_method_unlimited_member? %>
+                -
+                <% else %>
+                <%= brac_price(playing_item.total_price) %>
+                <% end %>
+              </td>
+              <td><%= payment_method_tag(playing_item) %></td>
+            </tr>
+            <% end %>
+            <% @provision_items.each do |provision_item| %>
+            <tr>
+              <td><strong class="text-success">餐饮</strong></td>
+              <td>
+                <div class="text-success"><%= provision_item.provision.category.name %> - <%= provision_item.provision.name %></div>
+              </td>
+              <td><%= brac_price(provision_item.price) %></td>
+              <td><%= provision_item.quantity %></td>
+              <td><%= brac_price(provision_item.total_price) %></td>
+              <td><%= payment_method_tag(provision_item) %></td>
+            </tr>
+            <% end %>
+            <% @extra_items.each do |extra_item| %>
+            <tr>
+              <td><strong class="text-warning">其它</strong></td>
+              <td>
+                <div class="text-warning">
+                  <%= te_extra_item_type(extra_item.type) %>
+                </div>
+                <% unless extra_item.remarks.blank? %><div class="well well-sm mt5 mb0"><%= extra_item.remarks %></div><% end %>
+              </td>
+              <td>-</td>
+              <td>-</td>
+              <td><%= brac_price(extra_item.price) %></td>
+              <td><%= link_to payment_method_tag(extra_item) %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <table class="table table-total">
+        <tbody>
+          <tr>
+            <td><strong>现金/信用卡消费 :</strong></td>
+            <td><%= brac_price(@tab.cash) %></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-right btn-invoice">
+        <%= link_to '返回', '', class: 'btn btn-default' %>
+      </div>
+    </div>
+  </div>
+</div>

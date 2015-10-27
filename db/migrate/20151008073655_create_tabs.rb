@@ -6,7 +6,9 @@ class CreateTabs < ActiveRecord::Migration
       t.references :user, null: false
       t.references :operator, null: false
       t.decimal :price, precision: 7, scale: 2
+      t.string :confirm_method_cd, limit: 20
       t.string :state, limit: 20, null: false
+      t.datetime :finished_at
       t.timestamps null: false
     end
   end
