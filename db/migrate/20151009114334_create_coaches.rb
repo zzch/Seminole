@@ -7,6 +7,7 @@ class CreateCoaches < ActiveRecord::Migration
       t.string :portrait, limit: 100
       t.string :gender_cd, limit: 10, null: false
       t.string :title, limit: 50, null: false
+      t.decimal :starting_price, precision: 7, scale: 2, null: false
       t.text :description
       t.boolean :featured, null: false
       t.timestamps null: false

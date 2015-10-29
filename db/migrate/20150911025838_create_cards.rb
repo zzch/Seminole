@@ -13,9 +13,6 @@ class CreateCards < ActiveRecord::Migration
       t.integer :maximum_vacancies
       t.integer :ball_amount
       t.integer :hour_amount
-      t.integer :minimum_charging_minutes
-      t.integer :unit_charging_minutes
-      t.integer :maximum_discard_minutes
       t.integer :maximum_daily_balls
       t.integer :maximum_daily_hours
       t.decimal :deposit, precision: 7, scale: 2

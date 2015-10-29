@@ -131,13 +131,13 @@
                 <tr>
                   <td>
                     <div class="rdio rdio-default">
-                      <%= f.radio_button :charging_type, :by_ball, id: "playing_item_#{playing_item.id}_charging_type_by_ball", disabled: !playing_item.vacancy.pay_by_ball? %>
+                      <%= f.radio_button :charging_type, :by_ball, id: "playing_item_#{playing_item.id}_charging_type_by_ball" %>
                       <label for="playing_item_<%= playing_item.id %>_charging_type_by_ball">计球</label>
                     </div>
                   </td>
                   <td>
                     <div class="rdio rdio-default">
-                      <%= f.radio_button :charging_type, :by_time, id: "playing_item_#{playing_item.id}_charging_type_by_time", disabled: !playing_item.vacancy.pay_by_time? %>
+                      <%= f.radio_button :charging_type, :by_time, id: "playing_item_#{playing_item.id}_charging_type_by_time" %>
                       <label for="playing_item_<%= playing_item.id %>_charging_type_by_time">计时</label>
                     </div>
                   </td>

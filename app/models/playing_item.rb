@@ -6,6 +6,7 @@ class PlayingItem < ActiveRecord::Base
   belongs_to :vacancy
   belongs_to :member
   has_many :balls
+  has_many :member_expenses, as: :item
   after_save :effect_all?
 
   def finished?
@@ -21,17 +22,29 @@ class PlayingItem < ActiveRecord::Base
     (self.finished_at || Time.now) - self.started_at
   end
 
+  def minutes
+    (self.seconds / 60).round
+  end
+
   def total_balls
     self.balls.map(&:amount).reduce(:+) || 0
   end
 
   def total_price
-    unless [:by_ball_member, :by_time_member, :unlimited_member].include?(self.payment_method)
-      prefix = (Time.now.saturday? or Time.now.sunday?) ? 'holiday' : 'usual'
+    if self.payment_method_by_ball_member? or self.payment_method_by_time_member?
+      0
+    elsif self.payment_method_stored_member?
       if self.charging_type_by_ball?
-        self.vacancy.send("#{prefix}_price_per_ball") * total_balls
+        self.member.card.price_per_ball * self.total_balls
       elsif self.charging_type_by_time?
-        self.vacancy.send("#{prefix}_price_per_hour") * (seconds / 60 / 60)
+        ApplicationController.helpers.price_by_time(club: self.tab.club, price_per_hour: self.member.card.price_per_hour, minutes: self.minutes)
+      end 
+    else
+      prefix = %w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'
+      if self.charging_type_by_ball?
+        self.vacancy.send("#{prefix}_price_per_ball") * self.total_balls
+      elsif self.charging_type_by_time?
+        ApplicationController.helpers::price_by_time(club: self.tab.club, price_per_hour: self.vacancy.send("#{prefix}_price_per_hour"), minutes: self.minutes)
       end
     end
   end
@@ -43,6 +56,21 @@ class PlayingItem < ActiveRecord::Base
   end
 
   def update_payment_method attributes
+    if attributes[:charging_type] == 'by_ball'
+      if attributes[:member_id].blank?
+        raise InvalidChargingType.new if self.vacancy.send("#{%w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'}_price_per_ball").blank?
+      else
+        member = Member.find(attributes[:member_id])
+        raise InvalidChargingType.new if member.card.type_by_time?
+      end
+    elsif attributes[:charging_type] == 'by_time'
+      if attributes[:member_id].blank?
+        raise InvalidChargingType.new if self.vacancy.send("#{%w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'}_price_per_hour").blank?
+      else
+        member = Member.find(attributes[:member_id])
+        raise InvalidChargingType.new if member.card.type_by_ball?
+      end
+    end
     attributes.merge!(member_id: nil) unless ['by_ball_member', 'by_time_member', 'unlimited_member', 'stored_member'].include?(attributes[:payment_method])
     self.update!(attributes)
   end

@@ -122,4 +122,50 @@ module ApplicationHelper
       end + '</span>')
     end
   end
+
+  def price_by_time options = {}
+    if options[:minutes] < options[:club].minimum_charging_minutes
+      0
+    else
+      hours = options[:minutes] / options[:club].unit_charging_minutes
+      hours += 1 if hours.zero? or options[:minutes] % options[:club].unit_charging_minutes > options[:club].unit_charging_minutes
+      hours * options[:price_per_hour]
+    end
+  end
+
+  def member_expense_type item
+    if item.is_a? PlayingItem
+      '打球消费'
+    elsif item.is_a? ProvisionItem
+      '餐饮消费'
+    elsif item.is_a? ExtraItem
+      '其它消费'
+    end
+  end
+
+  def member_expense_item item
+    if item.is_a? PlayingItem
+
+    elsif item.is_a? ProvisionItem
+      "#{item.provision.name} x #{item.quantity}"
+    elsif item.is_a? ExtraItem
+      "#{te_extra_item_type(item.type)}#{" - #{item.remarks}" unless item.remarks.blank?}"
+    end
+  end
+
+  def member_expense_amount expense
+    if expense.item.is_a? PlayingItem
+      if expense.item.payment_method_by_ball_member?
+        "#{expense.amount}粒球"
+      elsif expense.item.payment_method_by_time_member?
+        "#{expense.amount}分钟"
+      elsif expense.item.payment_method_stored_member?
+        brac_price(expense.amount)
+      end
+    elsif expense.item.is_a? ProvisionItem
+      brac_price(expense.amount)
+    elsif expense.item.is_a? ExtraItem
+      brac_price(expense.amount)
+    end
+  end
 end

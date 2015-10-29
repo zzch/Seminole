@@ -52,3 +52,21 @@
     }
   }
 }
+
+.table-expense {
+  tbody {
+    tr {
+      td {
+        &:first-child {
+          width: 15%;
+        }
+        &:nth-child(2) {
+          width: 8%;
+        }
+        &:last-child {
+          width: 10%;
+        }
+      }
+    }
+  }
+}

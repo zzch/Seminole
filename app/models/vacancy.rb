@@ -70,6 +70,12 @@ class Vacancy < ActiveRecord::Base
 
   protected
     def set_price
-      
+      %w(ball hour).each do |type|
+        %w(usual holiday).tap do |dates|
+          (0..1).each do |i|
+            self.send("#{dates[i - 1]}_price_per_#{type}=", self.send("#{dates[i]}_price_per_#{type}")) if !self.send("#{dates[i]}_price_per_#{type}").blank? and self.send("#{dates[i - 1]}_price_per_#{type}").blank?
+          end
+        end
+      end
     end
 end

@@ -8,8 +8,12 @@ class CreateClubs < ActiveRecord::Migration
       t.string :logo, limit: 100
       t.integer :floors, limit: 1, null: false
       t.decimal :longitude, :latitude, precision: 18, scale: 15, null: false
-      t.string :address, limit: 800
-      t.string :phone_number, limit: 50
+      t.string :address, limit: 800, null: false
+      t.string :phone_number, limit: 50, null: false
+      t.integer :balls_per_bucket, null: false
+      t.integer :minimum_charging_minutes, null: false
+      t.integer :unit_charging_minutes, null: false
+      t.integer :maximum_discard_minutes, null: false
       t.timestamps null: false
     end
   end

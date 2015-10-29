@@ -6,6 +6,7 @@ class ProvisionItem < ActiveRecord::Base
   belongs_to :tab
   belongs_to :provision
   belongs_to :member
+  has_many :member_expenses, as: :item
   default_scope { includes(:provision) }
   validates :provision, presence: true
   validates :quantity, presence: true

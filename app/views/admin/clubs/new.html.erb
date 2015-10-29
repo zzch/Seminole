@@ -13,6 +13,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.short_name' %></label>
+          <div class="col-sm-6">
+            <%= f.text_field :short_name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'club.code' %> <span class="asterisk">*</span></label></label>
           <div class="col-sm-6">
             <%= f.text_field :code, class: 'form-control' %>
@@ -21,7 +27,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'club.floors' %> <span class="asterisk">*</span></label></label>
           <div class="col-sm-6">
-            <%= f.select :floors, 1..3, class: 'form-control' %>
+            <%= f.select :floors, 1..6, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
@@ -40,9 +46,39 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'club.address' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.address' %> <span class="asterisk">*</span></label>
           <div class="col-sm-6">
             <%= f.text_field :address, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.phone_number' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :phone_number, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.balls_per_bucket' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :balls_per_bucket, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.minimum_charging_minutes' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :minimum_charging_minutes, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.unit_charging_minutes' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :unit_charging_minutes, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.maximum_discard_minutes' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :maximum_discard_minutes, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">

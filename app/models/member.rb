@@ -6,6 +6,7 @@ class Member < ActiveRecord::Base
   belongs_to :salesman
   has_many :memberships
   has_many :users, through: :memberships
+  has_many :expenses, class_name: 'MemberExpense'
   aasm column: 'state' do
     state :activated, initial: true
     state :deactivated

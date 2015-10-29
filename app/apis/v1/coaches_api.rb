@@ -17,6 +17,8 @@ module V1
         end
         expose :gender
         expose :title
+        expose :starting_price
+        expose :description
       end
 
       class List < Grape::Entity

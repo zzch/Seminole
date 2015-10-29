@@ -7,6 +7,7 @@
     <table class="table table-primary table-bordered table-striped mb30">
       <thead>
         <tr>
+          <th><%= brac_arat 'member.number' %></th>
           <th><%= brac_arat 'member.holder' %></th>
           <th><%= brac_arat 'card.type' %></th>
           <th><%= brac_arat 'card.name' %></th>
@@ -23,6 +24,7 @@
       <tbody>
         <% @members.each do |member| %>
         <tr>
+          <td>No. <%= member.number %></td>
           <td><%= member.holder.name %></td>
           <td><%= te_card_type(member.card.type) %></td>
           <td><%= member.card.name %></td>

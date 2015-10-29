@@ -12,14 +12,15 @@ namespace :data do
   task populate: :environment do
     Faker::Config.locale = 'zh-CN'
     bench = Benchmark.measure do
-      { isports: '北京中创体育高尔夫练习场', star: '北京星空高尔夫练习场', huijia: '北京汇佳高尔夫练习场', sunshine: '北京日月光高尔夫练习场', cbd: '北京CBD国际高尔夫练习场', perfect: '北京珀翡高尔夫练习场' }.each do |code, name|
-        Club.create!(name: name, code: code, logo: fake_image_file, floors: 2, longitude: Faker::Address.longitude, latitude: Faker::Address.latitude, address: "#{Faker::Address.city} #{Faker::Address.street_address}", phone_number: Faker::PhoneNumber.cell_phone)
+      { isports: '中创高尔夫', star: '北京星空高尔夫练习场', huijia: '北京汇佳高尔夫练习场', sunshine: '北京日月光高尔夫练习场', cbd: '北京CBD国际高尔夫练习场', perfect: '珀翡高尔夫' }.each do |code, name|
+        Club.create!(name: name, code: code, logo: fake_image_file, floors: 2, longitude: Faker::Address.longitude, latitude: Faker::Address.latitude, address: "#{Faker::Address.city} #{Faker::Address.street_address}", phone_number: Faker::PhoneNumber.cell_phone, balls_per_bucket: 30, minimum_charging_minutes: 20, unit_charging_minutes: 60, maximum_discard_minutes: 20)
       end
       Version.create!([
         { major: 0, minor: 0, point: 1, build: '4BC01F', content: '初始化项目', state: :published },
         { major: 0, minor: 0, point: 2, build: '97EDA2', content: '构建基础框架', state: :published },
         { major: 0, minor: 0, point: 3, build: 'CF805F', content: '重构用户体系', state: :published },
-        { major: 0, minor: 0, point: 4, build: 'CF805F', content: '构建API框架', state: :published }
+        { major: 0, minor: 0, point: 4, build: 'CF805F', content: '构建API框架', state: :published },
+        { major: 0, minor: 0, point: 5, build: 'BA7F28', content: '实现营业流程管理', state: :published }
       ])
       Club.last.tap do |club|
         club.operators.create!(account: 'wanghao', password: '123456', password_confirmation: '123456', name: '王皓', omnipotent: true)
@@ -39,11 +40,11 @@ namespace :data do
           vacancy.reset_tags_by_raw_string
         end
         club.cards.create!([
-          { type: :by_time, name: '6800元 计时卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 6800.00, total_amount: 10000, valid_months: 12, maximum_vacancies: 2, hour_amount: 200, minimum_charging_minutes: 20, unit_charging_minutes: 60, maximum_discard_minutes: 20 },
-          { type: :by_time, name: '12000元 计时卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 12000.00, total_amount: 10000, valid_months: 24, maximum_vacancies: 3, hour_amount: 400, minimum_charging_minutes: 20, unit_charging_minutes: 60, maximum_discard_minutes: 20 },
+          { type: :by_time, name: '6800元 计时卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 6800.00, total_amount: 10000, valid_months: 12, maximum_vacancies: 2, hour_amount: 200 },
+          { type: :by_time, name: '12000元 计时卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 12000.00, total_amount: 10000, valid_months: 24, maximum_vacancies: 3, hour_amount: 400 },
           { type: :by_ball, name: '9800元 计球卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 9800.00, total_amount: 10000, valid_months: 12, maximum_vacancies: 2, ball_amount: 10000 },
           { type: :by_ball, name: '15800元 计球卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 15800.00, total_amount: 10000, valid_months: 24, maximum_vacancies: 3, ball_amount: 20000 },
-          { type: :stored, name: '49800元 储值卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 45800.00, total_amount: 2000, valid_months: 36, maximum_vacancies: 5, deposit: 45800, price_per_hour: 100, price_per_ball: 0.5, minimum_charging_minutes: 20, unit_charging_minutes: 60, maximum_discard_minutes: 20 }
+          { type: :stored, name: '49800元 储值卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 45800.00, total_amount: 2000, valid_months: 36, maximum_vacancies: 5, deposit: 45800, price_per_hour: 100, price_per_ball: 0.5 }
         ])
         100.times do
           member = club.members.create_with_user(club, Op::CreateMember.new(phone: "1#{[3, 5, 8].sample}#{Faker::Number.number(9)}", last_name: Faker::Name.first_name, first_name: Faker::Name.last_name, gender: [:male, :female].sample, number: rand(107180..118000), card_id: club.cards.sample.id))
@@ -69,7 +70,7 @@ namespace :data do
           { title: '关于2015全国高尔夫球团体赛的补充通知', content: Faker::Lorem.sentence(20), state: :published, published_at: Time.now - rand(5..30).days }
         ])
         27.times do
-          club.coaches.create!(name: Faker::Name.name, portrait: fake_image_file(allow_blank: true), gender: [:male, :female].sample, title: "#{['优秀', '精英', '', '国家级', '五星', '青少年', '金牌'].sample}教练", description: Faker::Lorem.sentence(80), featured: false)
+          club.coaches.create!(name: Faker::Name.name, portrait: fake_image_file(allow_blank: true), gender: [:male, :female].sample, title: "#{['优秀', '精英', '', '国家级', '五星', '青少年', '金牌'].sample}教练", starting_price: rand(40..120) * 100, description: Faker::Lorem.sentence(80), featured: false)
         end
         ['入门', '技术', '心理', '战术', '综合提升'].each do |name|
           club.courses.create!(name: "#{name}课", price: rand(68..150) * 100, lessons: rand(8..14), valid_months: rand(6..12), maximum_students: rand(1..4), description: Faker::Lorem.sentence(80))
@@ -88,11 +89,11 @@ namespace :data do
         (1..32).each{|number| club.vacancies.create!(name: "A#{number}", location: :first_floor, usual_price_per_hour: rand(16..24) * 10, holiday_price_per_hour: rand(16..24) * 10) }
         (1..32).each{|number| club.vacancies.create!(name: "B#{number}", location: :second_floor, usual_price_per_hour: rand(16..24) * 10, holiday_price_per_hour: rand(16..24) * 10) }
         club.cards.create!([
-          { type: :by_time, name: '5990元 计时卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 5990.00, total_amount: 10000, valid_months: 12, maximum_vacancies: 2, hour_amount: 200, minimum_charging_minutes: 20, unit_charging_minutes: 60, maximum_discard_minutes: 20 },
-          { type: :by_time, name: '12990元 计时卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 12990.00, total_amount: 10000, valid_months: 24, maximum_vacancies: 3, hour_amount: 400, minimum_charging_minutes: 20, unit_charging_minutes: 60, maximum_discard_minutes: 20 },
+          { type: :by_time, name: '5990元 计时卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 5990.00, total_amount: 10000, valid_months: 12, maximum_vacancies: 2, hour_amount: 200 },
+          { type: :by_time, name: '12990元 计时卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 12990.00, total_amount: 10000, valid_months: 24, maximum_vacancies: 3, hour_amount: 400 },
           { type: :by_ball, name: '9990元 计球卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 9990.00, total_amount: 10000, valid_months: 12, maximum_vacancies: 2, ball_amount: 10000 },
           { type: :by_ball, name: '15990元 计球卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 15990.00, total_amount: 10000, valid_months: 24, maximum_vacancies: 3, ball_amount: 20000 },
-          { type: :stored, name: '49990元 储值卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 49990.00, total_amount: 2000, valid_months: 36, maximum_vacancies: 5, deposit: 49990, price_per_hour: 100, price_per_ball: 0.5, minimum_charging_minutes: 20, unit_charging_minutes: 60, maximum_discard_minutes: 20 }
+          { type: :stored, name: '49990元 储值卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 49990.00, total_amount: 2000, valid_months: 36, maximum_vacancies: 5, deposit: 49990, price_per_hour: 100, price_per_ball: 0.5 }
         ])
         User.all.each do |user|
           club.cards.sample(3).each do |card|
@@ -115,7 +116,7 @@ namespace :data do
           { title: '致会员们的一封信', content: Faker::Lorem.sentence(20), state: :published, published_at: Time.now - rand(5..30).days }
         ])
         27.times do
-          club.coaches.create!(name: Faker::Name.name, portrait: fake_image_file(allow_blank: true), gender: [:male, :female].sample, title: "#{['优秀', '精英', '', '国家级', '五星', '青少年', '金牌'].sample}教练", description: Faker::Lorem.sentence(80), featured: (rand(1..10) > 8 ? true : false))
+          club.coaches.create!(name: Faker::Name.name, portrait: fake_image_file(allow_blank: true), gender: [:male, :female].sample, title: "#{['优秀', '精英', '', '国家级', '五星', '青少年', '金牌'].sample}教练", starting_price: rand(40..120) * 100, description: Faker::Lorem.sentence(80), featured: (rand(1..10) > 8 ? true : false))
         end
         ['入门', '技术', '心理', '战术', '综合提升'].each do |name|
           club.courses.create!(name: "#{name}课", price: rand(68..150) * 100, lessons: rand(8..14), valid_months: rand(6..12), maximum_students: rand(1..4), description: Faker::Lorem.sentence(80))

@@ -82,25 +82,7 @@
             <%= f.text_field :minute_amount, class: 'form-control' %>
           </div>
         </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'card.minimum_charging_minutes' %></label>
-          <div class="col-sm-6">
-            <%= f.text_field :minimum_charging_minutes, class: 'form-control' %>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'card.unit_charging_minutes' %></label>
-          <div class="col-sm-6">
-            <%= f.text_field :unit_charging_minutes, class: 'form-control' %>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'card.maximum_discard_minutes' %></label>
-          <div class="col-sm-6">
-            <%= f.text_field :maximum_discard_minutes, class: 'form-control' %>
-          </div>
-        </div>
-        <% elsif @card.type_stored? or @card.type_visitor? %>
+        <% elsif @card.type_stored? %>
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'card.deposit' %></label>
           <div class="col-sm-6">

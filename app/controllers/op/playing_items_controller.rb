@@ -22,6 +22,8 @@ class Op::PlayingItemsController < Op::BaseController
       redirect_to checkout_tab_path(@playing_item.tab), alert: '操作失败！没有选择任何付款方式！'
     rescue InvalidMember
       redirect_to checkout_tab_path(@playing_item.tab), alert: '操作失败！计费方式与会员卡类型不符！'
+    rescue InvalidChargingType
+      redirect_to checkout_tab_path(@playing_item.tab), alert: '操作失败！计费方式无收费标准！'
     end
   end
 

@@ -21,6 +21,28 @@
             <%= text_field_tag nil, @member.number, readonly: true, class: 'form-control' %>
           </div>
         </div>
+        <% if @member.card.type_by_ball? %>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.balance' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, "#{@member.ball_amount}粒球", readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <% elsif @member.card.type_by_time? %>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.balance' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, "#{@member.minute_amount}分钟", readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <% elsif @member.card.type_stored? %>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.balance' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_price(@member.deposit), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <% end %>
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'member.salesman' %></label>
           <div class="col-sm-6">
@@ -82,5 +104,38 @@
         </tbody>
       </table>
     </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">消费记录</h4>
+    </div>
+    <% if @member.expenses.blank? %>
+    <div class="panel-body">
+      无任何记录
+    </div>
+    <% else %>
+    <div class="table-responsive table-expense">
+      <table class="table mb30">
+        <thead>
+          <tr>
+            <th><%= brac_arat 'member_expense.created_at' %></th>
+            <th><%= brac_arat 'member_expense.type' %></th>
+            <th><%= brac_arat 'member_expense.item' %></th>
+            <th><%= brac_arat 'member_expense.amount' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @member.expenses.each do |expense| %>
+          <tr>
+            <td><%= brac_datetime(expense.created_at) %></td>
+            <td><%= member_expense_type(expense.item) %></td>
+            <td><%= member_expense_item(expense.item) %></td>
+            <td><%= member_expense_amount(expense) %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
   </div>
 </div>

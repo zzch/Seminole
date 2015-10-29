@@ -4,6 +4,7 @@ class ExtraItem < ActiveRecord::Base
   as_enum :payment_method, [:stored_member, :credit_card, :cash, :check, :on_account, :signing, :coupon], prefix: true, map: :string
   belongs_to :tab
   belongs_to :member
+  has_many :member_expenses, as: :item
   after_save :effect_all?
   validates :type, presence: true
   validates :price, presence: true, numericality: { greater_than: 0 }

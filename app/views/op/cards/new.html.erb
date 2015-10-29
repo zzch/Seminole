@@ -88,24 +88,6 @@
             <%= f.text_field :hour_amount, class: 'form-control' %>
           </div>
         </div>
-        <div class="form-group type-group type-by-time">
-          <label class="col-sm-3 control-label"><%= brac_arat 'card.minimum_charging_minutes' %> <span class="asterisk">*</span></label>
-          <div class="col-sm-6">
-            <%= f.text_field :minimum_charging_minutes, class: 'form-control' %>
-          </div>
-        </div>
-        <div class="form-group type-group type-by-time">
-          <label class="col-sm-3 control-label"><%= brac_arat 'card.unit_charging_minutes' %> <span class="asterisk">*</span></label>
-          <div class="col-sm-6">
-            <%= f.text_field :unit_charging_minutes, class: 'form-control' %>
-          </div>
-        </div>
-        <div class="form-group type-group type-by-time">
-          <label class="col-sm-3 control-label"><%= brac_arat 'card.maximum_discard_minutes' %> <span class="asterisk">*</span></label>
-          <div class="col-sm-6">
-            <%= f.text_field :maximum_discard_minutes, class: 'form-control' %>
-          </div>
-        </div>
         <div class="form-group type-group type-unlimited">
           <label class="col-sm-3 control-label"><%= brac_arat 'card.maximum_daily_balls' %> <span class="asterisk">*</span></label>
           <div class="col-sm-6">
@@ -161,15 +143,15 @@
         $('.type-stored').show();
       }
       $('#card_type').on('change', function() {
-        $('.type-group').hide();
+        $('.type-group').hide('blind');
         if (this.value == 'by_ball') {
-          $('.type-by-ball').show();
+          $('.type-by-ball').show('blind');
         } else if (this.value == 'by_time') {
-          $('.type-by-time').show();
+          $('.type-by-time').show('blind');
         } else if (this.value == 'unlimited') {
-          $('.type-unlimited').show();
+          $('.type-unlimited').show('blind');
         } else if (this.value == 'stored') {
-          $('.type-stored').show();
+          $('.type-stored').show('blind');
         }
       });
       if ($('#card_unlimited_total_amount').is(':checked')) {
