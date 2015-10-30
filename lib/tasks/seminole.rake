@@ -83,6 +83,9 @@ namespace :data do
         10.times do
           club.salesmen.create!(name: Faker::Name.name)
         end
+        3.times do
+          club.promotions.create!(image: fake_image_file, title: "#{(Time.now - rand(10..100).days).strftime('%m月%d日')}商城活动公告", content: Faker::Lorem.sentence(80), published_at: Time.now - rand(100..5000).minutes, state: :published)
+        end
       end
       Club.first.tap do |club|
         club.operators.create!(account: 'wanghao', password: '123456', password_confirmation: '123456', name: '王皓', omnipotent: true)
@@ -128,6 +131,9 @@ namespace :data do
         end
         10.times do
           club.salesmen.create!(name: Faker::Name.name)
+        end
+        3.times do
+          club.promotions.create!(image: fake_image_file, title: "#{(Time.now - rand(10..100).days).strftime('%m月%d日')}商城活动公告", content: Faker::Lorem.sentence(80), published_at: Time.now - rand(100..5000).minutes, state: :published)
         end
       end
     end

@@ -19,6 +19,7 @@ class Tab < ActiveRecord::Base
       transitions from: :progressing, to: :finished
     end
   end
+  before_create :set_sequence
 
   def before_cancel
     self.vacancies.each do |vacancy|
@@ -134,4 +135,9 @@ class Tab < ActiveRecord::Base
       end
     end
   end
+
+  protected
+    def set_sequence
+      self.sequence = Tab.where(club_id: self.club_id).max(:sequence) + 1
+    end
 end

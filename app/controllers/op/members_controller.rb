@@ -53,6 +53,6 @@ class Op::MembersController < Op::BaseController
     end
 
     def find_member
-      @member = Member.find(params[:id])
+      @member = @current_club.members.find(params[:id])
     end
 end

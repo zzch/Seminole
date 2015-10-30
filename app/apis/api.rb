@@ -63,6 +63,7 @@ class API < Grape::API
     mount V1::WeathersAPI
     mount V1::ReservationsAPI
     mount V1::ProvisionsAPI
+    mount V1::PromotionsAPI
     mount V1::FeedbacksAPI
     mount V1::UsersAPI
   end

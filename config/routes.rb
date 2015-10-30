@@ -23,10 +23,12 @@ Rails.application.routes.draw do
   scope module: :op do
     root 'dashboard#index'
     get :dashboard, to: 'dashboard#index', as: :dashboard
+    resources :users
     resources :members do
       resources :memberships
     end
     resources :memberships
+    get :search, to: 'search#create', as: :search
     resources :tabs do
       resources :playing_items
       resources :provision_items

@@ -133,6 +133,15 @@ module ApplicationHelper
     end
   end
 
+  def member_balance member
+    case member.card.type
+    when :by_ball then "#{member.ball_amount}粒球"
+    when :by_time then "#{member.minute_amount}分钟"
+    when :unlimited then "#{member.remaining_valid_days}天"
+    when :stored then brac_price(member.deposit)
+    end
+  end
+
   def member_expense_type item
     if item.is_a? PlayingItem
       '打球消费'

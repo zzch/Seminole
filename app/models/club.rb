@@ -3,6 +3,7 @@ class Club < ActiveRecord::Base
   mount_uploader :logo, ClubLogoUploader
   reverse_geocoded_by :latitude, :longitude
   has_many :members
+  has_many :memberships, through: :members
   has_many :operators
   has_many :vacancies
   has_many :cards
@@ -20,6 +21,7 @@ class Club < ActiveRecord::Base
   has_many :feedbacks
   has_many :salesmen
   has_many :vacancy_tags
+  has_many :promotions
   scope :nearest, ->(latitude, longitude) {
     near([latitude, longitude], 5000, unit: :km)
   }

@@ -5,6 +5,7 @@ class CreateTabs < ActiveRecord::Migration
       t.references :club, null: false
       t.references :user, null: false
       t.references :operator, null: false
+      t.integer :sequence, null: false
       t.decimal :price, precision: 7, scale: 2
       t.string :confirm_method_cd, limit: 20
       t.string :state, limit: 20, null: false

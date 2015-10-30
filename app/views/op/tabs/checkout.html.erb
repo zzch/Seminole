@@ -15,7 +15,7 @@
           </div>
           <div class="col-sm-6 col-sm-offset-3 text-right">
             <h4 class="mb10">消费单信息</h4>
-            <h4 class="text-primary">No. <%= @tab.id.to_s.rjust(6, '0') %></h4>
+            <h4 class="text-primary">No. <%= @tab.sequence.to_s.rjust(6, '0') %></h4>
             <p><strong>开单时间：</strong> <%= @tab.created_at.strftime('%Y-%m-%d %H:%M') %></p>
             <p><%= link_to '返回消费单', @tab %></p>
           </div>

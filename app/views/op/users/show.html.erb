@@ -1,0 +1,71 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 会员管理 <span>查看会员</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">会员信息</h4>
+    </div>
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'user.name' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @user.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'user.gender' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, te_user_gender(@user.gender), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'user.phone' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @user.phone, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', users_path, class: 'btn btn-default' %>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">会籍列表</h4>
+    </div>
+    <div class="table-responsive">
+      <table class="table mb30">
+        <thead>
+          <tr>
+            <th><%= brac_arat 'member.number' %></th>
+            <th><%= brac_arat 'card.type' %></th>
+            <th><%= brac_arat 'card.name' %></th>
+            <th><%= brac_arat 'member.balance' %></th>
+            <th><%= brac_arat 'member.created_at' %></th>
+            <th><%= brac_arat 'member.expired_at' %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @user.members.by_club(@current_club).each do |member| %>
+          <tr>
+            <td>No. <%= member.number %></td>
+            <td><%= te_card_type(member.card.type) %></td>
+            <td><%= member.card.name %></td>
+            <td><%= member_balance(member) %></td>
+            <td><%= brac_date(member.created_at) %></td>
+            <td><%= brac_date(member.expired_at) %></td>
+            <td class="table-action">
+              <%= link_to raw('<i class="fa fa-file-text-o"></i>'), member %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

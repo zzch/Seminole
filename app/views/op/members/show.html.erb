@@ -1,5 +1,5 @@
 <div class="pageheader">
-  <h2><i class="fa fa-file-text-o"></i> 会员管理 <span>查看</span></h2>
+  <h2><i class="fa fa-file-text-o"></i> 会员管理 <span>查看会籍</span></h2>
 </div>
 <div class="contentpanel">
   <%= brac_flash %>
@@ -18,31 +18,15 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'member.number' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, @member.number, readonly: true, class: 'form-control' %>
+            <%= text_field_tag nil, "No. #{@member.number}", readonly: true, class: 'form-control' %>
           </div>
         </div>
-        <% if @member.card.type_by_ball? %>
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'member.balance' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, "#{@member.ball_amount}粒球", readonly: true, class: 'form-control' %>
+            <%= text_field_tag nil, member_balance(@member), readonly: true, class: 'form-control' %>
           </div>
         </div>
-        <% elsif @member.card.type_by_time? %>
-        <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'member.balance' %></label>
-          <div class="col-sm-6">
-            <%= text_field_tag nil, "#{@member.minute_amount}分钟", readonly: true, class: 'form-control' %>
-          </div>
-        </div>
-        <% elsif @member.card.type_stored? %>
-        <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'member.balance' %></label>
-          <div class="col-sm-6">
-            <%= text_field_tag nil, brac_price(@member.deposit), readonly: true, class: 'form-control' %>
-          </div>
-        </div>
-        <% end %>
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'member.salesman' %></label>
           <div class="col-sm-6">
@@ -97,7 +81,7 @@
             <td><%= membership.user.phone %></td>
             <td><%= membership.aasm.human_state %></td>
             <td class="table-action">
-              <%= link_to raw('<i class="fa fa-file-text-o"></i>'), membership %>
+              <%= link_to raw('<i class="fa fa-file-text-o"></i>'), membership.user %>
             </td>
           </tr>
           <% end %>
