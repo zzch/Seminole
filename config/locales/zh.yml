@@ -225,6 +225,10 @@ zh:
         display_entries: "Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b> in total"
   activerecord:
     attributes:
+      administrator:
+        original_password: 原密码
+        new_password: 新密码
+        password_confirmation: 确认密码
       user:
         phone: 电话
         name: 姓名
