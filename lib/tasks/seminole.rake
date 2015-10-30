@@ -12,7 +12,7 @@ namespace :data do
   task populate: :environment do
     Faker::Config.locale = 'zh-CN'
     bench = Benchmark.measure do
-      { isports: '中创高尔夫', star: '北京星空高尔夫练习场', huijia: '北京汇佳高尔夫练习场', sunshine: '北京日月光高尔夫练习场', cbd: '北京CBD国际高尔夫练习场', perfect: '珀翡高尔夫' }.each do |code, name|
+      { isports: '中创高尔夫', star: '北京星空高尔夫练习场', huijia: '北京汇佳高尔夫练习场', sunshine: '北京日月光高尔夫练习场', cbd: '北京CBD国际高尔夫练习场', guanlanhu: '观澜湖高尔夫' }.each do |code, name|
         Club.create!(name: name, code: code, logo: fake_image_file, floors: 2, longitude: Faker::Address.longitude, latitude: Faker::Address.latitude, address: "#{Faker::Address.city} #{Faker::Address.street_address}", phone_number: Faker::PhoneNumber.cell_phone, balls_per_bucket: 30, minimum_charging_minutes: 20, unit_charging_minutes: 60, maximum_discard_minutes: 20)
       end
       Version.create!([
