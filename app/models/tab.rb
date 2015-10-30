@@ -135,9 +135,9 @@ class Tab < ActiveRecord::Base
       end
     end
   end
-
+  
   protected
     def set_sequence
-      self.sequence = Tab.where(club_id: self.club_id).max(:sequence) + 1
+      self.sequence = (Tab.where(club_id: self.club_id).maximum(:sequence) || 0) + 1
     end
 end

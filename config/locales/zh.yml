@@ -269,6 +269,7 @@ zh:
         state/closed: 关闭
         state/trashed: 删除
       tab:
+        sequence: 单号
         vacancy: 打位
         operator: 操作员
         member: 会员
