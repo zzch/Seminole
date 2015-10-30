@@ -95,9 +95,9 @@
           加球 <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <%= content_tag :li, link_to('50颗', playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: 50), method: :post) %>
-          <%= content_tag :li, link_to('100颗', playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: 100), method: :post) %>
-          <%= content_tag :li, link_to('200颗', playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: 200), method: :post) %>
+          <%= content_tag :li, link_to("#{@current_club.balls_per_bucket}粒", playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: @current_club.balls_per_bucket), method: :post) %>
+          <%= content_tag :li, link_to("#{@current_club.balls_per_bucket * 2}粒", playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: @current_club.balls_per_bucket * 2), method: :post) %>
+          <%= content_tag :li, link_to("#{@current_club.balls_per_bucket * 3}粒", playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: @current_club.balls_per_bucket * 3), method: :post) %>
         </ul>
       </div>&nbsp;
       <%= link_to '结束', finish_playing_item_path(@tab.playing_items.by_vacancy(vacancy)), method: :put, data: { confirm: '确定要结束该打位的计费吗？' }, class: 'btn btn-danger' %>
