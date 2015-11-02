@@ -242,7 +242,7 @@ zh:
         latitude: 纬度
         address: 地址
         price_per_hour: 每小时价格
-        price_per_ball: 每颗球价格
+        price_per_bucket: 每颗球价格
       member:
         card: 卡类型
         number: 卡号
@@ -265,7 +265,7 @@ zh:
         tags: 标签
         location: 位置
         price_per_hour: 每小时费用
-        price_per_ball: 每粒球费用
+        price_per_bucket: 每粒球费用
         usual_price: 平日价
         holiday_price: 假日价
         state: 状态
@@ -317,7 +317,7 @@ zh:
         maximum_daily_hours: 每日最多小时
         deposit: 余额
         price_per_hour: 每小时价格
-        price_per_ball: 每颗球价格
+        price_per_bucket: 每筐球价格
       provision_category:
         name: 名称
       provision:

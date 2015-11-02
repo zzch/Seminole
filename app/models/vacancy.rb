@@ -32,7 +32,7 @@ class Vacancy < ActiveRecord::Base
   end
 
   def pay_by_ball?
-    !self.usual_price_per_ball.blank? and !self.holiday_price_per_ball.blank?
+    !self.usual_price_per_bucket.blank? and !self.holiday_price_per_bucket.blank?
   end
 
   def pay_by_time?
@@ -57,7 +57,7 @@ class Vacancy < ActiveRecord::Base
         (form.start_number.to_i..form.end_number.to_i).each do |number|
           name = "#{form.prefix}#{number}#{form.suffix}"
           raise DuplicatedVacancy.new if where(club: club, name: name).first
-          create!(club: club, name: name, location_cd: form.location, usual_price_per_hour: form.usual_price_per_hour, holiday_price_per_hour: form.holiday_price_per_hour, usual_price_per_ball: form.usual_price_per_ball, holiday_price_per_ball: form.holiday_price_per_ball).tap do |vacancy|
+          create!(club: club, name: name, location_cd: form.location, usual_price_per_hour: form.usual_price_per_hour, holiday_price_per_hour: form.holiday_price_per_hour, usual_price_per_bucket: form.usual_price_per_bucket, holiday_price_per_bucket: form.holiday_price_per_bucket).tap do |vacancy|
             vacancy.taggables.destroy_all
             tags.each do |tag|
               self.taggables.create!(tag: tag)
@@ -70,7 +70,7 @@ class Vacancy < ActiveRecord::Base
 
   protected
     def set_price
-      %w(ball hour).each do |type|
+      %w(bucket hour).each do |type|
         %w(usual holiday).tap do |dates|
           (0..1).each do |i|
             self.send("#{dates[i - 1]}_price_per_#{type}=", self.send("#{dates[i]}_price_per_#{type}")) if !self.send("#{dates[i]}_price_per_#{type}").blank? and self.send("#{dates[i - 1]}_price_per_#{type}").blank?

@@ -35,14 +35,14 @@ class PlayingItem < ActiveRecord::Base
       0
     elsif self.payment_method_stored_member?
       if self.charging_type_by_ball?
-        self.member.card.price_per_ball * self.total_balls
+        self.member.card.price_per_bucket * self.total_balls
       elsif self.charging_type_by_time?
         ApplicationController.helpers.price_by_time(club: self.tab.club, price_per_hour: self.member.card.price_per_hour, minutes: self.minutes)
       end 
     else
       prefix = %w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'
       if self.charging_type_by_ball?
-        self.vacancy.send("#{prefix}_price_per_ball") * self.total_balls
+        self.vacancy.send("#{prefix}_price_per_bucket") * self.total_balls
       elsif self.charging_type_by_time?
         ApplicationController.helpers::price_by_time(club: self.tab.club, price_per_hour: self.vacancy.send("#{prefix}_price_per_hour"), minutes: self.minutes)
       end
@@ -58,7 +58,7 @@ class PlayingItem < ActiveRecord::Base
   def update_payment_method attributes
     if attributes[:charging_type] == 'by_ball'
       if attributes[:member_id].blank?
-        raise InvalidChargingType.new if self.vacancy.send("#{%w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'}_price_per_ball").blank?
+        raise InvalidChargingType.new if self.vacancy.send("#{%w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'}_price_per_bucket").blank?
       else
         member = Member.find(attributes[:member_id])
         raise InvalidChargingType.new if member.card.type_by_time?

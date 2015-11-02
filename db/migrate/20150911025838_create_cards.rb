@@ -17,7 +17,7 @@ class CreateCards < ActiveRecord::Migration
       t.integer :maximum_daily_hours
       t.decimal :deposit, precision: 7, scale: 2
       t.decimal :price_per_hour, precision: 7, scale: 2
-      t.decimal :price_per_ball, precision: 7, scale: 2
+      t.decimal :price_per_bucket, precision: 7, scale: 2
       t.timestamps null: false
     end
   end

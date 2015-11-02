@@ -4,6 +4,7 @@ class Card < ActiveRecord::Base
   belongs_to :club
   has_many :use_rights
   has_many :vacancy_tags, through: :use_rights
+  has_many :vacancy_prices, class_name: 'CardVacancyPrice'
   as_enum :type, [:by_ball, :by_time, :unlimited, :stored], prefix: true, map: :string
   validates :name, presence: true, length: { maximum: 50 }
   validates :type, presence: true

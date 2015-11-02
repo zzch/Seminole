@@ -12,7 +12,7 @@ module V1
           end
           [
             "#{hello}，#{m.last_name}#{m.human_gender}",
-            "欢迎光临#{o[:club].name}"
+            "欢迎光临#{o[:club].short_name || o[:club].name}"
           ]
         end
       end

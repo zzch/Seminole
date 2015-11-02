@@ -6,9 +6,9 @@ class CreateVacancies < ActiveRecord::Migration
       t.string :name, limit: 20, null: false
       t.string :location_cd, limit: 20, null: false
       t.decimal :usual_price_per_hour, precision: 7, scale: 2
-      t.decimal :usual_price_per_ball, precision: 7, scale: 2
+      t.decimal :usual_price_per_bucket, precision: 7, scale: 2
       t.decimal :holiday_price_per_hour, precision: 7, scale: 2
-      t.decimal :holiday_price_per_ball, precision: 7, scale: 2
+      t.decimal :holiday_price_per_bucket, precision: 7, scale: 2
       t.references :tab
       t.string :state, limit: 20, null: false
       t.timestamps null: false
