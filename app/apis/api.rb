@@ -41,7 +41,7 @@ class API < Grape::API
     end
 
     def find_current_club
-      params[:club_uuid] = Club.where(code: 'perfect').first.uuid if Rails.env == 'development' and params[:club_uuid] == 'test'
+      params[:club_uuid] = Club.where(code: 'isports').first.uuid if Rails.env == 'development' and params[:club_uuid] == 'test'
       begin
         @current_club = Club.find_uuid(params[:club_uuid])
       rescue ActiveRecord::RecordNotFound
