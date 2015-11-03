@@ -14,8 +14,8 @@ class Operator < ActiveRecord::Base
       transitions to: :trashed
     end
   end
-  validates :account, presence: true, length: { in: 6..16 }, format: { with: /\A[A-Za-z0-9_]+\z/, message: "只能使用字母、数字和下划线" }
-  validates :password, presence: true, confirmation: true, length: { maximum: 16 }, format: { with: /\A[A-Za-z0-9!@#$%^&*(),.?]+\z/, message: "只能使用字母、数字和符号" }, on: :create
+  validates :account, presence: true, length: { in: 4..16 }, format: { with: /\A[A-Za-z0-9_]+\z/, message: "只能使用字母、数字和下划线" }
+  validates :password, presence: true, confirmation: true, length: { in: 4..16 }, format: { with: /\A[A-Za-z0-9!@#$%^&*(),.?]+\z/, message: "只能使用字母、数字和符号" }, on: :create
   validates :name, presence: true, length: { maximum: 50 }
 
   def authenticate password
