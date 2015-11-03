@@ -229,6 +229,10 @@ zh:
         original_password: 原密码
         new_password: 新密码
         password_confirmation: 确认密码
+      operator:
+        original_password: 原密码
+        new_password: 新密码
+        password_confirmation: 确认密码
       user:
         phone: 电话
         name: 姓名

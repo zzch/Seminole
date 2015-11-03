@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
     end
 
     def find_or_create_member attributes
-      if exist_user = where(phone: attributes.phone).first
+      if !attributes.phone.blank? and exist_user = where(phone: attributes.phone).first
         exist_user
       else
         create!(phone: attributes.phone, first_name: attributes.first_name, last_name: attributes.last_name, gender: attributes.gender, activated: true)

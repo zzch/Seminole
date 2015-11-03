@@ -9,7 +9,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'provision_item.provision' %></label>
           <div class="col-sm-6">
-            <%= f.collection_select :provision_id, @current_club.provisions, :id, :name, prompt: '请选择', class: 'form-control' %>
+            <%= f.select :provision_id, provision_options, prompt: '请选择', class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">

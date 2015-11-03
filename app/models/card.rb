@@ -11,9 +11,9 @@ class Card < ActiveRecord::Base
   validates :background_color, presence: true, length: { is: 6 }
   validates :font_color, presence: true, length: { is: 6 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0.01 }
-  validates :total_amount, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, unless: "unlimited_total_amount == '1'"
+  validates :total_amount, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, unless: "unlimited_total_amount == '1'"
   validates :valid_months, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
-  validates :maximum_vacancies, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }, unless: "unlimited_maximum_vacancies == '1'"
+  validates :maximum_vacancies, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, unless: "unlimited_maximum_vacancies == '1'"
 
   def reset_use_rights_by_vacancy_tag_ids
     self.use_rights.destroy_all

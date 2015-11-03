@@ -29,7 +29,7 @@ module V1
       end
       get :recently do
         begin
-          weahters = @current_club.weathers.recently(Time.now + (Time.now.hour < 18 ? 0 : 1).day, 3)
+          weahters = @current_club.weathers.recently(Time.now, 3)
           present weahters, with: Weathers::Entities::Recently
         rescue ActiveRecord::RecordNotFound
           api_error_or_exception(10001)

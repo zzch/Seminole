@@ -31,16 +31,25 @@ class PlayingItem < ActiveRecord::Base
   end
 
   def total_price
+    prefix = %w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'
     if self.payment_method_by_ball_member? or self.payment_method_by_time_member?
       0
     elsif self.payment_method_stored_member?
       if self.charging_type_by_ball?
-        self.member.card.price_per_bucket * self.total_balls
+        if vacancy_price = self.member.card.vacancy_prices.by_vacancy(self.vacancy).first
+          vacancy_price.send("#{prefix}_price_per_bucket") * self.total_balls / self.tab.club.balls_per_bucket
+        elsif !self.vacancy.send("#{prefix}_price_per_bucket").blank?
+          self.vacancy.send("#{prefix}_price_per_bucket") * self.total_balls / self.tab.club.balls_per_bucket
+        end
       elsif self.charging_type_by_time?
-        ApplicationController.helpers.price_by_time(club: self.tab.club, price_per_hour: self.member.card.price_per_hour, minutes: self.minutes)
+        price_per_hour = (if vacancy_price = self.member.card.vacancy_prices.by_vacancy(self.vacancy).first
+          vacancy_price.send("#{prefix}_price_per_hour")
+        elsif !self.vacancy.send("#{prefix}_price_per_hour").blank?
+          self.vacancy.send("#{prefix}_price_per_hour")
+        end)
+        ApplicationController.helpers.price_by_time(club: self.tab.club, price_per_hour: price_per_hour, minutes: self.minutes)
       end 
     else
-      prefix = %w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'
       if self.charging_type_by_ball?
         self.vacancy.send("#{prefix}_price_per_bucket") * self.total_balls
       elsif self.charging_type_by_time?

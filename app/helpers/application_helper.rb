@@ -50,7 +50,11 @@ module ApplicationHelper
   end
 
   def user_options_for_set_up_tab
-    User.where(id: Membership.where(member_id: @current_club.member_ids).map(&:user_id).uniq).map{|user| ["#{PinYin.abbr(user.name).upcase} | #{user.name} | #{user.phone}", user.id]}
+    User.where(id: Membership.where(member_id: @current_club.member_ids).map(&:user_id).uniq).map{|user| ["#{PinYin.abbr(user.name).upcase} | #{user.name}#{" | #{user.phone}" unless user.phone.blank?}", user.id]}
+  end
+
+  def provision_options
+    @current_club.provisions.map{|provision| ["#{PinYin.abbr(provision.name).upcase} | #{provision.name}", provision.id]}
   end
 
   def salesmen_options
@@ -154,7 +158,7 @@ module ApplicationHelper
 
   def member_expense_item item
     if item.is_a? PlayingItem
-
+      
     elsif item.is_a? ProvisionItem
       "#{item.provision.name} x #{item.quantity}"
     elsif item.is_a? ExtraItem

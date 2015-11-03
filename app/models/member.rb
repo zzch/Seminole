@@ -49,6 +49,7 @@ class Member < ActiveRecord::Base
         when :by_ball then { ball_amount: card.ball_amount }
         when :by_time then { minute_amount: card.hour_amount * 60 }
         when :stored then { deposit: card.deposit }
+        else {}
         end
         create!({ club: club, card: card, salesman_id: form.salesman_id, number: form.number, expired_at: Time.now + card.valid_months.months }.merge(balance)).tap {|member| member.memberships.create!(user: user, role: :holder)}
       end

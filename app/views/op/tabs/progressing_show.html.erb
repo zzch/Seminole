@@ -77,7 +77,7 @@
             <% @tab.playing_items.by_vacancy(vacancy).balls.each do |ball| %>
             <div class="input-group input-group-sm mt5 mb5">
               <span class="input-group-addon"><%= ball.created_at.strftime('%H:%M') %></span>
-              <%= text_field_tag nil, "#{ball.amount}颗", readonly: true, class: 'form-control' %>
+              <%= text_field_tag nil, "#{ball.amount_as_bucket}筐", readonly: true, class: 'form-control' %>
               <span class="input-group-btn">
                 <%= link_to '撤销', ball, method: :delete, data: { confirm: '确定要撤销吗？' }, class: 'btn btn-danger' %>
               </span>
@@ -95,9 +95,9 @@
           加球 <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" role="menu">
-          <%= content_tag :li, link_to("#{@current_club.balls_per_bucket}粒", playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: @current_club.balls_per_bucket), method: :post) %>
-          <%= content_tag :li, link_to("#{@current_club.balls_per_bucket * 2}粒", playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: @current_club.balls_per_bucket * 2), method: :post) %>
-          <%= content_tag :li, link_to("#{@current_club.balls_per_bucket * 3}粒", playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: @current_club.balls_per_bucket * 3), method: :post) %>
+          <% (1..6).each do |i| %>
+          <%= content_tag :li, link_to("#{i}筐", playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: @current_club.balls_per_bucket * i), method: :post) %>
+          <% end %>
         </ul>
       </div>&nbsp;
       <%= link_to '结束', finish_playing_item_path(@tab.playing_items.by_vacancy(vacancy)), method: :put, data: { confirm: '确定要结束该打位的计费吗？' }, class: 'btn btn-danger' %>
