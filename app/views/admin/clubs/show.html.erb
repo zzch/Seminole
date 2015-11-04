@@ -105,7 +105,7 @@
             <td><%= operator.account %></td>
             <td><%= operator.name %></td>
             <td><%= operator.last_signed_in_at %></td>
-            <td><%= operator.state %></td>
+            <td><%= operator.aasm.human_state %></td>
             <td class="table-action">
               <%= link_to raw('<i class="fa fa-file-text-o"></i>'), [:admin, operator] %>
               <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_admin_operator_path(operator) %>

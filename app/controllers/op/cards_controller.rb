@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Op::CardsController < Op::BaseController
-  before_action :find_card, only: %w(show edit update)
+  before_action :find_card, only: %w(show edit update destroy)
   
   def index
     @cards = @current_club.cards.order("CASE cards.type_cd WHEN 'visitor' THEN 1 ELSE 2 END").order(created_at: :desc).page(params[:page])
@@ -32,6 +32,15 @@ class Op::CardsController < Op::BaseController
       redirect_to @card, notice: '操作成功！'
     else
       render action: 'edit'
+    end
+  end
+
+  def destroy
+    begin
+      @card.destroy
+      redirect_to cards_path, notice: '操作成功！'
+    rescue MemberExists
+      redirect_to @card, alert: '操作失败！已存在会籍！'
     end
   end
 

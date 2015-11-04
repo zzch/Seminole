@@ -5,6 +5,8 @@ class Card < ActiveRecord::Base
   has_many :use_rights
   has_many :vacancy_tags, through: :use_rights
   has_many :vacancy_prices, class_name: 'CardVacancyPrice'
+  has_many :members
+  before_destroy :can_be_destroyed?
   as_enum :type, [:by_ball, :by_time, :unlimited, :stored], prefix: true, map: :string
   validates :name, presence: true, length: { maximum: 50 }
   validates :type, presence: true
@@ -15,6 +17,10 @@ class Card < ActiveRecord::Base
   validates :valid_months, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   validates :maximum_vacancies, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, unless: "unlimited_maximum_vacancies == '1'"
 
+  def has_right? vacancy
+    VacancyTaggable.where(tag_id: self.vacancy_tag_ids).map{|taggable| taggable.vacancy_id}.uniq.include?(vacandy.id)
+  end
+
   def reset_use_rights_by_vacancy_tag_ids
     self.use_rights.destroy_all
     self.vacancy_tag_ids.reject(&:blank?).each do |vacancy_tag_id|
@@ -22,5 +28,9 @@ class Card < ActiveRecord::Base
         self.use_rights.create!(vacancy_tag: vacancy_tag)
       end
     end
+  end
+
+  def can_be_destroyed?
+    raise MemberExists.new unless self.members.blank?
   end
 end

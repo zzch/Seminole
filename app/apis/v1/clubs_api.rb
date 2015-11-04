@@ -22,6 +22,9 @@ module V1
             { uuid: member.uuid, number: member.number, balance: 'N/A', expired_at: member.expired_at.to_i, card: { name: member.card.name, background_color: member.card.background_color, font_color: member.card.font_color } }
           end
         end
+        expose :weather do |m, o|
+          { date: o[:weather].date.to_datetime.to_i, maximum_temperature: o[:weather].maximum_temperature }
+        end
         expose :announcements do |m, o|
           o[:announcements].map do |announcement|
             { uuid: announcement.uuid, title: announcement.title, published_at: announcement.published_at.to_i }
@@ -41,7 +44,8 @@ module V1
       get :home do
         find_current_club
         announcements = @current_club.announcements.published.order(published_at: :desc).limit(3)
-        present @current_user.members.by_club(@current_club), with: Clubs::Entities::Home, club: @current_club, announcements: announcements
+        weather = @current_club.weathers.recently(Time.now, 1).first
+        present @current_user.members.by_club(@current_club), with: Clubs::Entities::Home, club: @current_club, announcements: announcements, weather: weather
       end
 
       desc '会籍球场列表'

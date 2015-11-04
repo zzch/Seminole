@@ -230,6 +230,11 @@ zh:
         new_password: 新密码
         password_confirmation: 确认密码
       operator:
+        account: 账号
+        name: 姓名
+        last_signed_in_at: 最后登录时间
+        state: 状态
+        state/available: 可用
         original_password: 原密码
         new_password: 新密码
         password_confirmation: 确认密码
@@ -245,8 +250,11 @@ zh:
         longitude: 经度
         latitude: 纬度
         address: 地址
-        price_per_hour: 每小时价格
-        price_per_bucket: 每颗球价格
+        phone_number: 联系电话
+        balls_per_bucket: 每筐球数量
+        minimum_charging_minutes: 最小计费时间
+        unit_charging_minutes: 单位计费时间
+        maximum_discard_minutes: 最大舍弃时间
       member:
         card: 卡类型
         number: 卡号
@@ -319,9 +327,7 @@ zh:
         maximum_discard_minutes: 最大舍弃时间
         maximum_daily_balls: 每日最多用球
         maximum_daily_hours: 每日最多小时
-        deposit: 余额
-        price_per_hour: 每小时价格
-        price_per_bucket: 每筐球价格
+        deposit: 充值金额
       provision_category:
         name: 名称
       provision:
