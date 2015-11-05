@@ -37,7 +37,7 @@
             <tr>
               <td><strong class="text-primary">打球</strong></td>
               <td>
-                <div class="text-primary"><%= playing_item.vacancy.name %>打位 - <%= brac_seconds(playing_item.seconds) %> / <%= playing_item.total_balls %>颗球</div>
+                <div class="text-primary"><%= playing_item.vacancy.name %>打位 - <%= brac_seconds(playing_item.seconds) %> / <%= playing_item.total_balls / @current_club.balls_per_bucket %>筐</div>
               </td>
               <td>-</td>
               <td>-</td>
@@ -45,7 +45,7 @@
                 <% if playing_item.payment_method.blank? %>
                 -
                 <% elsif playing_item.payment_method_by_ball_member? %>
-                <%= playing_item.total_balls %>粒球
+                <%= playing_item.total_balls / @current_club.balls_per_bucket %>筐
                 <% elsif playing_item.payment_method_by_time_member? %>
                 <%= brac_seconds(playing_item.seconds) %>
                 <% elsif playing_item.payment_method_unlimited_member? %>
@@ -202,7 +202,7 @@
                             </div>
                           </div>
                           <div class="col-sm-4 text-right">
-                            <span>No. <%= member.number %></span>
+                            <span><%= te_card_type(member.card.type) %> No. <%= member.number %></span>
                           </div>
                         </div>
                         <hr class="mt5 mb10" />

@@ -22,8 +22,9 @@ class Tab < ActiveRecord::Base
   before_create :set_sequence
 
   def before_cancel
+    self.update!(finished_at: Time.now)
     self.vacancies.each do |vacancy|
-      vacancy.update(tab: nil, played_at: nil)
+      vacancy.update(tab: nil)
     end
   end
 
@@ -120,16 +121,18 @@ class Tab < ActiveRecord::Base
   end
 
   class << self
-    def set_up attributes, vacancy_id
+    def set_up attributes, vacancy_ids
       ActiveRecord::Base.transaction do
-        if vacancy_id.blank?
-          create!(attributes) if Tab.where(club_id: attributes[:club_id]).where(user_id: attributes[:user_id]).where(state: :progressing).first.blank?
+        if vacancy_ids.blank?
+          Tab.where(club_id: attributes[:club_id]).where(user_id: attributes[:user_id]).where(state: :progressing).first || create!(attributes)
         else
-          vacancy = Vacancy.lock.find(vacancy_id)
-          raise AlreadyInUse.new if vacancy.occupied?
+          vacancies = Club.find(attributes[:club_id]).vacancies.lock.find(vacancy_ids.split(','))
+          raise AlreadyInUse.new if vacancies.map(&:occupied?).any?
           (Tab.lock.where(club_id: attributes[:club_id]).where(user_id: attributes[:user_id]).where(state: :progressing).first || create!(attributes)).tap do |tab|
-            vacancy.update(tab: tab)
-            tab.playing_items.create!(vacancy: vacancy, started_at: Time.now)
+            vacancies.each do |vacancy|
+              vacancy.update(tab: tab)
+              tab.playing_items.create!(vacancy: vacancy, started_at: Time.now)
+            end
           end
         end
       end

@@ -10,10 +10,11 @@ module V1
       params do
         requires :token, type: String, desc: 'Token'
         requires :club_uuid, type: String, desc: '球场UUID'
+        requires :type, type: String, values: Feedback.types.keys, desc: '类型'
         requires :content, type: String, desc: '内容'
       end
       post do
-        @current_club.feedbacks.create!(user: @current_user, content: params[:content])
+        @current_club.feedbacks.create!(user: @current_user, type: params[:type], content: params[:content])
         present api_success
       end
     end

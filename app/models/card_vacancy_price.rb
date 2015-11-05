@@ -1,10 +1,13 @@
 class CardVacancyPrice < ActiveRecord::Base
   belongs_to :card
   belongs_to :vacancy
-  scope :by_vacancy, ->(vacancy) { where(vacancy_id: vacancy.id) }
   validates_with VacancyPriceValidator
 
   class << self
+    def by_vacancy vacancy
+      where(vacancy_id: vacancy.id).first
+    end
+    
     def bulk_create club, card, form
       ActiveRecord::Base.transaction do
         form.vacancy_ids.each do |vacancy_id|

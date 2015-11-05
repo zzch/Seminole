@@ -27,7 +27,7 @@ class Op::TabsController < Op::BaseController
   
   def member_set_up
     begin
-      @tab = Tab.set_up(tab_params.merge({ club_id: @current_club.id, operator_id: session['operator']['id'] }), params[:vacancy_id])
+      @tab = Tab.set_up(tab_params.merge({ club_id: @current_club.id, operator_id: session['operator']['id'] }), params[:vacancy_ids])
       redirect_to @tab, notice: '操作成功！'
     rescue AlreadyInUse
       render action: 'new'
@@ -37,7 +37,7 @@ class Op::TabsController < Op::BaseController
   def visitor_set_up
     begin
       user = User.find_or_create_visitor(Op::VisitorSetUpTab.new(params[:op_visitor_set_up_tab]))
-      @tab = Tab.set_up({ club_id: @current_club.id, user_id: user.id, operator_id: session['operator']['id'] }, params[:vacancy_id])
+      @tab = Tab.set_up({ club_id: @current_club.id, user_id: user.id, operator_id: session['operator']['id'] }, params[:vacancy_ids])
       redirect_to @tab, notice: '操作成功！'
     rescue AlreadyInUse
       render action: 'new'

@@ -13,7 +13,26 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'tab.vacancy' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, @vacancy.name, readonly: true, class: 'form-control' %>
+            <% Vacancy.locations.keys.each do |location| %>
+            <% unless @current_club.vacancies.located(location).blank? %>
+            <div class="well well-sm">
+              <h5 class="subtitle"><%= te_vacancy_location(location.to_sym) %></h5>
+              <div class="row">
+              <% @current_club.vacancies.located(location).each do |vacancy| %>
+              <div class="col-sm-2 small">
+                <div class="ckbox ckbox-primary">
+                  <%= check_box_tag :vacancy_ids, vacancy.id, (@vacancy.id == vacancy.id), id: "vacancy_id_#{vacancy.id}", name: 'vacancy', disabled: (vacancy.occupied? or vacancy.closed?), class: vacancy.tags.map{|tag| "vacancy tag-#{tag.id}"}.join(' ') %>
+                  <label for="vacancy_id_<%= vacancy.id %>"><%= vacancy.name %></label>
+                </div>
+              </div>
+              <% end %>
+              </div>
+            </div>
+            <% end %>
+            <% end %>
+            <% @current_club.vacancy_tags.each do |vacancy_tag| %>
+            <%= link_to vacancy_tag.name, 'javascript:false;', onclick: "toggleVacancy(#{vacancy_tag.id})", class: 'btn btn-primary btn-xs' %>&nbsp;
+            <% end %>
           </div>
         </div>
       </div>
@@ -26,8 +45,8 @@
         <div class="panel-heading">
           <h4 class="panel-title">会员身份</h4>
         </div>
-        <%= form_for @tab, url: member_set_up_tabs_path, html: { class: 'form-horizontal form-bordered' } do |f| %>
-          <%= hidden_field_tag :vacancy_id, nil, value: @vacancy.id if @vacancy %>
+        <%= form_for @tab, url: member_set_up_tabs_path, html: { id: 'member_set_up', class: 'form-horizontal form-bordered' } do |f| %>
+          <%= hidden_field_tag :'vacancy_ids', nil %>
           <div class="panel-body panel-body-nopadding">
             <div class="form-group">
               <label class="col-sm-3 control-label">会员</label>
@@ -50,8 +69,8 @@
         <div class="panel-heading">
           <h4 class="panel-title">访客身份</h4>
         </div>
-        <%= form_for @nar_form, url: visitor_set_up_tabs_path, html: { class: 'form-horizontal form-bordered' } do |f| %>
-          <%= hidden_field_tag :vacancy_id, nil, value: @vacancy.id if @vacancy %>
+        <%= form_for @nar_form, url: visitor_set_up_tabs_path, html: { id: 'visitor_set_up', class: 'form-horizontal form-bordered' } do |f| %>
+          <%= hidden_field_tag :'vacancy_ids', nil %>
           <div class="panel-body panel-body-nopadding">
             <div class="form-group">
               <label class="col-sm-3 control-label"><%= brac_amat 'op/visitor_set_up_tab.phone' %></label>
@@ -104,9 +123,22 @@
 </div>
 <% content_for :javascript do %>
   <script>
+    function toggleVacancy(tagId) {
+      if ($('.tag-' + tagId + ':not([disabled]):checked').length == $('.tag-' + tagId + ':not([disabled])').length) {
+        $('.tag-' + tagId + ':not([disabled])').prop('checked', false);
+      } else {
+        $('.tag-' + tagId + ':not([disabled])').prop('checked', true);
+      }
+    }
     jQuery(document).ready(function(){
       $('#tab_user_id').chosen({'width': '100%', 'white-space': 'nowrap'});
       $('#op_visitor_set_up_tab_phone').mask("999 - 9999 - 9999");
+      $('#member_set_up').on('submit', function(){
+        $('input[name=vacancy_ids]').val($('.vacancy:checked').map(function() {return this.value}).get());
+      });
+      $('#visitor_set_up').on('submit', function(){
+        $('input[name=vacancy_ids]').val($('.vacancy:checked').map(function() {return this.value}).get());
+      });
     });
   </script>
 <% end %>
