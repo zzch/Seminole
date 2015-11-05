@@ -1,5 +1,5 @@
 <div class="pageheader">
-  <h2><i class="fa fa-file-text-o"></i> 卡种管理 <span>查看</span></h2>
+  <h2><i class="fa fa-file-text-o"></i> 会员卡管理 <span>查看</span></h2>
 </div>
 <div class="contentpanel">
   <%= brac_flash %>
@@ -87,6 +87,7 @@
           <div class="col-sm-6">
             <%= text_field_tag nil, brac_price(@card.deposit), readonly: true, class: 'form-control' %>
           </div>
+        </div>
         <% end %>
       </div>
     <% end %>
@@ -94,6 +95,75 @@
       <%= link_to '返回', cards_path, class: 'btn btn-default' %>&nbsp;
       <%= link_to '编辑', edit_card_path(@card), class: 'btn btn-primary' %>&nbsp;
       <%= link_to '删除', @card, method: :delete, data: { confirm: '删除后无法恢复，确定要进行该操作吗？' }, class: 'btn btn-danger' %>&nbsp;
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">打位价格明细</h4>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-vacancy-price mb30">
+        <thead>
+          <tr>
+            <th>打位</th>
+            <th colspan="2">计时(平日)</th>
+            <th colspan="2">计时(假日)</th>
+            <th colspan="2">计球(平日)</th>
+            <th colspan="2">计球(假日)</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% Vacancy.locations.keys.each do |location| %>
+        <% unless @current_club.vacancies.located(location).blank? %>
+          <% @current_club.vacancies.located(location).each do |vacancy| %>
+          <tr>
+            <td><%= "#{te_vacancy_location(location.to_sym)} - #{vacancy.name}" %></td>
+            <% if @card.has_right?(vacancy) %>
+            <td><%= raw brac_price(@card_vacancy_prices[vacancy.id].try(:usual_price_per_hour)).try(:prepend, '<strong class="text-danger">').try(:concat, '</strong>') || '-' %></td>
+            <td>
+              <% if @card_vacancy_prices[vacancy.id].try(:usual_price_per_hour).blank? %>
+              <%= raw brac_price(vacancy.usual_price_per_hour).try(:prepend, '<strong class="text-danger">').try(:concat, '</strong>') || '-' %>
+              <% else %>
+              <%= raw brac_price(vacancy.usual_price_per_hour).try(:prepend, '<del>').try(:concat, '</del>') || '-' %>
+              <% end %>
+            </td>
+            <td><%= raw brac_price(@card_vacancy_prices[vacancy.id].try(:holiday_price_per_hour)).try(:prepend, '<strong class="text-danger">').try(:concat, '</strong>')  || '-' %></td>
+            <td>
+              <% if @card_vacancy_prices[vacancy.id].try(:holiday_price_per_hour).blank? %>
+              <%= raw brac_price(vacancy.holiday_price_per_hour).try(:prepend, '<strong class="text-danger">').try(:concat, '</strong>') || '-' %>
+              <% else %>
+              <%= raw brac_price(vacancy.holiday_price_per_hour).try(:prepend, '<del>').try(:concat, '</del>') || '-' %>
+              <% end %>
+            </td>
+            <td><%= raw brac_price(@card_vacancy_prices[vacancy.id].try(:usual_price_per_bucket)).try(:prepend, '<strong class="text-danger">').try(:concat, '</strong>')  || '-' %></td>
+            <td>
+              <% if @card_vacancy_prices[vacancy.id].try(:usual_price_per_bucket).blank? %>
+              <%= raw brac_price(vacancy.usual_price_per_bucket).try(:prepend, '<strong class="text-danger">').try(:concat, '</strong>') || '-' %>
+              <% else %>
+              <%= raw brac_price(vacancy.usual_price_per_bucket).try(:prepend, '<del>').try(:concat, '</del>') || '-' %>
+              <% end %>
+            </td>
+            <td><%= raw brac_price(@card_vacancy_prices[vacancy.id].try(:holiday_price_per_bucket)).try(:prepend, '<strong class="text-danger">').try(:concat, '</strong>') || '-' %></td>
+            <td>
+              <% if @card_vacancy_prices[vacancy.id].try(:holiday_price_per_bucket).blank? %>
+              <%= raw brac_price(vacancy.holiday_price_per_bucket).try(:prepend, '<strong class="text-danger">').try(:concat, '</strong>') || '-' %>
+              <% else %>
+              <%= raw brac_price(vacancy.holiday_price_per_bucket).try(:prepend, '<del>').try(:concat, '</del>') || '-' %>
+              <% end %>
+            </td>
+            <% else %>
+            <% 8.times do %>
+            <td>不可打</td>
+            <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-footer">
+      <%= link_to '批量设置价格', bulk_new_card_vacancy_prices_path(@card), class: 'btn btn-primary' %>
     </div>
   </div>
 </div>

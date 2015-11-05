@@ -74,7 +74,15 @@ Rails.application.routes.draw do
         put :open
       end
     end
-    resources :cards
+    resources :cards do
+      resources :vacancy_prices do
+        collection do
+          get :bulk_new
+          post :bulk_create
+        end
+      end
+    end
+    resources :vacancy_prices
     resources :provision_categories
     resources :provisions do
       member do

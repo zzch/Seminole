@@ -20,6 +20,8 @@ class Op::PlayingItemsController < Op::BaseController
       redirect_to checkout_tab_path(@playing_item.tab)
     rescue ActionController::ParameterMissing, InvalidParameter
       redirect_to checkout_tab_path(@playing_item.tab), alert: '操作失败！没有选择任何付款方式！'
+    rescue NoUseRights
+      redirect_to checkout_tab_path(@playing_item.tab), alert: '操作失败！会员卡无该打位的使用权！'
     rescue InvalidMember
       redirect_to checkout_tab_path(@playing_item.tab), alert: '操作失败！计费方式与会员卡类型不符！'
     rescue InvalidChargingType

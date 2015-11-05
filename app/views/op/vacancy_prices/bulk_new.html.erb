@@ -1,0 +1,111 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 会员卡管理 <span>批量设置价格</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @nar_form %>
+  <div class="panel panel-default">
+    <%= form_for @nar_form, url: bulk_create_card_vacancy_prices_path(@card), html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_amat 'op/bulk_create_vacancy_prices.vacancies' %></label>
+          <div class="col-sm-6">
+            <% Vacancy.locations.keys.each do |location| %>
+            <% unless @current_club.vacancies.located(location).blank? %>
+            <div class="well well-sm">
+              <h5 class="subtitle"><%= te_vacancy_location(location.to_sym) %></h5>
+              <div class="row">
+              <% @current_club.vacancies.located(location).each do |vacancy| %>
+              <div class="col-sm-2 small">
+                <div class="ckbox ckbox-primary">
+                  <%= f.check_box :vacancy_ids, { id: "vacancy_id_#{vacancy.id}", name: 'op_bulk_create_vacancy_prices[vacancy_ids][]', class: vacancy.tags.map{|tag| "tag-#{tag.id}"}.join(' '), disabled: !@card.has_right?(vacancy) }, vacancy.id %>
+                  <label for="vacancy_id_<%= vacancy.id %>"><%= vacancy.name %></label>
+                </div>
+              </div>
+              <% end %>
+              </div>
+            </div>
+            <% end %>
+            <% end %>
+            <% @current_club.vacancy_tags.each do |vacancy_tag| %>
+            <%= link_to vacancy_tag.name, 'javascript:false;', onclick: "toggleVacancy(#{vacancy_tag.id})", class: 'btn btn-primary btn-xs' %>&nbsp;
+            <% end %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_amat 'op/bulk_create_vacancy_prices.mode' %></label>
+          <div class="col-sm-1">
+            <div class="rdio rdio-primary mt5">
+              <%= f.radio_button :mode, :set, checked: true %>
+              <label for="op_bulk_create_vacancy_prices_mode_set">设置</label>
+            </div>
+          </div>
+          <div class="col-sm-1">
+            <div class="rdio rdio-danger mt5">
+              <%= f.radio_button :mode, :destroy %>
+              <label for="op_bulk_create_vacancy_prices_mode_destroy">删除</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'vacancy.price_per_hour' %></label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'vacancy.usual_price' %></span>
+              <%= f.text_field :usual_price_per_hour, class: 'form-control vacancy-price' %>
+              <span class="input-group-addon">元</span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'vacancy.holiday_price' %></span>
+              <%= f.text_field :holiday_price_per_hour, class: 'form-control vacancy-price' %>
+              <span class="input-group-addon">元</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'vacancy.price_per_bucket' %></label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'vacancy.usual_price' %></span>
+              <%= f.text_field :usual_price_per_bucket, class: 'form-control vacancy-price' %>
+              <span class="input-group-addon">元</span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <span class="input-group-addon"><%= brac_arat 'vacancy.holiday_price' %></span>
+              <%= f.text_field :holiday_price_per_bucket, class: 'form-control vacancy-price' %>
+              <span class="input-group-addon">元</span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= submit_tag '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', @card, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% content_for :javascript do %>
+  <script>
+    function toggleVacancy(tagId) {
+      if ($('.tag-' + tagId + ':not([disabled]):checked').length == $('.tag-' + tagId + ':not([disabled])').length) {
+        $('.tag-' + tagId + ':not([disabled])').prop('checked', false);
+      } else {
+        $('.tag-' + tagId + ':not([disabled])').prop('checked', true);
+      }
+    }
+    jQuery(document).ready(function() {
+      $('#op_bulk_create_vacancy_prices_mode_set').on('click', function () {
+        $('.vacancy-price').prop('disabled', false);
+      })
+      $('#op_bulk_create_vacancy_prices_mode_destroy').on('click', function () {
+        $('.vacancy-price').prop('disabled', true);
+      })
+    });
+  </script>
+<% end %>

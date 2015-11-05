@@ -70,3 +70,19 @@
     }
   }
 }
+
+.table-vacancy-price {
+  tbody {
+    tr {
+      td {
+        &:first-child {
+          width: 20%;
+        }
+        &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8), &:last-child {
+          width: 10%;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

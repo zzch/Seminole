@@ -18,7 +18,7 @@ class Card < ActiveRecord::Base
   validates :maximum_vacancies, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, unless: "unlimited_maximum_vacancies == '1'"
 
   def has_right? vacancy
-    VacancyTaggable.where(tag_id: self.vacancy_tag_ids).map{|taggable| taggable.vacancy_id}.uniq.include?(vacandy.id)
+    VacancyTaggable.where(tag_id: self.vacancy_tags.map(&:id)).map{|taggable| taggable.vacancy_id}.uniq.include?(vacancy.id)
   end
 
   def reset_use_rights_by_vacancy_tag_ids

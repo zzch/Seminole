@@ -7,6 +7,7 @@ class Op::CardsController < Op::BaseController
   end
   
   def show
+    @card_vacancy_prices = Hash[@card.vacancy_prices.map{|vacancy_price| [vacancy_price.vacancy_id, vacancy_price]}] if @card.type_stored?
   end
 
   def new

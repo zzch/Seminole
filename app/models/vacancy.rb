@@ -23,7 +23,7 @@ class Vacancy < ActiveRecord::Base
   end
   before_save :set_price
   scope :located, ->(location) { where(location_cd: location) }
-  validates :name, presence: true, length: { maximum: 10 }, uniqueness: { scope: :club_id }
+  validates :name, presence: true, length: { maximum: 10 }, uniqueness: { scope: [:club_id, :location_cd] }
   validates :location, presence: true
   validates_with VacancyPriceValidator
 

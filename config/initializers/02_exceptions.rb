@@ -23,5 +23,7 @@ exceptions = %w(
   InvalidItem
   InvalidChargingType
   MemberExists
+  NoUseRights
+  DuplicatedReservation
 )
 exceptions.each{|e| Object.const_set(e, Class.new(StandardError))} 

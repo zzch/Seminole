@@ -16,6 +16,8 @@ class Member < ActiveRecord::Base
   scope :by_time_card, -> { includes(:card).where(cards: { type_cd: :by_time }) }
   scope :unlimited_card, -> { includes(:card).where(cards: { type_cd: :unlimited }) }
   scope :stored_card, -> { includes(:card).where(cards: { type_cd: :stored }) }
+  scope :valid, -> { where('expired_at >= ?', Time.now) }
+  scope :expired, -> { where('expired_at < ?', Time.now) }
 
   def holder
     memberships.select{|membership| membership.role_holder?}.first.user

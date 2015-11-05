@@ -65,18 +65,20 @@ class PlayingItem < ActiveRecord::Base
   end
 
   def update_payment_method attributes
+    member = unless attributes[:member_id].blank?
+      Member.find(attributes[:member_id])
+    end
+    raise NoUseRights.new if member and !member.card.has_right?(self.vacancy)
     if attributes[:charging_type] == 'by_ball'
       if attributes[:member_id].blank?
         raise InvalidChargingType.new if self.vacancy.send("#{%w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'}_price_per_bucket").blank?
       else
-        member = Member.find(attributes[:member_id])
         raise InvalidChargingType.new if member.card.type_by_time?
       end
     elsif attributes[:charging_type] == 'by_time'
       if attributes[:member_id].blank?
         raise InvalidChargingType.new if self.vacancy.send("#{%w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'}_price_per_hour").blank?
       else
-        member = Member.find(attributes[:member_id])
         raise InvalidChargingType.new if member.card.type_by_ball?
       end
     end

@@ -28,9 +28,10 @@ module V1
       params do
         requires :token, type: String, desc: 'Token'
         requires :club_uuid, type: String, desc: '球场UUID'
+        optional :page, type: Integer, desc: '页数'
       end
       get do
-        promotions = @current_club.promotions.published.order(published_at: :desc)
+        promotions = @current_club.promotions.published.order(published_at: :desc).page(params[:page])
         present promotions, with: Promotions::Entities::List
       end
 

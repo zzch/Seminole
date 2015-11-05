@@ -277,7 +277,7 @@ zh:
         tags: 标签
         location: 位置
         price_per_hour: 每小时费用
-        price_per_bucket: 每粒球费用
+        price_per_bucket: 每筐球费用
         usual_price: 平日价
         holiday_price: 假日价
         state: 状态
@@ -328,6 +328,7 @@ zh:
         maximum_daily_balls: 每日最多用球
         maximum_daily_hours: 每日最多小时
         deposit: 充值金额
+        vacancy_price: 打位价格
       provision_category:
         name: 名称
       provision:
@@ -343,6 +344,8 @@ zh:
         created_at: 时间
         type: 类型
         item: 内容
+      card_vacancy_price:
+        vacancy: 打位
   activemodel:
     attributes:
       op/create_member:
@@ -377,3 +380,10 @@ zh:
         gender: 性别
         male: 男
         female: 女
+      op/bulk_create_vacancy_prices:
+        vacancies: 打位
+        mode: 操作模式
+        usual_price_per_hour: 每小时平日价
+        holiday_price_per_hour: 每小时假日价
+        usual_price_per_bucket: 每筐球平日价
+        holiday_price_per_bucket: 每筐球假日价

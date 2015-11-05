@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   as_enum :gender, [:male, :female], prefix: true, map: :string
   has_many :memberships
   has_many :members, through: :memberships
+  has_many :tabs
+  has_many :reservations
 
   def name
     if !last_name.blank? and !first_name.blank?
