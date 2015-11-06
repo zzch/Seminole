@@ -28,7 +28,11 @@ class API < Grape::API
 
   helpers do
     def api_error_or_exception code
-      error!(code, 200)
+      if code < 20000
+        error!(code, APIError.send("code_#{code}")[:status])
+      else
+        error!(code, 200)
+      end
     end
 
     def api_success
