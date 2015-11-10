@@ -7,6 +7,10 @@ module V1
       end unless datetime.nil?
     end
 
+    format_with(:price) do |price|
+      "#{sprintf('%0.02f', price)}元" unless price.blank?
+    end
+
     format_with(:float) do |float|
       float.try(:to_f)
     end

@@ -455,12 +455,12 @@ namespace :data do
   def fake_tabs options = {}
     user, club = options[:user], options[:club]
     entrance_date = Time.now.beginning_of_day - 1.year
-    40.times do
+    20.times do
       tab = Tab.set_up({ club_id: club.id, user_id: user.id, operator_id: club.operator_ids.sample }, club.vacancy_ids.sample(rand(1..3)).join(','))
       playing_minutes = rand(40..160).minutes
       tab.update!(entrance_time: entrance_date + rand(560..860).minutes)
       tab.playing_items.each do |playing_item|
-        rand(1..8).times do
+        rand(1..4).times do
           playing_item.balls.create!(amount: 30 * rand(1..4))
         end
         playing_item.finish!
@@ -473,7 +473,7 @@ namespace :data do
         member_id = user.members.select{|m| m.card.type_by_time?}.first.try(:id)
         playing_item.update_payment_method(charging_type: :by_time, payment_method: payment_method, member_id: member_id)
       end
-      rand(0..5).times do
+      rand(0..3).times do
         provision_item = tab.provision_items.create!(provision_id: club.provisions.sample.id, quantity: rand(1..4))
         provision_item.update_payment_method(payment_method: [:credit_card, :cash].sample)
       end
