@@ -9,7 +9,8 @@ class CreateTabs < ActiveRecord::Migration
       t.decimal :price, precision: 7, scale: 2
       t.string :confirm_method_cd, limit: 20
       t.string :state, limit: 20, null: false
-      t.datetime :finished_at
+      t.datetime :entrance_time, null: false
+      t.datetime :departure_time
       t.timestamps null: false
     end
   end

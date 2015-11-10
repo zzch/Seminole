@@ -55,6 +55,7 @@ class API < Grape::API
   end
 
   mount V1::SessionsAPI
+  mount V1::ManagementsAPI
   
   namespace do
     before do

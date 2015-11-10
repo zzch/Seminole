@@ -19,10 +19,10 @@ class Tab < ActiveRecord::Base
       transitions from: :progressing, to: :finished
     end
   end
-  before_create :set_sequence
+  before_create :set_sequence, :set_entrance_time
 
   def before_cancel
-    self.update!(finished_at: Time.now)
+    self.update!(departure_time: Time.now)
     self.vacancies.each do |vacancy|
       vacancy.update(tab: nil)
     end
@@ -54,7 +54,7 @@ class Tab < ActiveRecord::Base
       raise InvalidState.new unless self.progressing?
       self.lock!
       self.finish!
-      self.update!(finished_at: Time.now)
+      self.update!(departure_time: Time.now)
       self.vacancies.each do |vacancy|
         vacancy.update!(tab: nil)
       end
@@ -142,5 +142,9 @@ class Tab < ActiveRecord::Base
   protected
     def set_sequence
       self.sequence = (Tab.where(club_id: self.club_id).maximum(:sequence) || 0) + 1
+    end
+
+    def set_entrance_time
+      self.entrance_time ||= Time.now
     end
 end

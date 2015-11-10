@@ -55,16 +55,10 @@ namespace :data do
           { type: :by_ball, name: '15800元 计球卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 15800.00, total_amount: 10000, valid_months: 24, maximum_vacancies: 3, ball_amount: 20000 },
           { type: :stored, name: '49800元 储值卡', background_color: Faker::Number.hexadecimal(6), font_color: Faker::Number.hexadecimal(6), price: 45800.00, total_amount: 2000, valid_months: 36, maximum_vacancies: 5, deposit: 45800 }
         ])
-        100.times do
-          member = club.members.create_with_user(club, Op::CreateMember.new(phone: "1#{[3, 5, 8].sample}#{Faker::Number.number(9)}", last_name: Faker::Name.first_name, first_name: Faker::Name.last_name, gender: [:male, :female].sample, number: rand(107180..118000), card_id: club.cards.sample.id))
-          member.update(created_at: Time.now - rand(8000..80000).minutes)
-        end
-        [{ phone: 13911320927, last_name: '王', first_name: '皓' },
-          { phone: 18686879306, last_name: '王', first_name: '萌' },
-          { phone: 15010177980, last_name: '戴', first_name: '诚' }].each do |user|
-          member = club.members.create_with_user(club, Op::CreateMember.new(phone: user[:phone], last_name: user[:last_name], first_name: user[:first_name], gender: :male, number: rand(107180..118000), card_id: club.cards.sample.id))
-          member.update!(created_at: '2015-09-27 09:27:00')
-          User.sign_in(user[:phone], 8888)
+        club.cards.each do |card|
+          club.vacancy_tags.each do |vacancy_tag|
+            UseRight.create!(card: card, vacancy_tag: vacancy_tag)
+          end
         end
         club.provision_categories.create!(name: '饮品').provisions.create!([
           { serial_number: 1732, name: '可乐', image: fake_image_file, price: '6.00' },
@@ -94,6 +88,18 @@ namespace :data do
         end
         3.times do
           club.promotions.create!(image: fake_image_file, title: "#{(Time.now - rand(10..100).days).strftime('%m月%d日')}商城活动公告", content: Faker::Lorem.sentence(80), published_at: Time.now - rand(100..5000).minutes, state: :published)
+        end
+        100.times do
+          member = club.members.create_with_user(club, Op::CreateMember.new(phone: "1#{[3, 5, 8].sample}#{Faker::Number.number(9)}", last_name: Faker::Name.first_name, first_name: Faker::Name.last_name, gender: [:male, :female].sample, number: rand(107180..118000), card_id: club.cards.sample.id))
+          member.update(created_at: Time.now - rand(8000..80000).minutes)
+        end
+        [{ phone: 13911320927, last_name: '王', first_name: '皓' },
+          { phone: 18686879306, last_name: '王', first_name: '萌' },
+          { phone: 15010177980, last_name: '戴', first_name: '诚' }].each do |user|
+          member = club.members.create_with_user(club, Op::CreateMember.new(phone: user[:phone], last_name: user[:last_name], first_name: user[:first_name], gender: :male, number: rand(107180..118000), card_id: club.cards.sample.id))
+          member.update!(created_at: '2015-09-27 09:27:00')
+          fake_tabs(user: User.where(phone: user[:phone]).first, club: club)
+          User.sign_in(user[:phone], 8888)
         end
       end
       Club.first.tap do |club|
@@ -412,27 +418,27 @@ namespace :data do
           end
         end
         club.provision_categories.create!(name: '饮品').provisions.create!([
-          { serial_number: 1732, name: '尖叫', image: nil, price: '10.00' },
-          { serial_number: 1894, name: '脉动', image: nil, price: '10.00' },
-          { serial_number: 1897, name: '苏打水', image: nil, price: '10.00' },
-          { serial_number: 1897, name: '红牛', image: nil, price: '15.00' },
-          { serial_number: 1897, name: '矿泉水', image: nil, price: '6.00' },
-          { serial_number: 1897, name: '王老吉', image: nil, price: '8.00' },
-          { serial_number: 1897, name: '可乐(听)', image: nil, price: '5.00' },
-          { serial_number: 1897, name: '雪碧(听)', image: nil, price: '5.00' }
+          { serial_number: 1001, name: '尖叫', image: nil, price: '10.00' },
+          { serial_number: 1002, name: '脉动', image: nil, price: '10.00' },
+          { serial_number: 1003, name: '苏打水', image: nil, price: '10.00' },
+          { serial_number: 1004, name: '红牛', image: nil, price: '15.00' },
+          { serial_number: 1005, name: '矿泉水', image: nil, price: '6.00' },
+          { serial_number: 1006, name: '王老吉', image: nil, price: '8.00' },
+          { serial_number: 1007, name: '可乐(听)', image: nil, price: '5.00' },
+          { serial_number: 1008, name: '雪碧(听)', image: nil, price: '5.00' }
         ])
         club.provision_categories.create!(name: '简餐').provisions.create!([
-          { serial_number: 1732, name: '牛肉套餐', image: nil, price: '48.00' },
-          { serial_number: 1894, name: '咖喱鸡肉套餐', image: nil, price: '38.00' },
-          { serial_number: 1897, name: '麻婆豆腐饭套餐', image: nil, price: '28.00' },
-          { serial_number: 1897, name: '西红柿鸡蛋饭套餐', image: nil, price: '28.00' },
-          { serial_number: 1897, name: '炒面', image: nil, price: '18.00' },
-          { serial_number: 1897, name: '蔬菜沙拉', image: nil, price: '18.00' },
-          { serial_number: 1897, name: '牛肉面', image: nil, price: '38.00' },
-          { serial_number: 1897, name: '炸酱面', image: nil, price: '28.00' },
-          { serial_number: 1897, name: '西红柿鸡蛋面', image: nil, price: '26.00' },
-          { serial_number: 1897, name: '扬州炒饭', image: nil, price: '18.00' },
-          { serial_number: 1897, name: '鸡蛋炒饭', image: nil, price: '18.00' }
+          { serial_number: 2001, name: '牛肉套餐', image: nil, price: '48.00' },
+          { serial_number: 2002, name: '咖喱鸡肉套餐', image: nil, price: '38.00' },
+          { serial_number: 2003, name: '麻婆豆腐饭套餐', image: nil, price: '28.00' },
+          { serial_number: 2004, name: '西红柿鸡蛋饭套餐', image: nil, price: '28.00' },
+          { serial_number: 2005, name: '炒面', image: nil, price: '18.00' },
+          { serial_number: 2006, name: '蔬菜沙拉', image: nil, price: '18.00' },
+          { serial_number: 2007, name: '牛肉面', image: nil, price: '38.00' },
+          { serial_number: 2008, name: '炸酱面', image: nil, price: '28.00' },
+          { serial_number: 2009, name: '西红柿鸡蛋面', image: nil, price: '26.00' },
+          { serial_number: 2010, name: '扬州炒饭', image: nil, price: '18.00' },
+          { serial_number: 2011, name: '鸡蛋炒饭', image: nil, price: '18.00' }
         ])
       end
     end
@@ -443,6 +449,38 @@ namespace :data do
       rand(1..10) > 3 ? File.open(File.join(Rails.root, 'public', 'abstract_images', "#{rand(1..200).to_s.rjust(3, '0')}.jpg")) : nil
     else
       File.open(File.join(Rails.root, 'public', 'abstract_images', "#{rand(1..200).to_s.rjust(3, '0')}.jpg"))
+    end
+  end
+
+  def fake_tabs options = {}
+    user, club = options[:user], options[:club]
+    entrance_date = Time.now.beginning_of_day - 1.year
+    40.times do
+      tab = Tab.set_up({ club_id: club.id, user_id: user.id, operator_id: club.operator_ids.sample }, club.vacancy_ids.sample(rand(1..3)).join(','))
+      playing_minutes = rand(40..160).minutes
+      tab.update!(entrance_time: entrance_date + rand(560..860).minutes)
+      tab.playing_items.each do |playing_item|
+        rand(1..8).times do
+          playing_item.balls.create!(amount: 30 * rand(1..4))
+        end
+        playing_item.finish!
+        playing_item.update!(started_at: tab.entrance_time, finished_at: tab.entrance_time + playing_minutes)
+        payment_method = if user.members.map{|m| m.card.type}.include?(:by_time)
+          'by_time_member'
+        else
+          ['credit_card', 'cash'].sample
+        end
+        member_id = user.members.select{|m| m.card.type_by_time?}.first.try(:id)
+        playing_item.update_payment_method(charging_type: :by_time, payment_method: payment_method, member_id: member_id)
+      end
+      rand(0..5).times do
+        provision_item = tab.provision_items.create!(provision_id: club.provisions.sample.id, quantity: rand(1..4))
+        provision_item.update_payment_method(payment_method: [:credit_card, :cash].sample)
+      end
+      tab.reload
+      tab.confirm(:by_app)
+      tab.update!(departure_time: tab.entrance_time + playing_minutes)
+      entrance_date += rand(1..10).days
     end
   end
 end
