@@ -11,13 +11,13 @@ class Vacancy < ActiveRecord::Base
     state :opened, initial: true
     state :closed
     state :trashed
-    event :close, before: :check_before_close do
+    event :close do
       transitions from: :opened, to: :closed
     end
     event :open do
       transitions from: :closed, to: :opened
     end
-    event :trash, before: :check_before_trash do
+    event :trash do
       transitions to: :trashed
     end
   end

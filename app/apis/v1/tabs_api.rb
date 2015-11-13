@@ -33,9 +33,11 @@ module V1
       params do
         requires :token, type: String, desc: 'Token'
         requires :club_uuid, type: String, desc: '球场UUID'
+        optional :page, type: Integer, desc: '页码'
       end
       get do
-        present @current_user.tabs.order(created_at: :desc), with: Tabs::Entities::List
+        tabs = @current_user.tabs.order(created_at: :desc).page(params[:page])
+        present tabs, with: Tabs::Entities::List
       end
     end
   end
