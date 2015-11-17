@@ -418,100 +418,6 @@ namespace :data do
             club.members.create_with_user(club, Op::CreateMember.new(phone: member[:phone], last_name: member[:last_name], first_name: member[:first_name], gender: member[:gender], number: member[:number], card_id: card.id))
           end
         end
-        ################  绿色印象卡/计球卡 (7人)
-        club.cards.create!(type: :by_ball, name: '绿色印象计球卡', background_color: '298c2e', font_color: 'ffffff', price: 1, total_amount: 0, valid_months: 12, maximum_vacancies: 0, ball_amount: 20000, vacancy_tag_ids: [regular_tag.id]).tap do |card|
-          card.reset_use_rights_by_vacancy_tag_ids
-          [{ number: 'LS001', last_name: '穆', first_name: '飞', gender: :male, phone: '13701037884' },
-          { number: 'LS002', last_name: '郑', first_name: '建生', gender: :male, phone: '13910702021' },
-          { number: 'LS003', last_name: '梁', first_name: '程超', gender: :male, phone: '13810066253' },
-          { number: 'LS004', last_name: '郭', first_name: '加', gender: :male, phone: '13801225770' },
-          { number: 'LS005', last_name: '杨', first_name: '向东', gender: :male, phone: '13701313095' },
-          { number: 'LS006', last_name: '黄', first_name: '佳利', gender: :male, phone: '13701193371' },
-          { number: 'LS007', last_name: '杨', first_name: '东升', gender: :male, phone: '13848287333' },
-          { number: 'LS008', last_name: '李', first_name: '云峰', gender: :male, phone: '13501211191' },
-          { number: 'LS009', last_name: '陈', first_name: '瑜', gender: :male, phone: '13601271666' },
-          { number: 'LS010', last_name: '赵', first_name: '永松', gender: :male, phone: '13901216864' },
-          { number: 'LS011', last_name: '林', first_name: '克青', gender: :male, phone: '18611628266' },
-          { number: 'LS012', last_name: '谢', first_name: '贤辉', gender: :male, phone: '13911725679' },
-          { number: 'LS013', last_name: '薛', first_name: '凡伟', gender: :male, phone: '18101078787' },
-          { number: 'LS014', last_name: '李', first_name: '卫', gender: :male, phone: '13501180901' },
-          { number: 'LS015', last_name: '贾', first_name: '浩', gender: :male, phone: '13911569865' },
-          { number: 'LS016', last_name: '商', first_name: '晓军', gender: :male, phone: '18010105056' },
-          { number: 'LS017', last_name: '陈', first_name: '晓波', gender: :male, phone: '13911193017' },
-          { number: 'LS018', last_name: '何', first_name: '威', gender: :male, phone: '13601056901' },
-          { number: 'LS019', last_name: '刘', first_name: '久亮', gender: :male, phone: '13301305619' },
-          { number: 'LS020', last_name: '金', first_name: '剑', gender: :male, phone: '13701199575' },
-          { number: 'LS021', last_name: '于', first_name: '洪燕', gender: :male, phone: '13911135075' },
-          { number: 'LS022', last_name: '刘', first_name: '国权', gender: :male, phone: '18610518811' },
-          { number: 'LS023', last_name: '韩', first_name: '迎', gender: :male, phone: '13810760278' },
-          { number: 'LS024', last_name: '毕', first_name: '文合', gender: :male, phone: '13370186889' },
-          { number: 'LS025', last_name: '郑', first_name: '周平', gender: :male, phone: '13911194449' },
-          { number: 'LS026', last_name: '段', first_name: '奇', gender: :male, phone: '13900633601' },
-          { number: 'LS027', last_name: '王', first_name: '照宣', gender: :male, phone: '18610298919' },
-          { number: 'LS028', last_name: '王', first_name: '睿佳', gender: :male, phone: '13001970848' },
-          { number: 'LS029', last_name: '王', first_name: '胜勇', gender: :male, phone: '13701003248' },
-          { number: 'LS030', last_name: '李', first_name: '涛', gender: :male, phone: '13911616156' },
-          { number: 'LS031', last_name: '崔', first_name: '斐斐', gender: :male, phone: '13031003947' },
-          { number: 'LS032', last_name: '柴', first_name: '延宁', gender: :male, phone: '18600952092' },
-          { number: 'LS033', last_name: '杨', first_name: '贵贤', gender: :male, phone: '13701287331' },
-          { number: 'LS034', last_name: '易', first_name: '芬芬', gender: :male, phone: '18101097933' },
-          { number: 'LS035', last_name: '谢', first_name: '谦', gender: :male, phone: '13581510365' },
-          { number: 'LS036', last_name: '何', first_name: '贤周', gender: :male, phone: '13911500997' },
-          { number: 'LS037', last_name: '王', first_name: '健', gender: :male, phone: '13436518409' },
-          { number: 'LS038', last_name: '宋', first_name: '佳', gender: :male, phone: '13811531770' },
-          { number: 'LS039', last_name: '孙', first_name: '志华', gender: :male, phone: '13901298882' },
-          { number: 'LS040', last_name: '王', first_name: '越', gender: :male, phone: '13901393341' },
-          { number: 'LS041', last_name: '迟', first_name: '春玲', gender: :male, phone: '18600261107' },
-          { number: 'LS042', last_name: '蔡', first_name: '娜', gender: :male, phone: '13701131234' },
-          { number: 'LS043', last_name: '施', first_name: '红梅', gender: :male, phone: '13910286716' },
-          { number: 'LS044', last_name: '陈', first_name: '清堂', gender: :male, phone: '13701155067' }].each do |member|
-            club.members.create_with_user(club, Op::CreateMember.new(phone: member[:phone], last_name: member[:last_name], first_name: member[:first_name], gender: member[:gender], number: member[:number], card_id: card.id))
-          end
-          User.where(phone: '13701037884').first.members.by_club(club).first.update!(ball_amount: 7350)
-          User.where(phone: '13910702021').first.members.by_club(club).first.update!(ball_amount: 5100)
-          User.where(phone: '13810066253').first.members.by_club(club).first.update!(ball_amount: 3540)
-          User.where(phone: '13801225770').first.members.by_club(club).first.update!(ball_amount: 6210)
-          User.where(phone: '13701313095').first.members.by_club(club).first.update!(ball_amount: 2160)
-          User.where(phone: '13701193371').first.members.by_club(club).first.update!(ball_amount: 8700)
-          User.where(phone: '13848287333').first.members.by_club(club).first.update!(ball_amount: 21390)
-          User.where(phone: '13501211191').first.members.by_club(club).first.update!(ball_amount: 11340)
-          User.where(phone: '13601271666').first.members.by_club(club).first.update!(ball_amount: 2280)
-          User.where(phone: '13901216864').first.members.by_club(club).first.update!(ball_amount: 6300)
-          User.where(phone: '18611628266').first.members.by_club(club).first.update!(ball_amount: 17580)
-          User.where(phone: '13911725679').first.members.by_club(club).first.update!(ball_amount: 9090)
-          User.where(phone: '18101078787').first.members.by_club(club).first.update!(ball_amount: 10080)
-          User.where(phone: '13501180901').first.members.by_club(club).first.update!(ball_amount: 14400)
-          User.where(phone: '13911569865').first.members.by_club(club).first.update!(ball_amount: 25500)
-          User.where(phone: '18010105056').first.members.by_club(club).first.update!(ball_amount: 11400)
-          User.where(phone: '13911193017').first.members.by_club(club).first.update!(ball_amount: 1650)
-          User.where(phone: '13601056901').first.members.by_club(club).first.update!(ball_amount: 12390)
-          User.where(phone: '13301305619').first.members.by_club(club).first.update!(ball_amount: 12900)
-          User.where(phone: '13701199575').first.members.by_club(club).first.update!(ball_amount: 3090)
-          User.where(phone: '13911135075').first.members.by_club(club).first.update!(ball_amount: 9510)
-          User.where(phone: '18610518811').first.members.by_club(club).first.update!(ball_amount: 7590)
-          User.where(phone: '13810760278').first.members.by_club(club).first.update!(ball_amount: 14610)
-          User.where(phone: '13370186889').first.members.by_club(club).first.update!(ball_amount: 7500)
-          User.where(phone: '13911194449').first.members.by_club(club).first.update!(ball_amount: 10410)
-          User.where(phone: '13900633601').first.members.by_club(club).first.update!(ball_amount: 9450)
-          User.where(phone: '18610298919').first.members.by_club(club).first.update!(ball_amount: 10410)
-          User.where(phone: '13001970848').first.members.by_club(club).first.update!(ball_amount: 14250)
-          User.where(phone: '13701003248').first.members.by_club(club).first.update!(ball_amount: 11550)
-          User.where(phone: '13911616156').first.members.by_club(club).first.update!(ball_amount: 10290)
-          User.where(phone: '13031003947').first.members.by_club(club).first.update!(ball_amount: 12000)
-          User.where(phone: '18600952092').first.members.by_club(club).first.update!(ball_amount: 4290)
-          User.where(phone: '13701287331').first.members.by_club(club).first.update!(ball_amount: 7110)
-          User.where(phone: '18101097933').first.members.by_club(club).first.update!(ball_amount: 8040)
-          User.where(phone: '13581510365').first.members.by_club(club).first.update!(ball_amount: 9990)
-          User.where(phone: '13911500997').first.members.by_club(club).first.update!(ball_amount: 6990)
-          User.where(phone: '13436518409').first.members.by_club(club).first.update!(ball_amount: 8430)
-          User.where(phone: '13811531770').first.members.by_club(club).first.update!(ball_amount: 3450)
-          User.where(phone: '13901298882').first.members.by_club(club).first.update!(ball_amount: 11700)
-          User.where(phone: '13901393341').first.members.by_club(club).first.update!(ball_amount: 9210)
-          User.where(phone: '18600261107').first.members.by_club(club).first.update!(ball_amount: 14640)
-          User.where(phone: '13701131234').first.members.by_club(club).first.update!(ball_amount: 6000)
-          User.where(phone: '13910286716').first.members.by_club(club).first.update!(ball_amount: 5490)
-          User.where(phone: '13701155067').first.members.by_club(club).first.update!(ball_amount: 12900)
-        end
         club.provision_categories.create!(name: '饮品').provisions.create!([
           { serial_number: 1001, name: '尖叫', image: nil, price: '10.00' },
           { serial_number: 1002, name: '脉动', image: nil, price: '10.00' },
@@ -536,6 +442,106 @@ namespace :data do
           { serial_number: 2011, name: '鸡蛋炒饭', image: nil, price: '18.00' }
         ])
       end
+    end
+  end
+
+  desc 'Initialize data for Green Driving Range.'
+  task green_init: :environment do
+    club = Club.where(code: 'perfect').first
+    regular_tag = VacancyTag.where(club_id: club.id, name: '普通打位').first
+    ################  绿色印象卡/计球卡 (7人)
+    club.cards.create!(type: :by_ball, name: '绿色印象计球卡', background_color: '298c2e', font_color: 'ffffff', price: 1, total_amount: 0, valid_months: 12, maximum_vacancies: 0, ball_amount: 20000, vacancy_tag_ids: [regular_tag.id]).tap do |card|
+      card.reset_use_rights_by_vacancy_tag_ids
+      [{ number: 'LS001', last_name: '穆', first_name: '飞', gender: :male, phone: '13701037884' },
+      { number: 'LS002', last_name: '郑', first_name: '建生', gender: :male, phone: '13910702021' },
+      { number: 'LS003', last_name: '梁', first_name: '程超', gender: :male, phone: '13810066253' },
+      { number: 'LS004', last_name: '郭', first_name: '加', gender: :male, phone: '13801225770' },
+      { number: 'LS005', last_name: '杨', first_name: '向东', gender: :male, phone: '13701313095' },
+      { number: 'LS006', last_name: '黄', first_name: '佳利', gender: :male, phone: '13701193371' },
+      { number: 'LS007', last_name: '杨', first_name: '东升', gender: :male, phone: '13848287333' },
+      { number: 'LS008', last_name: '李', first_name: '云峰', gender: :male, phone: '13501211191' },
+      { number: 'LS009', last_name: '陈', first_name: '瑜', gender: :male, phone: '13601271666' },
+      { number: 'LS010', last_name: '赵', first_name: '永松', gender: :male, phone: '13901216864' },
+      { number: 'LS011', last_name: '林', first_name: '克青', gender: :male, phone: '18611628266' },
+      { number: 'LS012', last_name: '谢', first_name: '贤辉', gender: :male, phone: '13911725679' },
+      { number: 'LS013', last_name: '薛', first_name: '凡伟', gender: :male, phone: '18101078787' },
+      { number: 'LS014', last_name: '李', first_name: '卫', gender: :male, phone: '13501180901' },
+      { number: 'LS015', last_name: '贾', first_name: '浩', gender: :male, phone: '13911569865' },
+      { number: 'LS016', last_name: '商', first_name: '晓军', gender: :male, phone: '18010105056' },
+      { number: 'LS017', last_name: '陈', first_name: '晓波', gender: :male, phone: '13911193017' },
+      { number: 'LS018', last_name: '何', first_name: '威', gender: :male, phone: '13601056901' },
+      { number: 'LS019', last_name: '刘', first_name: '久亮', gender: :male, phone: '13301305619' },
+      { number: 'LS020', last_name: '金', first_name: '剑', gender: :male, phone: '13701199575' },
+      { number: 'LS021', last_name: '于', first_name: '洪燕', gender: :male, phone: '13911135075' },
+      { number: 'LS022', last_name: '刘', first_name: '国权', gender: :male, phone: '18610518811' },
+      { number: 'LS023', last_name: '韩', first_name: '迎', gender: :male, phone: '13810760278' },
+      { number: 'LS024', last_name: '毕', first_name: '文合', gender: :male, phone: '13370186889' },
+      { number: 'LS025', last_name: '郑', first_name: '周平', gender: :male, phone: '13911194449' },
+      { number: 'LS026', last_name: '段', first_name: '奇', gender: :male, phone: '13900633601' },
+      { number: 'LS027', last_name: '王', first_name: '照宣', gender: :male, phone: '18610298919' },
+      { number: 'LS028', last_name: '王', first_name: '睿佳', gender: :male, phone: '13001970848' },
+      { number: 'LS029', last_name: '王', first_name: '胜勇', gender: :male, phone: '13701003248' },
+      { number: 'LS030', last_name: '李', first_name: '涛', gender: :male, phone: '13911616156' },
+      { number: 'LS031', last_name: '崔', first_name: '斐斐', gender: :male, phone: '13031003947' },
+      { number: 'LS032', last_name: '柴', first_name: '延宁', gender: :male, phone: '18600952092' },
+      { number: 'LS033', last_name: '杨', first_name: '贵贤', gender: :male, phone: '13701287331' },
+      { number: 'LS034', last_name: '易', first_name: '芬芬', gender: :male, phone: '18101097933' },
+      { number: 'LS035', last_name: '谢', first_name: '谦', gender: :male, phone: '13581510365' },
+      { number: 'LS036', last_name: '何', first_name: '贤周', gender: :male, phone: '13911500997' },
+      { number: 'LS037', last_name: '王', first_name: '健', gender: :male, phone: '13436518409' },
+      { number: 'LS038', last_name: '宋', first_name: '佳', gender: :male, phone: '13811531770' },
+      { number: 'LS039', last_name: '孙', first_name: '志华', gender: :male, phone: '13901298882' },
+      { number: 'LS040', last_name: '王', first_name: '越', gender: :male, phone: '13901393341' },
+      { number: 'LS041', last_name: '迟', first_name: '春玲', gender: :male, phone: '18600261107' },
+      { number: 'LS042', last_name: '蔡', first_name: '娜', gender: :male, phone: '13701131234' },
+      { number: 'LS043', last_name: '施', first_name: '红梅', gender: :male, phone: '13910286716' },
+      { number: 'LS044', last_name: '陈', first_name: '清堂', gender: :male, phone: '13701155067' }].each do |member|
+        club.members.create_with_user(club, Op::CreateMember.new(phone: member[:phone], last_name: member[:last_name], first_name: member[:first_name], gender: member[:gender], number: member[:number], card_id: card.id))
+      end
+      User.where(phone: '13701037884').first.members.by_club(club).first.update!(ball_amount: 7350)
+      User.where(phone: '13910702021').first.members.by_club(club).first.update!(ball_amount: 5100)
+      User.where(phone: '13810066253').first.members.by_club(club).first.update!(ball_amount: 3540)
+      User.where(phone: '13801225770').first.members.by_club(club).first.update!(ball_amount: 6210)
+      User.where(phone: '13701313095').first.members.by_club(club).first.update!(ball_amount: 2160)
+      User.where(phone: '13701193371').first.members.by_club(club).first.update!(ball_amount: 8700)
+      User.where(phone: '13848287333').first.members.by_club(club).first.update!(ball_amount: 21390)
+      User.where(phone: '13501211191').first.members.by_club(club).first.update!(ball_amount: 11340)
+      User.where(phone: '13601271666').first.members.by_club(club).first.update!(ball_amount: 2280)
+      User.where(phone: '13901216864').first.members.by_club(club).first.update!(ball_amount: 6300)
+      User.where(phone: '18611628266').first.members.by_club(club).first.update!(ball_amount: 17580)
+      User.where(phone: '13911725679').first.members.by_club(club).first.update!(ball_amount: 9090)
+      User.where(phone: '18101078787').first.members.by_club(club).first.update!(ball_amount: 10080)
+      User.where(phone: '13501180901').first.members.by_club(club).first.update!(ball_amount: 14400)
+      User.where(phone: '13911569865').first.members.by_club(club).first.update!(ball_amount: 25500)
+      User.where(phone: '18010105056').first.members.by_club(club).first.update!(ball_amount: 11400)
+      User.where(phone: '13911193017').first.members.by_club(club).first.update!(ball_amount: 1650)
+      User.where(phone: '13601056901').first.members.by_club(club).first.update!(ball_amount: 12390)
+      User.where(phone: '13301305619').first.members.by_club(club).first.update!(ball_amount: 12900)
+      User.where(phone: '13701199575').first.members.by_club(club).first.update!(ball_amount: 3090)
+      User.where(phone: '13911135075').first.members.by_club(club).first.update!(ball_amount: 9510)
+      User.where(phone: '18610518811').first.members.by_club(club).first.update!(ball_amount: 7590)
+      User.where(phone: '13810760278').first.members.by_club(club).first.update!(ball_amount: 14610)
+      User.where(phone: '13370186889').first.members.by_club(club).first.update!(ball_amount: 7500)
+      User.where(phone: '13911194449').first.members.by_club(club).first.update!(ball_amount: 10410)
+      User.where(phone: '13900633601').first.members.by_club(club).first.update!(ball_amount: 9450)
+      User.where(phone: '18610298919').first.members.by_club(club).first.update!(ball_amount: 10410)
+      User.where(phone: '13001970848').first.members.by_club(club).first.update!(ball_amount: 14250)
+      User.where(phone: '13701003248').first.members.by_club(club).first.update!(ball_amount: 11550)
+      User.where(phone: '13911616156').first.members.by_club(club).first.update!(ball_amount: 10290)
+      User.where(phone: '13031003947').first.members.by_club(club).first.update!(ball_amount: 12000)
+      User.where(phone: '18600952092').first.members.by_club(club).first.update!(ball_amount: 4290)
+      User.where(phone: '13701287331').first.members.by_club(club).first.update!(ball_amount: 7110)
+      User.where(phone: '18101097933').first.members.by_club(club).first.update!(ball_amount: 8040)
+      User.where(phone: '13581510365').first.members.by_club(club).first.update!(ball_amount: 9990)
+      User.where(phone: '13911500997').first.members.by_club(club).first.update!(ball_amount: 6990)
+      User.where(phone: '13436518409').first.members.by_club(club).first.update!(ball_amount: 8430)
+      User.where(phone: '13811531770').first.members.by_club(club).first.update!(ball_amount: 3450)
+      User.where(phone: '13901298882').first.members.by_club(club).first.update!(ball_amount: 11700)
+      User.where(phone: '13901393341').first.members.by_club(club).first.update!(ball_amount: 9210)
+      User.where(phone: '18600261107').first.members.by_club(club).first.update!(ball_amount: 14640)
+      User.where(phone: '13701131234').first.members.by_club(club).first.update!(ball_amount: 6000)
+      User.where(phone: '13910286716').first.members.by_club(club).first.update!(ball_amount: 5490)
+      User.where(phone: '13701155067').first.members.by_club(club).first.update!(ball_amount: 12900)
     end
   end
 
