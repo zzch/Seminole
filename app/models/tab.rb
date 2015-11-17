@@ -20,6 +20,7 @@ class Tab < ActiveRecord::Base
     end
   end
   before_create :set_sequence, :set_entrance_time
+  scope :by_club, ->(club) { where(club_id: club.id) }
 
   def before_cancel
     self.update!(departure_time: Time.now)
