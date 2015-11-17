@@ -22,6 +22,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'club.logo' %></label>
+          <div class="col-sm-2">
+            <%= text_field_tag nil, image_tag(@club.logo.w600_h600_fl_q80.url, class: 'img-responsive'), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'club.position' %></label>
           <div class="col-sm-3">
             <div class="input-group">
