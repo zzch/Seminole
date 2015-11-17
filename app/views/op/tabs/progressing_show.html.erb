@@ -90,17 +90,13 @@
     <% end %>
     <% unless @tab.playing_items.by_vacancy(vacancy).finished? %>
     <div class="panel-footer">
-      <div class="btn-group mt10">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-          加球 <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <% (1..6).each do |i| %>
-          <%= content_tag :li, link_to("#{i}筐", playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy), Ball.new, amount: @current_club.balls_per_bucket * i), method: :post) %>
-          <% end %>
-        </ul>
-      </div>&nbsp;
-      <%= link_to '结束', finish_playing_item_path(@tab.playing_items.by_vacancy(vacancy)), method: :put, data: { confirm: '确定要结束该打位的计费吗？' }, class: 'btn btn-danger' %>
+      <%= form_tag playing_item_balls_path(@tab.playing_items.by_vacancy(vacancy)), class: 'form-inline' do %>
+        <div class="form-group">
+          <%= text_field_tag :bucket, nil, placeholder: '筐数', class: 'form-control' %>
+        </div>
+        <button type="submit" class="btn btn-primary">加球</button>&nbsp;
+        <%= link_to '结束', finish_playing_item_path(@tab.playing_items.by_vacancy(vacancy)), method: :put, data: { confirm: '确定要结束该打位的计费吗？' }, class: 'btn btn-danger' %>
+      <% end %>
     </div>
     <% end %>
   </div>
@@ -196,3 +192,10 @@
     </div>
   </div>
 </div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      $('#bucket').spinner().spinner('option', 'min', 1).spinner('option', 'max', 99);
+    });
+  </script>
+<% end %>

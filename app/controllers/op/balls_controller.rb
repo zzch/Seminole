@@ -3,7 +3,7 @@ class Op::BallsController < Op::BaseController
 
   def create
     @playing_item = PlayingItem.find(params[:playing_item_id])
-    @ball = @playing_item.balls.new(amount: params[:amount])
+    @ball = @playing_item.balls.new(amount: params[:bucket].to_i * @current_club.balls_per_bucket)
     if @ball.save
       redirect_to @playing_item.tab, notice: '操作成功！'
     else
