@@ -59,13 +59,27 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'playing_item.started_at' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, brac_datetime(@tab.playing_items.by_vacancy(vacancy).started_at), readonly: true, class: 'form-control' %>
+            <div class="input-group">
+              <%= text_field_tag nil, brac_datetime(@tab.playing_items.by_vacancy(vacancy).started_at), readonly: true, class: 'form-control' %>
+              <span class="input-group-btn">
+                <%= link_to '修改', edit_started_at_playing_item_path(@tab.playing_items.by_vacancy(vacancy)), class: 'btn btn-primary' %>
+              </span>
+            </div>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'playing_item.finished_at' %></label>
           <div class="col-sm-6">
+            <% if @tab.playing_items.by_vacancy(vacancy).finished_at.blank? %>
             <%= text_field_tag nil, brac_datetime(@tab.playing_items.by_vacancy(vacancy).finished_at), readonly: true, class: 'form-control' %>
+            <% else %>
+            <div class="input-group">
+              <%= text_field_tag nil, brac_datetime(@tab.playing_items.by_vacancy(vacancy).finished_at), readonly: true, class: 'form-control' %>
+              <span class="input-group-btn">
+                <%= link_to '修改', edit_finished_at_playing_item_path(@tab.playing_items.by_vacancy(vacancy)), class: 'btn btn-primary' %>
+              </span>
+            </div>
+            <% end %>
           </div>
         </div>
         <div class="form-group">

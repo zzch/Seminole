@@ -11,6 +11,7 @@
           <th><%= brac_arat 'member.holder' %></th>
           <th><%= brac_arat 'card.type' %></th>
           <th><%= brac_arat 'card.name' %></th>
+          <th><%= brac_arat 'member.balance' %></th>
           <th><%= brac_arat 'member.created_at' %></th>
           <th><%= brac_arat 'member.expired_at' %></th>
           <th></th>
@@ -28,6 +29,7 @@
           <td><%= member.holder.name %></td>
           <td><%= te_card_type(member.card.type) %></td>
           <td><%= member.card.name %></td>
+          <td><%= member.balance %></td>
           <td><%= brac_date(member.created_at) %></td>
           <td><%= brac_date(member.expired_at) %></td>
           <td class="table-action">

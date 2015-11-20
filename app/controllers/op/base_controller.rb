@@ -30,4 +30,8 @@ class Op::BaseController < ApplicationController
       @unread_notifications_count = '99+' if @unread_notifications_count > 99
       @dropdown_notifications = OperatorNotification.by_operator(session['operator']['id']).unread.latest.limit(5)
     end
+
+    def convert_picker_to_datetime date, time
+      "#{date} #{time}".to_datetime - 8.hours
+    end
 end

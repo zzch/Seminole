@@ -242,6 +242,7 @@ zh:
         phone: 电话
         name: 姓名
         gender: 性别
+        member_count: 会籍
       club:
         name: 名称
         code: 代号

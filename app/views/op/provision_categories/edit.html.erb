@@ -1,0 +1,24 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 餐饮分类管理 <span>编辑</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @provision_category %>
+  <div class="panel panel-default">
+    <%= form_for @provision_category, html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision_category.name' %></label>
+          <div class="col-sm-6">
+            <%= f.text_field :name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', @provision_category, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,22 @@
 # -*- encoding : utf-8 -*-
 class Op::PlayingItemsController < Op::BaseController
-  before_action :find_playing_item, only: %w(finish payment_method)
+  before_action :find_playing_item
+
+  def edit_started_at
+  end
+
+  def update_started_at
+    @playing_item.update!(started_at: convert_picker_to_datetime(playing_item_params[:started_at_date], playing_item_params[:started_at_time]))
+    redirect_to @playing_item.tab, notice: '操作成功！'
+  end
+
+  def edit_finished_at
+  end
+
+  def update_finished_at
+    @playing_item.update!(finished_at: convert_picker_to_datetime(playing_item_params[:finished_at_date], playing_item_params[:finished_at_time]))
+    redirect_to @playing_item.tab, notice: '操作成功！'
+  end
   
   def finish
     @playing_item.finish!

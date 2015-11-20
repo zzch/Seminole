@@ -1,5 +1,9 @@
 class PlayingItem < ActiveRecord::Base
   attr_accessor :effect_all
+  attr_accessor :started_at_date
+  attr_accessor :started_at_time
+  attr_accessor :finished_at_date
+  attr_accessor :finished_at_time
   as_enum :charging_type, [:by_ball, :by_time], prefix: true, map: :string
   as_enum :payment_method, [:by_ball_member, :by_time_member, :unlimited_member, :stored_member, :credit_card, :cash, :check, :on_account, :signing, :coupon], prefix: true, map: :string
   belongs_to :tab
@@ -42,8 +46,8 @@ class PlayingItem < ActiveRecord::Base
           self.vacancy.send("#{prefix}_price_per_bucket") * self.total_balls / self.tab.club.balls_per_bucket
         end
       elsif self.charging_type_by_time?
-        price_per_hour = (if vacancy_price = self.member.card.vacancy_prices.by_vacancy(self.vacancy)
-          vacancy_price.send("#{prefix}_price_per_hour")
+        price_per_hour = (if vacancy_price = self.member.card.vacancy_prices.by_vacancy(self.vacancy).try(:send, "#{prefix}_price_per_hour")
+          vacancy_price
         elsif !self.vacancy.send("#{prefix}_price_per_hour").blank?
           self.vacancy.send("#{prefix}_price_per_hour")
         end)
@@ -82,7 +86,7 @@ class PlayingItem < ActiveRecord::Base
         raise NoPrice.new if self.vacancy.send("#{prefix}_price_per_hour").blank?
       else
         raise InvalidChargingType.new if member.card.type_by_ball?
-        raise NoPrice.new if member.card.type_stored? and self.vacancy.send("#{prefix}_price_per_bucket").blank? and member.card.vacancy_prices.by_vacancy(self.vacancy).try(:"#{prefix}_price_per_hour").blank?
+        raise NoPrice.new if member.card.type_stored? and self.vacancy.send("#{prefix}_price_per_hour").blank? and member.card.vacancy_prices.by_vacancy(self.vacancy).try(:"#{prefix}_price_per_hour").blank?
       end
     end
     attributes.merge!(member_id: nil) unless ['by_ball_member', 'by_time_member', 'unlimited_member', 'stored_member'].include?(attributes[:payment_method])

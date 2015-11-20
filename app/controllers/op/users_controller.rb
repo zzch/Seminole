@@ -13,10 +13,24 @@ class Op::UsersController < Op::BaseController
   end
   
   def update
-    if @user.update(user_params)
-      redirect_to @user, notice: '操作成功！'
+    begin
+      raise NonUniqueMember.new @user.members.map{|member| member.club_id}.uniq.count > 1
+      if @user.update(user_params)
+        redirect_to @user, notice: '操作成功！'
+      else
+        render action: 'edit'
+      end
+    rescue NonUniqueMember
+      redirect_to @user, alert: '操作失败！该用户存在其它球场信息！请联系管理员进行修改！'
+    end
+  end
+
+  def async_uniqueness_check
+    user = User.where(phone: params[:phone]).first
+    if user.blank?
+      render json: { found: false }
     else
-      render action: 'edit'
+      render json: { found: true, first_name: user.first_name, last_name: user.last_name, gender: user.gender }
     end
   end
 

@@ -23,7 +23,11 @@ Rails.application.routes.draw do
   scope module: :op do
     root 'dashboard#index'
     get :dashboard, to: 'dashboard#index', as: :dashboard
-    resources :users
+    resources :users do
+      collection do
+        get :async_uniqueness_check
+      end
+    end
     resources :members do
       resources :memberships
     end
@@ -51,6 +55,10 @@ Rails.application.routes.draw do
       member do
         put :finish
         patch :payment_method
+        get :edit_started_at
+        patch :update_started_at
+        get :edit_finished_at
+        patch :update_finished_at
       end
     end
     resources :balls

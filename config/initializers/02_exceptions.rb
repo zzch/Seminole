@@ -26,5 +26,6 @@ exceptions = %w(
   NoUseRights
   DuplicatedReservation
   NoPrice
+  NonUniqueMember
 )
 exceptions.each{|e| Object.const_set(e, Class.new(StandardError))} 

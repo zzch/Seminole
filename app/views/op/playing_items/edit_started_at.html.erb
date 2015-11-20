@@ -1,0 +1,41 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 打球消费管理 <span>编辑</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @playing_item %>
+  <div class="panel panel-default">
+    <%= form_for @playing_item, url: update_started_at_playing_item_path(@playing_item), html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'playing_item.started_at' %></label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <%= f.text_field :started_at_date, value: brac_date(@playing_item.started_at), class: 'form-control' %>
+              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <div class="bootstrap-timepicker"><%= f.text_field :started_at_time, value: brac_time(@playing_item.started_at), class: 'form-control' %></div>
+              <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', @playing_item.tab, class: 'btn btn-default' %>&nbsp;
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      $('#playing_item_started_at_date').datepicker({dateFormat: 'yy-mm-dd'});
+      $('#playing_item_started_at_time').timepicker({defaultTIme: false, showMeridian: false, minuteStep: 5});
+    });
+  </script>
+<% end %>

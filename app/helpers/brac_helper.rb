@@ -63,7 +63,7 @@ module BracHelper
 
   def brac_seconds total_seconds
     minutes = ((total_seconds / 60) % 60).round
-    hours = (total_seconds / (60 * 60)).round
+    hours = (total_seconds / 60 / 60).floor
     (hours.zero? ? '' : "#{hours}小时") + (minutes.zero? ? '不足一分钟' : "#{minutes}分钟")
   end
 end
