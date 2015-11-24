@@ -11,12 +11,16 @@ class Tab < ActiveRecord::Base
   aasm column: 'state' do
     state :progressing, initial: true
     state :cancelled
+    state :confirming
     state :finished
     event :cancel, before: :before_cancel do
       transitions from: :progressing, to: :cancelled
     end
+    event :check do
+      transitions from: :progressing, to: :confirming
+    end
     event :finish do
-      transitions from: :progressing, to: :finished
+      transitions from: [:progressing, :confirming], to: :finished
     end
   end
   before_create :set_sequence, :set_entrance_time
@@ -49,13 +53,20 @@ class Tab < ActiveRecord::Base
     end.flatten.all?
   end
 
-  def confirm method
+  def checking method
     ActiveRecord::Base.transaction do
       raise UndeterminedItem.new if self.include_undetermined_item?
       raise InvalidState.new unless self.progressing?
       self.lock!
-      self.finish!
-      self.update!(departure_time: Time.now)
+      if method == 'app'
+        self.check!
+        self.update!(confirm_method: :app, departure_time: Time.now)
+      elsif method == 'reception'
+        self.finish!
+        self.update!(confirm_method: :reception, departure_time: Time.now)
+      else
+        raise InvalidConfirmMethod.new
+      end
       self.vacancies.each do |vacancy|
         vacancy.update!(tab: nil)
       end
@@ -118,6 +129,14 @@ class Tab < ActiveRecord::Base
           raise InvalidItem.new
         end
       end
+    end
+  end
+
+  def confirm
+    begin
+      self.finish!
+    rescue AASM::InvalidTransition
+      raise InvalidState.new
     end
   end
 

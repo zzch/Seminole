@@ -292,6 +292,7 @@ zh:
         member: 会员
         state: 状态
         state/progressing: 进行中
+        state/confirming: 等待确认
         state/finished: 已完成
         state/cancelled: 已取消
         created_at: 下单时间

@@ -47,7 +47,7 @@ Rails.application.routes.draw do
       member do
         put :cancel
         get :checkout
-        put :confirm
+        put :checking
       end
     end
     resources :playing_items do

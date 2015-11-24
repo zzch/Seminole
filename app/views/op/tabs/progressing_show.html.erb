@@ -209,7 +209,7 @@
 <% content_for :javascript do %>
   <script>
     jQuery(document).ready(function(){
-      $('#bucket').spinner().spinner('option', 'min', 1).spinner('option', 'max', 99);
+      $('input[name=bucket]').spinner().spinner('option', 'min', 1).spinner('option', 'max', 99);
     });
   </script>
 <% end %>

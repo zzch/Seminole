@@ -5,6 +5,7 @@ class APIException
     20002 => { message: '用户未激活' },
     20003 => { message: '验证码不正确' },
     20004 => { message: '重复预约' },
+    20005 => { message: '无效的状态' },
   }
 
   class << self

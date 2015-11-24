@@ -28,6 +28,7 @@ module V1
             { name: "#{extra_item.type}", total_price: extra_item.total_price, payment_method: extra_item.payment_method }
           end
         end
+        expose :state
       end
     end
   end
@@ -53,7 +54,24 @@ module V1
       end
       get :all do
         tabs = @current_user.tabs.order(entrance_time: :desc).page(params[:page])
-        present tabs, with: Tabs::Entities::List, include_club: true 
+        present tabs, with: Tabs::Entities::List, include_club: true
+      end
+
+      desc '确认消费单'
+      params do
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
+        optional :uuid, type: String, desc: '消费单UUID'
+      end
+      put :confirm do
+        find_current_club
+        tab = @current_user.tabs.find_uuid(params[:uuid])
+        begin
+          tab.confirm
+          present api_success
+        rescue InvalidState
+          api_error_or_exception(20005)
+        end
       end
     end
   end

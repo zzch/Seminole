@@ -18,6 +18,7 @@
             <h4 class="text-primary">No. <%= @tab.id.to_s.rjust(6, '0') %></h4>
             <p><strong>开单时间：</strong> <%= @tab.entrance_time.strftime('%Y-%m-%d %H:%M') %></p>
             <p><strong>结单时间：</strong> <%= @tab.departure_time.strftime('%Y-%m-%d %H:%M') %></p>
+            <p><strong>状态：</strong> 已完成</p>
           </div>
         </div>
         <div class="table-responsive">

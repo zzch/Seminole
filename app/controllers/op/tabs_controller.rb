@@ -54,12 +54,26 @@ class Op::TabsController < Op::BaseController
     @stored_card_members = @members.select{|member| member.card.type_stored?}
   end
 
-  def confirm
+  def checking
     begin
-      @tab.confirm(params[:method])
+      @tab.checking(params[:method])
       redirect_to @tab, notice: '操作成功！'
     rescue UndeterminedItem
       redirect_to checkout_tab_path(@tab), alert: '操作失败！存在未确定的消费条目！'
+    rescue InvalidState
+      redirect_to checkout_tab_path(@tab), alert: '操作失败！消费单状态不正确！'
+    rescue InvalidConfirmMethod
+      redirect_to checkout_tab_path(@tab), alert: '操作失败！无效的确认方式！'
+    rescue InvalidCardType
+      redirect_to checkout_tab_path(@tab), alert: '操作失败！卡类型不正确！'
+    rescue InvalidCharingType
+      redirect_to checkout_tab_path(@tab), alert: '操作失败！付款类型无效！'
+    rescue InsufficientBall
+      redirect_to checkout_tab_path(@tab), alert: '操作失败！计球卡余额不足！'
+    rescue InsufficientMinute
+      redirect_to checkout_tab_path(@tab), alert: '操作失败！计时卡余额不足！'
+    rescue InsufficientDeposit
+      redirect_to checkout_tab_path(@tab), alert: '操作失败！储值卡余额不足！'
     end
   end
   
