@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Op::TabsController < Op::BaseController
-  before_action :find_tab, only: %w(show cancel checkout confirm)
+  before_action :find_tab, only: %w(show cancel checkout checking)
   
   def index
     @tabs = Tab.page(params[:page])
