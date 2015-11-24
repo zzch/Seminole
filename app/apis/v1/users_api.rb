@@ -44,6 +44,16 @@ module V1
         @current_user.update!(birthday: Time.at(params[:birthday]))
         present api_success
       end
+
+      desc '更新推送ID'
+      params do
+        requires :token, type: String, desc: 'Token'
+        requires :registration_id, type: String, desc: '推送ID'
+      end
+      put :registration_id do
+        @current_user.update!(registration_id: params[:birthday])
+        present api_success
+      end
     end
   end
 end
