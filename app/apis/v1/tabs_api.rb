@@ -63,7 +63,7 @@ module V1
         requires :club_uuid, type: String, desc: '球场UUID'
         optional :uuid, type: String, desc: '消费单UUID'
       end
-      put :confirm do
+      patch :confirm do
         find_current_club
         tab = @current_user.tabs.find_uuid(params[:uuid])
         begin
