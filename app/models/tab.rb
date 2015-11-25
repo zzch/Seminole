@@ -131,7 +131,7 @@ class Tab < ActiveRecord::Base
       end
       if method == 'app'
         Thread.new do
-          self.user.send_push(notification: { alert: '您有一笔消费单需要确认', extras: { redirect_to: :tabs_list } }) unless self.user.registration_id.blank?
+          self.user.send_push(notification: { ios: { alert: '您有一笔消费单需要确认', extras: { redirect_to: :tabs_list } } }) unless self.user.registration_id.blank?
         end
       end
     end
