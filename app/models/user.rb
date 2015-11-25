@@ -46,6 +46,14 @@ class User < ActiveRecord::Base
     members.map(&:club_id).include?(club.id)
   end
 
+  def send_push
+
+  end
+
+  def send_sms
+
+  end
+
   class << self
     def sign_in phone, verification_code
       where(phone: phone).first.tap do |user|
