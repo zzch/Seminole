@@ -51,7 +51,7 @@ module V1
         requires :registration_id, type: String, desc: '推送ID'
       end
       put :registration_id do
-        @current_user.update!(registration_id: params[:registration_id])
+        @current_user.update_registration_id(params[:registration_id])
         present api_success
       end
     end

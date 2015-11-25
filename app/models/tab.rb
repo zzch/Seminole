@@ -129,6 +129,11 @@ class Tab < ActiveRecord::Base
           raise InvalidItem.new
         end
       end
+      if method == 'app'
+        Thread.new do
+          self.user.send_push(notification: { alert: '您有一笔消费单需要确认' }) unless self.user.registration_id.blank?
+        end
+      end
     end
   end
 

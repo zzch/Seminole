@@ -14,8 +14,8 @@ class Push
       response = http.request(request)
     end
 
-    def send_by_cid
-
+    def send_by_registration_id registration_id, options = {}
+      request({ audience: { registration_id: [registration_id]} }.merge(options))
     end
 
     def send_all

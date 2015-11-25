@@ -46,12 +46,13 @@ class User < ActiveRecord::Base
     members.map(&:club_id).include?(club.id)
   end
 
-  def send_push
-
+  def update_registration_id registration_id
+    User.where(registration_id: registration_id).update_all(registration_id: nil)
+    self.update!(registration_id: registration_id)
   end
 
-  def send_sms
-
+  def send_push options = {}
+    Push.send_by_registration_id(self.registration_id, options)
   end
 
   class << self
