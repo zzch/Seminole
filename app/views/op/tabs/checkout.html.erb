@@ -105,7 +105,7 @@
             <li><%= link_to '前台确认', checking_tab_path(@tab, method: 'reception'), method: :put, data: { confirm: '确定要确认该消费单吗？' } %></li>
           </ul>
         </div>
-        <button class="btn btn-white"><i class="fa fa-print mr5"></i> 打印</button>
+        <%= link_to raw('<i class="fa fa-print mr5"></i> 打印'), print_tab_path(@tab), target: '_blank', class: 'btn btn-white' %>
       </div>
     </div>
   </div>

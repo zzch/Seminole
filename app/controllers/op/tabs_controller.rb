@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Op::TabsController < Op::BaseController
-  before_action :find_tab, only: %w(show cancel checkout checking)
+  before_action :find_tab, only: %w(show cancel checkout print checking)
   
   def index
     @tabs = Tab.page(params[:page])
@@ -52,6 +52,10 @@ class Op::TabsController < Op::BaseController
     @extra_items = @tab.extra_items
     @members = @tab.user.members.by_club(@current_club).includes(:card)
     @stored_card_members = @members.select{|member| member.card.type_stored?}
+  end
+
+  def print
+    render layout: false
   end
 
   def checking

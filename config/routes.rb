@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       member do
         put :cancel
         get :checkout
+        get :print
         put :checking
       end
     end

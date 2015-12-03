@@ -60,10 +60,10 @@ class Tab < ActiveRecord::Base
       self.lock!
       if method == 'app'
         self.check!
-        self.update!(confirm_method: :app, departure_time: Time.now)
+        self.update!(price: self.cash, confirm_method: :app, departure_time: Time.now)
       elsif method == 'reception'
         self.finish!
-        self.update!(confirm_method: :reception, departure_time: Time.now)
+        self.update!(price: self.cash, confirm_method: :reception, departure_time: Time.now)
       else
         raise InvalidConfirmMethod.new
       end
