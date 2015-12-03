@@ -477,7 +477,7 @@ namespace :data do
       { number: 'LS023', last_name: '韩', first_name: '迎', gender: :male, phone: '13810760278' },
       { number: 'LS024', last_name: '毕', first_name: '文合', gender: :male, phone: '13370186889' },
       { number: 'LS025', last_name: '郑', first_name: '周平', gender: :male, phone: '13911194449' },
-      { number: 'LS026', last_name: '段', first_name: '奇', gender: :male, phone: '13900633601' },
+      { number: 'LS026', last_name: '段', first_name: '奇', gender: :male, phone: '13900633600' },
       { number: 'LS027', last_name: '王', first_name: '照宣', gender: :male, phone: '18610298919' },
       { number: 'LS028', last_name: '王', first_name: '睿佳', gender: :male, phone: '13001970848' },
       { number: 'LS029', last_name: '王', first_name: '胜勇', gender: :male, phone: '13701003248' },
