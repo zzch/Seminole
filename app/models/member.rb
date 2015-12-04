@@ -24,8 +24,8 @@ class Member < ActiveRecord::Base
 
   def balance
     case self.card.type
-    when :by_ball then "#{self.ball_amount}粒球"
-    when :by_time then "#{self.minute_amount}分钟"
+    when :by_ball then "#{self.ball_amount}粒球（#{(self.ball_amount / self.club.balls_per_bucket).round}筐球）"
+    when :by_time then "#{self.minute_amount}分钟（#{(self.minute_amount / 60).round}小时）"
     when :unlimited then "#{remaining_valid_days}天"
     when :stored then "#{self.deposit}元"
     end
