@@ -4,7 +4,7 @@ class Op::MembersController < Op::BaseController
   
   def index
     @members = @current_club.members.order(created_at: :desc).page(params[:page])
-    puts "************** #{@members.pluck(:id, :number)}"
+    Rails.logger.info "************** #{@members.pluck(:id, :number)}"
   end
   
   def show
