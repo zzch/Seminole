@@ -3,8 +3,7 @@ class Op::MembersController < Op::BaseController
   before_action :find_member, only: %w(show edit update)
   
   def index
-    @members = @current_club.members.order(created_at: :desc).page(params[:page])
-    Rails.logger.info "************** #{@members.pluck(:id, :number)}"
+    @members = @current_club.members.order(created_at: :desc, id: :asc).page(params[:page])
   end
   
   def show

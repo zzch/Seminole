@@ -1,7 +1,6 @@
 class Membership < ActiveRecord::Base
   include UUID, AASM
   as_enum :role, [:holder, :user], prefix: true, map: :string
-  default_scope { includes(:member) }
   belongs_to :user
   belongs_to :member
   aasm column: 'state' do

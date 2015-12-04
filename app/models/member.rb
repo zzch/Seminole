@@ -1,6 +1,5 @@
 class Member < ActiveRecord::Base
   include UUID, AASM
-  default_scope { includes(:users).includes(:card) }
   belongs_to :club
   belongs_to :card
   belongs_to :salesman
