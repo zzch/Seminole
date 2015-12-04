@@ -6,6 +6,7 @@ class Card < ActiveRecord::Base
   has_many :vacancy_tags, through: :use_rights
   has_many :vacancy_prices, class_name: 'CardVacancyPrice'
   has_many :members
+  before_save :set_total_amount_and_maximum_vacancies
   before_destroy :can_be_destroyed?
   as_enum :type, [:by_ball, :by_time, :unlimited, :stored], prefix: true, map: :string
   validates :name, presence: true, length: { maximum: 50 }
@@ -33,4 +34,10 @@ class Card < ActiveRecord::Base
   def can_be_destroyed?
     raise MemberExists.new unless self.members.blank?
   end
+
+  protected
+    def set_total_amount_and_maximum_vacancies
+      self.total_amount = 0 if self.unlimited_total_amount == '1'
+      self.maximum_vacancies = 0 if self.unlimited_maximum_vacancies == '1'
+    end
 end

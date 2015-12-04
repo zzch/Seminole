@@ -3,7 +3,7 @@ class Op::CardsController < Op::BaseController
   before_action :find_card, only: %w(show edit update destroy)
   
   def index
-    @cards = @current_club.cards.order("CASE cards.type_cd WHEN 'visitor' THEN 1 ELSE 2 END").order(created_at: :desc).page(params[:page])
+    @cards = @current_club.cards.order(created_at: :desc).page(params[:page])
   end
   
   def show

@@ -97,6 +97,7 @@
       <%= link_to '删除', @card, method: :delete, data: { confirm: '删除后无法恢复，确定要进行该操作吗？' }, class: 'btn btn-danger' %>&nbsp;
     </div>
   </div>
+  <% if @card.type_stored? %>
   <div class="panel">
     <div class="panel-heading">
       <h4 class="panel-title">打位价格明细</h4>
@@ -177,4 +178,5 @@
       <%= link_to '批量设置价格', bulk_new_card_vacancy_prices_path(@card), class: 'btn btn-primary' %>
     </div>
   </div>
+  <% end %>
 </div>
