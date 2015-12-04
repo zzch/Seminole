@@ -14,10 +14,10 @@ class Op::DashboardController < Op::BaseController
     @today_users_count = today_tabs.map(&:user_id).uniq.count
     @today_vacancies_usage = ((today_tabs.includes(:playing_items).map{|tab| tab.playing_items.map{|playing_item| (playing_item.finished_at || Time.now) - playing_item.started_at}.reduce(:+)}.reduce(:+) || 0) / ((Time.now - Time.local(Time.now.year, Time.now.month, Time.now.day, 9, 30)) * @current_club.vacancies.count)).round(2)
     @yesterday_users_count = yesterday_tabs.map(&:user_id).uniq.count
-    @today_item_revenue = (today_tabs.map(&:price).reduce(:+) || 0)
+    @today_item_revenue = (today_tabs.map(&:price).compact.reduce(:+) || 0)
     @today_member_revenue = (today_members.map{|member| member.card.price}.reduce(:+) || 0)
     @today_total_revenue = @today_item_revenue + @today_member_revenue
-    @yesterday_item_revenue = (yesterday_tabs.map(&:price).reduce(:+) || 0)
+    @yesterday_item_revenue = (yesterday_tabs.map(&:price).compact.reduce(:+) || 0)
     @yesterday_member_revenue = (yesterday_members.map{|member| member.card.price}.reduce(:+) || 0)
     @yesterday_total_revenue = @yesterday_item_revenue + @yesterday_member_revenue
   end
