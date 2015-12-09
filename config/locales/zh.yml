@@ -348,6 +348,8 @@ zh:
         item: 内容
       card_vacancy_price:
         vacancy: 打位
+      salesman:
+        name: 姓名
   activemodel:
     attributes:
       op/create_member:

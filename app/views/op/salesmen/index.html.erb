@@ -1,0 +1,32 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 销售管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-bordered table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'salesman.name' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="2" class="table-paginate"><%= brac_paginate @salesmen %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @salesmen.each do |salesman| %>
+        <tr>
+          <td><%= salesman.name %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), salesman %>
+            <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_salesman_path(salesman) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

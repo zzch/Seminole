@@ -1,0 +1,24 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 销售管理 <span>编辑</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @salesman %>
+  <div class="panel panel-default">
+    <%= form_for @salesman, html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'salesman.name' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', salesmen_path, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

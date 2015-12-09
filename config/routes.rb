@@ -98,6 +98,7 @@ Rails.application.routes.draw do
         get :async_show
       end
     end
+    resources :salesmen
     resource :profile do
       get :edit_password
       put :update_password
