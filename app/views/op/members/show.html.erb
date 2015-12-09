@@ -42,19 +42,20 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'member.created_at' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, brac_datetime(@member.created_at), readonly: true, class: 'form-control' %>
+            <%= text_field_tag nil, brac_date(@member.created_at), readonly: true, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'member.expired_at' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, brac_datetime(@member.expired_at), readonly: true, class: 'form-control' %>
+            <%= text_field_tag nil, brac_date(@member.expired_at), readonly: true, class: 'form-control' %>
           </div>
         </div>
       </div>
     <% end %>
     <div class="panel-footer">
       <%= link_to '返回', members_path, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '编辑', edit_member_path(@member), class: 'btn btn-primary' %>&nbsp;
       <%= link_to '创建使用者', new_member_membership_path(@member), class: 'btn btn-primary' %>&nbsp;
     </div>
   </div>

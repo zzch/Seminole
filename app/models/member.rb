@@ -1,5 +1,7 @@
 class Member < ActiveRecord::Base
   include UUID, AASM
+  attr_accessor :created_at_date
+  attr_accessor :expired_at_date
   belongs_to :club
   belongs_to :card
   belongs_to :salesman

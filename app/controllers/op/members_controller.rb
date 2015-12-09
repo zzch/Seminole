@@ -28,6 +28,8 @@ class Op::MembersController < Op::BaseController
   end
   
   def update
+    @member.created_at = convert_picker_to_datetime(member_params[:created_at_date])
+    @member.expired_at = convert_picker_to_datetime(member_params[:expired_at_date])
     if @member.update(member_params)
       redirect_to @member, notice: '操作成功！'
     else

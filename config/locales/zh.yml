@@ -265,8 +265,8 @@ zh:
         state: 状态
         state/activated: 正常
         state/forzen: 已冻结
-        created_at: 注册时间
-        expired_at: 到期时间
+        created_at: 注册日期
+        expired_at: 到期日期
         holder: 持卡人
       membership:
         role: 角色
