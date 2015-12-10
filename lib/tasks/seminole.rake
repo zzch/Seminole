@@ -591,7 +591,7 @@ namespace :data do
         provision_item.update_payment_method(payment_method: [:credit_card, :cash].sample)
       end
       tab.reload
-      tab.checking(:by_reception)
+      tab.checking(:reception)
       tab.update!(departure_time: tab.entrance_time + playing_minutes)
       entrance_date += rand(1..10).days
     end
