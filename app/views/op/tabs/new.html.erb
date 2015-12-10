@@ -3,6 +3,7 @@
 </div>
 <div class="contentpanel">
   <%= render "op/commons/error_messages", target: @tab %>
+  <%= brac_flash %>
   <% if @vacancy %>
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -46,6 +47,7 @@
           <h4 class="panel-title">会员身份</h4>
         </div>
         <%= form_for @tab, url: member_set_up_tabs_path, html: { id: 'member_set_up', class: 'form-horizontal form-bordered' } do |f| %>
+          <%= hidden_field_tag :'vacancy_id', params[:vacancy_id] %>
           <%= hidden_field_tag :'vacancy_ids', nil %>
           <div class="panel-body panel-body-nopadding">
             <div class="form-group">

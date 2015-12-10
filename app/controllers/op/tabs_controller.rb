@@ -27,10 +27,13 @@ class Op::TabsController < Op::BaseController
   
   def member_set_up
     begin
+      raise InvalidUser.new if tab_params[:user_id].blank?
       @tab = Tab.set_up(tab_params.merge({ club_id: @current_club.id, operator_id: session['operator']['id'] }), params[:vacancy_ids])
       redirect_to @tab, notice: '操作成功！'
     rescue AlreadyInUse
       render action: 'new'
+    rescue InvalidUser
+      redirect_to new_tab_path(vacancy_id: params[:vacancy_id]), alert: '操作失败！无效的用户！'
     end
   end
 

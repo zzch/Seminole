@@ -39,6 +39,10 @@ class Member < ActiveRecord::Base
     end
   end
 
+  def available?
+    self.expired_at.beginning_of_day > Time.now.beginning_of_day and self.activated?
+  end
+
   class << self
     def search club, keyword
       User.where(id: club.members.map{|member| member.users.map{|user| user.id}}.flatten).where('phone LIKE ? OR CONCAT(last_name, first_name) LIKE ?', "%#{keyword}%", "%#{keyword}%").first || raise(DoesNotExist.new)

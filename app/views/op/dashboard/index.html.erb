@@ -144,4 +144,133 @@
       </table>
     </div>
   </div>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6 mb30">
+          <h5 class="subtitle mb10">最近7日来访人数</h5>
+          <div id="recently_members_chart" style="width: 100%; height: 300px"></div>
+        </div>
+        <div class="col-md-6 mb30">
+          <h5 class="subtitle mb5">会员卡办理情况</h5>
+          <div id="piechart" style="width: 100%; height: 300px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      "use strict";
+    
+      function showTooltip(x, y, contents) {
+        jQuery('<div id="tooltip" class="tooltipflot">' + contents + '</div>').css( {
+          position: 'absolute',
+          display: 'none',
+          top: y + 5,
+          left: x + 5
+        }).appendTo("body").fadeIn(200);
+      }
+
+      var member_user = <%= raw @recently_users_chart[:member].to_a %>;
+      var visitor_user = <%= raw @recently_users_chart[:visitor].to_a %>;
+      var plot = jQuery.plot(jQuery("#recently_members_chart"),
+      [ { data: member_user,
+          label: "会员",
+          color: "#1CAF9A"
+        },
+        { data: visitor_user,
+          label: "访客",
+          color: "#428BCA"
+        }
+      ], {
+        series: {
+          lines: {
+            show: true,
+            fill: true,
+            lineWidth: 1,
+            fillColor: {
+              colors: [ { opacity: 0.5 }, { opacity: 0.5 } ]
+            }
+          }, points: {
+            show: true
+          }, shadowSize: 0
+        },
+        legend: {
+            position: 'nw'
+          },
+        grid: {
+          hoverable: true,
+          borderColor: '#ddd',
+          borderWidth: 1,
+          labelMargin: 10,
+          backgroundColor: '#fff'
+        },
+        yaxis: {
+          min: 0,
+          color: '#eee'
+        },
+        xaxis: {
+          color: '#eee',
+          mode: 'categories',
+          tickLength: 0
+        }
+      });
+      
+      var previousPoint = null;
+
+      jQuery("#recently_members_chart").bind("plothover", function (event, pos, item) {
+        jQuery("#x").text(pos.x.toFixed(2));
+        jQuery("#y").text(pos.y.toFixed(2));
+        
+        if(item) {
+          if (previousPoint != item.dataIndex) {
+           previousPoint = item.dataIndex;
+                
+           jQuery("#tooltip").remove();
+           var x = item.datapoint[0].toFixed(2),
+           y = item.datapoint[1].toFixed(2);
+            
+           showTooltip(item.pageX, item.pageY,
+              item.series.label + " of " + x + " = " + y);
+          }
+          
+        } else {
+          jQuery("#tooltip").remove();
+          previousPoint = null;            
+        }
+      });
+
+      var piedata = [
+        { label: "计球卡", data: [[1, <%= @card_types_chart[:by_ball] || 0 %>]], color: '#D9534F'},
+        { label: "计时卡", data: [[1, <%= @card_types_chart[:by_time] || 0 %>]], color: '#1CAF9A'},
+        { label: "畅打卡", data: [[1, <%= @card_types_chart[:unlimited] || 0 %>]], color: '#F0AD4E'},
+        { label: "储值卡", data: [[1, <%= @card_types_chart[:stored] || 0 %>]], color: '#428BCA'},
+      ];
+    
+      jQuery.plot('#piechart', piedata, {
+        series: {
+          pie: {
+            show: true,
+            radius: 1,
+            label: {
+              show: true,
+              radius: 2/3,
+              formatter: labelFormatter,
+              threshold: 0.1
+            }
+          }
+        },
+        grid: {
+          hoverable: true,
+          clickable: true
+        }
+      });
+    
+      function labelFormatter(label, series) {
+        return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math.round(series.percent) + "%</div>";
+      }
+    });
+  </script>
+<% end %>
