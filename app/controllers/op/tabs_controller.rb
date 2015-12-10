@@ -28,7 +28,6 @@ class Op::TabsController < Op::BaseController
   def member_set_up
     begin
       raise InvalidUser.new if tab_params[:user_id].blank?
-      Rails.logger.info("*************** #{params[:vacancy_ids]}")
       @tab = Tab.set_up(tab_params.merge({ club_id: @current_club.id, operator_id: session['operator']['id'] }), params[:vacancy_ids])
       redirect_to @tab, notice: '操作成功！'
     rescue AlreadyInUse
@@ -64,7 +63,7 @@ class Op::TabsController < Op::BaseController
 
   def checking
     begin
-      @tab.checking(params[:method])
+      @tab.checking(params[:method].to_sym)
       redirect_to @tab, notice: '操作成功！'
     rescue UndeterminedItem
       redirect_to checkout_tab_path(@tab), alert: '操作失败！存在未确定的消费条目！'
