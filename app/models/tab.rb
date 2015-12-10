@@ -58,10 +58,10 @@ class Tab < ActiveRecord::Base
       raise UndeterminedItem.new if self.include_undetermined_item?
       raise InvalidState.new unless self.progressing?
       self.lock!
-      if method == 'app'
+      if method == :app
         self.check!
         self.update!(price: self.cash, confirm_method: :app, departure_time: Time.now)
-      elsif method == 'reception'
+      elsif method == :reception
         self.finish!
         self.update!(price: self.cash, confirm_method: :reception, departure_time: Time.now)
       else
