@@ -129,11 +129,11 @@ class Tab < ActiveRecord::Base
           raise InvalidItem.new
         end
       end
-      if method == 'app'
-        # Thread.new do
+      if method == :app
+        Thread.new do
           push_content = { notification: { ios: { alert: '您有一笔消费单需要确认', extras: { redirect_to: :tabs_list, club_uuid: self.club.uuid } }, android: { alert: '您有一笔消费单需要确认', extras: { redirect_to: :tabs_list, club_uuid: self.club.uuid } } } }
           self.user.send_push(push_content) unless self.user.registration_id.blank?
-        # end
+        end
       end
     end
   end
