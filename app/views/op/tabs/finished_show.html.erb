@@ -15,7 +15,7 @@
           </div>
           <div class="col-sm-6 col-sm-offset-3 text-right">
             <h4 class="mb10">消费单信息</h4>
-            <h4 class="text-primary">No. <%= @tab.id.to_s.rjust(6, '0') %></h4>
+            <h4 class="text-primary">No. <%= @tab.sequence.to_s.rjust(6, '0') %></h4>
             <p><strong>开单时间：</strong> <%= @tab.entrance_time.strftime('%Y-%m-%d %H:%M') %></p>
             <p><strong>结单时间：</strong> <%= @tab.departure_time.strftime('%Y-%m-%d %H:%M') %></p>
             <p><strong>状态：</strong> 已完成</p>

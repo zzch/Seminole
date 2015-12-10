@@ -10,7 +10,11 @@ class Push
       request = Net::HTTP::Post.new(uri.request_uri)
       request.basic_auth Setting.key[:jpush][:api_key], Setting.key[:jpush][:api_secret]
       request.body = { platform: options[:platform], audience: options[:audience], notification: options[:notification], options: { apns_production: false } }.to_json
-      http.request(request)
+      Rails.logger.info("************* [api_key] #{Setting.key[:jpush][:api_key]}")
+      Rails.logger.info("************* [api_secret] #{Setting.key[:jpush][:api_secret]}")
+      Rails.logger.info("************* [request] #{request.body}")
+      response = http.request(request)
+      Rails.logger.info("************* [response] #{response.body}")
     end
 
     def send_by_registration_id registration_id, options = {}
