@@ -25,7 +25,7 @@ module V1
             { name: "#{provision_item.provision.name}x#{provision_item.quantity}", total_price: "#{sprintf('%0.02f', provision_item.total_price)}元", payment_method: provision_item.payment_method }
           end +
           m.extra_items.map do |extra_item|
-            { name: "#{extra_item.type}", total_price: extra_item.total_price, payment_method: extra_item.payment_method }
+            { name: "#{extra_item.type}", total_price: extra_item.price, payment_method: extra_item.payment_method }
           end
         end
         expose :state

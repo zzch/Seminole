@@ -59,6 +59,12 @@
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建餐饮"), new_provision_path %></li>
               </ul>
             </li>
+            <li class="nav-parent"><a href=""><i class="fa fa-bullhorn"></i> <span>公告管理</span></a>
+              <ul class="children">
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 公告列表"), announcements_path %></li>
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建公告"), new_announcement_path %></li>
+              </ul>
+            </li>
             <li class="nav-parent"><a href=""><i class="fa fa-smile-o"></i> <span>销售管理</span></a>
               <ul class="children">
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 销售列表"), salesmen_path %></li>

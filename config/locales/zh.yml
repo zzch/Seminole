@@ -349,6 +349,14 @@ zh:
         item: 内容
       card_vacancy_price:
         vacancy: 打位
+      announcement:
+        title: 标题
+        content: 内容
+        published_at: 发布时间
+        state: 状态
+        state/pending: 等待发布
+        state/published: 已发布
+        state/trashed: 已删除
       salesman:
         name: 姓名
   activemodel:

@@ -1,0 +1,36 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 公告管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-bordered table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'announcement.title' %></th>
+          <th><%= brac_arat 'announcement.published_at' %></th>
+          <th><%= brac_arat 'announcement.state' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="table-paginate"><%= brac_paginate @announcements %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @announcements.each do |announcement| %>
+        <tr>
+          <td><%= announcement.title %></td>
+          <td><%= brac_datetime(announcement.published_at) %></td>
+          <td><%= announcement.aasm.human_state %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), announcement %>
+            <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_announcement_path(announcement) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
