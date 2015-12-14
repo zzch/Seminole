@@ -1,5 +1,5 @@
 <div class="pageheader">
-  <h2><i class="fa fa-file-text-o"></i> 餐饮管理 <span>查看</span></h2>
+  <h2><i class="fa fa-file-text-o"></i> 公告管理 <span>查看</span></h2>
 </div>
 <div class="contentpanel">
   <%= brac_flash %>
@@ -15,7 +15,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'announcement.content' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, @announcement.content, readonly: true, class: 'form-control' %>
+            <%= cktext_area_tag :content, @announcement.content, cols: 40, ckeditor: { readOnly: 'true', toolbar: [] }, class: 'form-control' %>
           </div>
         </div>
         <div class="form-group">
@@ -34,6 +34,7 @@
     <% end %>
     <div class="panel-footer">
       <%= link_to '返回', announcements_path, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '编辑', edit_announcement_path(@announcement), class: 'btn btn-primary' %>&nbsp;
     </div>
   </div>
 </div>

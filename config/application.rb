@@ -6,7 +6,8 @@ module Seminole
   class Application < Rails::Application
     config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'apis', '**')]
-    config.autoload_paths += %W( #{config.root}/app/views/nar_forms )
+    config.autoload_paths += %W(#{config.root}/app/views/nar_forms)
+    config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
     config.time_zone = 'Beijing'
     config.i18n.default_locale = :zh
     config.active_record.raise_in_transactional_callbacks = true

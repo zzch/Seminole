@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   mount API => '/'
   namespace :public do
     get :welcome, to: 'home#welcome', as: :welcome
