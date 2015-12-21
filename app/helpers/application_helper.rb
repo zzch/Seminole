@@ -53,6 +53,7 @@ module ApplicationHelper
     case type
     when :by_ball then '计球'
     when :by_time then '计时'
+    end
   end
 
   def user_options_for_set_up_tab

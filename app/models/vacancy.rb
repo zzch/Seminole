@@ -60,7 +60,7 @@ class Vacancy < ActiveRecord::Base
           create!(club: club, name: name, location_cd: form.location, usual_price_per_hour: form.usual_price_per_hour, holiday_price_per_hour: form.holiday_price_per_hour, usual_price_per_bucket: form.usual_price_per_bucket, holiday_price_per_bucket: form.holiday_price_per_bucket).tap do |vacancy|
             vacancy.taggables.destroy_all
             tags.each do |tag|
-              self.taggables.create!(tag: tag)
+              vacancy.taggables.create!(tag: tag)
             end
           end
         end
