@@ -231,6 +231,7 @@ zh:
         password_confirmation: 确认密码
       operator:
         account: 账号
+        password: 密码
         name: 姓名
         last_signed_in_at: 最后登录时间
         state: 状态
@@ -238,6 +239,7 @@ zh:
         original_password: 原密码
         new_password: 新密码
         password_confirmation: 确认密码
+        omnipotent: 超级管理员
       user:
         phone: 电话
         name: 姓名
@@ -291,6 +293,8 @@ zh:
         operator: 操作员
         user: 用户
         member: 会员
+        entrance_time: 入场时间
+        departure_time: 离场时间
         state: 状态
         state/progressing: 进行中
         state/confirming: 等待确认

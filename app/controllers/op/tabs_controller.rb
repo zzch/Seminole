@@ -94,15 +94,15 @@ class Op::TabsController < Op::BaseController
   end
 
   def progressing
-    @tabs = @current_club.tabs.progressing.page(params[:page])
+    @tabs = @current_club.tabs.progressing.order(entrance_time: :desc).page(params[:page])
   end
 
   def finished
-    @tabs = @current_club.tabs.finished.page(params[:page])
+    @tabs = @current_club.tabs.finished.order(departure_time: :desc).page(params[:page])
   end
 
   def cancelled
-    @tabs = @current_club.tabs.cancelled.page(params[:page])
+    @tabs = @current_club.tabs.cancelled.order(entrance_time: :desc).page(params[:page])
   end
 
   protected
