@@ -363,6 +363,13 @@ zh:
         state/trashed: 已删除
       salesman:
         name: 姓名
+      version:
+        name: 版本号
+        build: BUILD
+        content: 更新内容
+        state: 状态
+        state/pending: 等待发布
+        state/published: 已发布
   activemodel:
     attributes:
       op/create_member:
