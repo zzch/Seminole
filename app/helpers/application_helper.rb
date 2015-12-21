@@ -49,6 +49,12 @@ module ApplicationHelper
     end
   end
 
+  def te_charging_type type
+    case type
+    when :by_ball then '计球'
+    when :by_time then '计时'
+  end
+
   def user_options_for_set_up_tab
     User.where(id: Membership.where(member_id: @current_club.member_ids).map(&:user_id).uniq).map{|user| ["#{PinYin.abbr(user.name).upcase} | #{user.name}#{" | #{user.phone}" unless user.phone.blank?}", user.id]}
   end
