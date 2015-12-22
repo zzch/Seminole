@@ -67,7 +67,7 @@ class Op::TabsController < Op::BaseController
       @tab.checking(method)
       case method
       when :app then redirect_to(@tab, notice: '操作成功！')
-      when :reception then redirect_to(print_tab_path(@tab))
+      when :reception then redirect_to(print_tab_path(@tab), notice: '操作成功！')
       end
     rescue UndeterminedItem
       redirect_to checkout_tab_path(@tab), alert: '操作失败！存在未确定的消费条目！'

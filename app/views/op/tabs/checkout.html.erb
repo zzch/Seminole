@@ -54,7 +54,7 @@
                 <%= brac_price(playing_item.total_price) %>
                 <% end %>
               </td>
-              <td><%= link_to payment_method_tag(playing_item), '', data: { toggle: :modal, target: ".playing-item-#{playing_item.id}-payment-method" } %></td>
+              <td><%= link_to styled_payment_method_tag(playing_item), '', data: { toggle: :modal, target: ".playing-item-#{playing_item.id}-payment-method" } %></td>
             </tr>
             <% end %>
             <% @provision_items.each do |provision_item| %>
@@ -66,7 +66,7 @@
               <td><%= brac_price(provision_item.price) %></td>
               <td><%= provision_item.quantity %></td>
               <td><%= brac_price(provision_item.total_price) %></td>
-              <td><%= link_to payment_method_tag(provision_item), '', data: { toggle: :modal, target: ".provision-item-#{provision_item.id}-payment-method-modal" } %></td>
+              <td><%= link_to styled_payment_method_tag(provision_item), '', data: { toggle: :modal, target: ".provision-item-#{provision_item.id}-payment-method-modal" } %></td>
             </tr>
             <% end %>
             <% @extra_items.each do |extra_item| %>
@@ -81,7 +81,7 @@
               <td>-</td>
               <td>-</td>
               <td><%= brac_price(extra_item.price) %></td>
-              <td><%= link_to payment_method_tag(extra_item), '', data: { toggle: :modal, target: ".extra-item-#{extra_item.id}-payment-method-modal" } %></td>
+              <td><%= link_to styled_payment_method_tag(extra_item), '', data: { toggle: :modal, target: ".extra-item-#{extra_item.id}-payment-method-modal" } %></td>
             </tr>
             <% end %>
           </tbody>

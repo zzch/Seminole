@@ -105,7 +105,7 @@ module ApplicationHelper
     raw tags.map{|tag| "<span class=\"label label-success\">#{tag.name}</span>"}.join(' ')
   end
 
-  def payment_method_tag item
+  def styled_payment_method_tag item
     if item.payment_method.blank?
       '请选择'
     else
@@ -131,6 +131,30 @@ module ApplicationHelper
       elsif item.payment_method_coupon?
         '抵用卷'
       end + '</span>')
+    end
+  end
+
+  def payment_method_tag item
+    if item.try(:payment_method_by_ball_member?)
+      '计球卡'
+    elsif item.try(:payment_method_by_time_member?)
+      '计时卡'
+    elsif item.try(:payment_method_unlimited_member?)
+      '畅打卡'
+    elsif item.payment_method_stored_member?
+      '储值卡'
+    elsif item.payment_method_credit_card?
+      '信用卡'
+    elsif item.payment_method_cash?
+      '现金'
+    elsif item.payment_method_check?
+      '支票'
+    elsif item.payment_method_on_account?
+      '挂账'
+    elsif item.payment_method_signing?
+      '签单'
+    elsif item.payment_method_coupon?
+      '抵用卷'
     end
   end
 

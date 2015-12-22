@@ -55,7 +55,7 @@
                 <%= brac_price(playing_item.total_price) %>
                 <% end %>
               </td>
-              <td><%= payment_method_tag(playing_item) %></td>
+              <td><%= styled_payment_method_tag(playing_item) %></td>
             </tr>
             <% end %>
             <% @provision_items.each do |provision_item| %>
@@ -67,7 +67,7 @@
               <td><%= brac_price(provision_item.price) %></td>
               <td><%= provision_item.quantity %></td>
               <td><%= brac_price(provision_item.total_price) %></td>
-              <td><%= payment_method_tag(provision_item) %></td>
+              <td><%= styled_payment_method_tag(provision_item) %></td>
             </tr>
             <% end %>
             <% @extra_items.each do |extra_item| %>
@@ -82,7 +82,7 @@
               <td>-</td>
               <td>-</td>
               <td><%= brac_price(extra_item.price) %></td>
-              <td><%= link_to payment_method_tag(extra_item) %></td>
+              <td><%= link_to styled_payment_method_tag(extra_item) %></td>
             </tr>
             <% end %>
           </tbody>
