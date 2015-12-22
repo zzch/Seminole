@@ -50,13 +50,12 @@
       <% end %>
     </table>
     <%= javascript_tag do %>
-      jQuery(document).ready(function(){
-        LODOP = getLodop($('LODOP_OB'), $('LODOP_EM'));
-        LODOP.PRINT_INIT("消费单");
-        LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", $('tab').html());
-        LODOP.PRINT();
-        window.location.replace('<%= url_for(@tab) %>');
-      });
+      var LODOP = = getLodop(document.getElementById('LODOP_OB'), document.getElementById('LODOP_EM'));
+      LODOP 
+      LODOP.PRINT_INIT("消费单");
+      LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", document.getElementById('tab').innerHTML);
+      LODOP.PRINT();
+      window.location.replace('<%= url_for(@tab) %>');
     <% end %>
   </body>
 </html>
