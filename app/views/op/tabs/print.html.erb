@@ -2,6 +2,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <%= javascript_include_tag 'print' %>
     <object  id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
       <embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0></embed>
     </object>
@@ -48,7 +49,6 @@
       </tr>
       <% end %>
     </table>
-    <%= javascript_include_tag 'print' %>
     <%= javascript_tag do %>
       jQuery(document).ready(function(){
         LODOP = getLodop($('LODOP_OB'), $('LODOP_EM'));
