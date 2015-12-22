@@ -6,17 +6,37 @@
     <object  id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
       <embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0></embed>
     </object>
+    <style>
+      table.items {
+        width: 180px;
+        font-size: 12px;
+      }
+      table.items tr td {
+        padding: 2px 2px;
+        border-bottom: 1px #ccc dotted;
+      }
+      table.items tr td:first-child {
+        width: 80px;
+      }
+      table.items tr td:nth-child(2) {
+        width: 52px;
+      }
+      table.items tr td:last-child {
+        width: 42px;
+        text-align: right;
+      }
+    </style>
   </head>
   <body>
-    <div id="tab" style="width: 182px" >
+    <div id="tab" style="width: 182px; display: none" >
       <font style="float: left">消费单号</font>
       <font style="float: right">前台支付</font>
       <br />
       <font style="top: 5px; float: left">No. <%= @tab.sequence.to_s.rjust(6, '0') %></font>
-      <font style="top: 5px; float: right">dsdsds</font>
+      <font style="top: 5px; float: right"><%= brac_price(@tab.price) %></font>
       <br />
       <br />
-      <%= image_tag('print/point.png') %><font style="top: 5px"> 消费用户</font> 
+      <%= image_tag('print/point.png') %><font style="top: 5px"> 会员姓名</font> 
       <hr style="width: 182px; float: left"/>
       <br />
       <font style="top: 5px; margin-left: 12px"><%= @tab.user.name %></font>
@@ -29,26 +49,37 @@
       <br />
       <br />
       <%= image_tag('print/point.png') %><font style="top: 5px"> 消费明细</font> 
-      <hr style="width:182px; float:left"/>
+      <hr style="width: 182px; float: left"/>
       <font style="width: 65px; float: left; text-align: center" size="2px">消费内容</font>
       <font style="width: 52px; float: left; text-align: center" size="2px">小计</font>
       <font style="width: 65px; float: left; text-align: center" size="2px">付款方式</font>
-      <hr style="width: 174px; left: 4px"/>
-      <% @tab.playing_items.each do |playing_item| %>
-      <font style="width: 65px; float: left; text-align: center" size="2px"><%= playing_item.vacancy.name %>打位</font>
-      <font style="width: 52px; float: left; text-align: center" size="2px"><%= brac_price(playing_item.total_price) %></font>
-      <font style="width: 65px; float: left; text-align: center" size="2px"><%= payment_method_tag(playing_item) %></font>
-      <% end %>
-      <% @tab.provision_items.each do |provision_item| %>
-      <font style="width: 65px; float: left; text-align: center" size="2px"><%= provision_item.provision.name %></font>
-      <font style="width: 52px; float: left; text-align: center" size="2px"><%= brac_price(provision_item.total_price) %></font>
-      <font style="width: 65px; float: left; text-align: center" size="2px"><%= payment_method_tag(provision_item) %></font>
-      <% end %>
-      <% @tab.extra_items.each do |extra_item| %>
-      <font style="width: 65px; float: left; text-align: center" size="2px"><%= provision_item.provision.name %></font>
-      <font style="width: 52px; float: left; text-align: center" size="2px"><%= brac_price(extra_item.price) %></font>
-      <font style="width: 65px; float: left; text-align: center" size="2px"><%= payment_method_tag(extra_item) %></font>
-      <% end %>
+      <hr style="width: 174px; margin-top: 40px; left: 8px"/>
+      <table class="items">
+        <% @tab.playing_items.each do |playing_item| %>
+        <tr>
+          <td><%= playing_item.vacancy.name %>打位</td>
+          <td><%= brac_price(playing_item.total_price) %></td>
+          <td><%= payment_method_tag(playing_item) %></td>
+        </tr>
+        <% end %>
+        <% @tab.provision_items.each do |provision_item| %>
+        <tr>
+          <td><%= provision_item.provision.name %></td>
+          <td><%= brac_price(provision_item.total_price) %></td>
+          <td><%= payment_method_tag(provision_item) %></td>
+        </tr>
+        <% end %>
+        <% @tab.extra_items.each do |extra_item| %>
+        <tr>
+          <td><%= te_extra_item_type(extra_item.type) %></td>
+          <td><%= brac_price(extra_item.price) %></td>
+          <td><%= payment_method_tag(extra_item) %></td>
+        </tr>
+        <% end %>
+      </table>
+      <br />
+      <%= image_tag('print/point.png') %><font style="top: 10px"> 会员签字</font> 
+      <hr style="width: 182px; float: left"/>
     </div>
     <%= javascript_tag do %>
       var LODOP = getLodop(document.getElementById('LODOP_OB'), document.getElementById('LODOP_EM'));
