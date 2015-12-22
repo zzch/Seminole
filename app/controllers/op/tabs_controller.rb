@@ -63,8 +63,12 @@ class Op::TabsController < Op::BaseController
 
   def checking
     begin
-      @tab.checking(params[:method].to_sym)
-      redirect_to @tab, notice: '操作成功！'
+      method = params[:method].to_sym
+      @tab.checking(method)
+      case method
+      when :app then redirect_to(@tab, notice: '操作成功！')
+      when :reception then redirect_to(print_tab_path(@tab))
+      end
     rescue UndeterminedItem
       redirect_to checkout_tab_path(@tab), alert: '操作失败！存在未确定的消费条目！'
     rescue InvalidState

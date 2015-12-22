@@ -1,53 +1,13 @@
 <html>
   <head>
-    <style>
-    * {
-      margin: 0;
-      padding: 0;
-      font-family: "SimSun";
-    }
-    body {
-      height: 400px;
-    }
-    table.profile {
-      margin: 116px auto 0;
-      width: 700px;
-    }
-    table.profile td {
-      height: 30px;
-    }
-    table.profile td.left {
-      padding-left: 40px;
-      width: 40%;
-    }
-    table.profile td.right {
-      padding-left: 40px;
-      width: 60%;
-    }
-    table.item {
-      margin: 24px auto 0;
-      width: 600px;
-    }
-    table.item td {
-      padding: 10px 0;
-      text-align: center;
-    }
-    table.item td.name {
-      width: 136px;
-    }
-    table.item td.unit-price {
-      width: 90px;
-    }
-    table.item td.quantity {
-      width: 30px;
-    }
-    table.item td.total-price {
-      width: 100px;
-    }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <object  id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+      <embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0></embed>
+    </object>
   </head>
   <body>
-    <table class="profile">
+    <table id="tab" style="display: none;">
       <tr>
         <td class="left">No. <%= @tab.sequence.to_s.rjust(6, '0') %></td>
         <td class="right"><%= @tab.entrance_time.strftime('%Y-%m-%d') %></td>
@@ -60,8 +20,6 @@
         <td class="left"><%= @tab.user.name %></td>
         <td class="right">&nbsp;</td>
       </tr>
-    </table>
-    <table class="item">
       <% @tab.playing_items.each do |playing_item| %>
       <tr>
         <td class="name"><%= playing_item.vacancy.name %>打位 / <%= brac_seconds(playing_item.seconds) %> / <%= playing_item.total_balls / @current_club.balls_per_bucket %>筐</td>
@@ -90,5 +48,15 @@
       </tr>
       <% end %>
     </table>
+    <%= javascript_include_tag 'print' %>
+    <%= javascript_tag do %>
+      jQuery(document).ready(function(){
+        LODOP = getLodop($('LODOP_OB'), $('LODOP_EM'));
+        LODOP.PRINT_INIT("消费单");
+        LODOP.ADD_PRINT_HTM(0, 0, "100%", "100%", $('tab').html());
+        LODOP.PRINT();
+        window.location.replace('<%= url_for(@tab) %>');
+      });
+    <% end %>
   </body>
 </html>
