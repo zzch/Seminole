@@ -13,7 +13,7 @@
       table.items tr td {
         padding: 2px 2px;
         border-bottom: 1px #ccc dotted;
-        font-size: 10px;
+        font-size: 12px;
       }
       table.items tr td:first-child {
         width: 80px;
@@ -57,28 +57,32 @@
       <table class="items">
         <% @tab.playing_items.each do |playing_item| %>
         <tr>
-          <td><%= playing_item.vacancy.name %>打位</td>
-          <td><%= brac_price(playing_item.total_price) %></td>
-          <td><%= payment_method_tag(playing_item) %></td>
+          <td><font size="2px"><%= playing_item.vacancy.name %>打位</font></td>
+          <td><font size="2px"><%= brac_price(playing_item.total_price) %></font></td>
+          <td><font size="2px"><%= payment_method_tag(playing_item) %></font></td>
         </tr>
         <% end %>
         <% @tab.provision_items.each do |provision_item| %>
         <tr>
-          <td><%= provision_item.provision.name %></td>
-          <td><%= brac_price(provision_item.total_price) %></td>
-          <td><%= payment_method_tag(provision_item) %></td>
+          <td><font size="2px"><%= provision_item.provision.name %></font></td>
+          <td><font size="2px"><%= brac_price(provision_item.total_price) %></font></td>
+          <td><font size="2px"><%= payment_method_tag(provision_item) %></font></td>
         </tr>
         <% end %>
         <% @tab.extra_items.each do |extra_item| %>
         <tr>
-          <td><%= te_extra_item_type(extra_item.type) %></td>
-          <td><%= brac_price(extra_item.price) %></td>
-          <td><%= payment_method_tag(extra_item) %></td>
+          <td><font size="2px"><%= te_extra_item_type(extra_item.type) %></font></td>
+          <td><font size="2px"><%= brac_price(extra_item.price) %></font></td>
+          <td><font size="2px"><%= payment_method_tag(extra_item) %></font></td>
         </tr>
         <% end %>
       </table>
       <br />
       <%= image_tag('print/point.png') %><font style="top: 10px"> 会员签字</font> 
+      <hr style="width: 182px; float: left"/>
+      <br />
+      <br />
+      <br />
       <hr style="width: 182px; float: left"/>
     </div>
     <%= javascript_tag do %>
