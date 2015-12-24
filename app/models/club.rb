@@ -15,7 +15,7 @@ class Club < ActiveRecord::Base
   has_many :extra_items, through: :tabs
   has_many :announcements
   has_many :coaches
-  has_many :courses
+  has_many :courses, through: :coaches
   has_many :weathers
   has_many :reservations
   has_many :feedbacks

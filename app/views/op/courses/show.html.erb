@@ -1,0 +1,64 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 课程管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.coach' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @course.coach.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.type' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, te_course_type(@course.type), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.name' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @course.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.price' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_price(@course.price), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.valid_months' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @course.valid_months, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.maximum_lessons' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @course.maximum_lessons, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.maximum_students' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @course.maximum_students, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.description' %></label>
+          <div class="col-sm-6">
+            <%= cktext_area_tag :content, @course.description, cols: 40, ckeditor: { readOnly: 'true', toolbar: [] }, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', @course.coach, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '编辑', edit_course_path(@course), class: 'btn btn-primary' %>&nbsp;
+    </div>
+  </div>
+</div>

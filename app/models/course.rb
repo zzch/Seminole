@@ -1,5 +1,11 @@
 class Course < ActiveRecord::Base
   include UUID
-  belongs_to :club
-  has_many :curriculums
+  as_enum :type, [:open, :private], prefix: true, map: :string
+  belongs_to :coach
+  validates :type, presence: true
+  validates :name, presence: true, length: { maximum: 100 }
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :valid_months, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :maximum_lessons, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :maximum_students, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 end

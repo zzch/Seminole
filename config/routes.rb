@@ -100,6 +100,11 @@ Rails.application.routes.draw do
       end
     end
     resources :announcements
+    resources :coaches do
+      resources :courses
+    end
+    resources :courses
+    resources :students
     resources :salesmen
     resource :profile do
       get :edit_password

@@ -1,0 +1,106 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 教练管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">教练信息</h4>
+    </div>
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.phone' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @coach.phone, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.name' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @coach.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.portrait' %></label>
+          <div class="col-sm-6">
+            <%= image_tag @coach.portrait %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.gender' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, te_user_gender(@coach.gender), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.title' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @coach.title, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.starting_price' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_price(@coach.starting_price), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.description' %></label>
+          <div class="col-sm-6">
+            <%= cktext_area_tag :coach, @coach.description, cols: 40, ckeditor: { readOnly: 'true', toolbar: [] }, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.featured' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_boolean(@coach.featured), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', coaches_path, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '编辑', edit_coach_path(@coach), class: 'btn btn-primary' %>&nbsp;
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">课程列表</h4>
+    </div>
+    <% if @coach.courses.blank? %>
+    <div class="panel-body">
+      无任何记录
+    </div>
+    <% else %>
+    <div class="table-responsive table-expense">
+      <table class="table mb30">
+        <thead>
+          <tr>
+            <th><%= brac_arat 'course.type' %></th>
+            <th><%= brac_arat 'course.name' %></th>
+            <th><%= brac_arat 'course.price' %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @coach.courses.each do |course| %>
+          <tr>
+            <td><%= te_course_type(course.type) %></td>
+            <td><%= course.name %></td>
+            <td><%= brac_price(course.price) %></td>
+            <td class="table-action">
+              <%= link_to raw('<i class="fa fa-file-text-o"></i>'), course %>
+              <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_course_path(course) %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '创建', new_coach_course_path(@coach), class: 'btn btn-primary' %>&nbsp;
+    </div>
+  </div>
+</div>

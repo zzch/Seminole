@@ -1,0 +1,73 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 课程管理 <span>新建</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @course %>
+  <div class="panel panel-default">
+    <%= form_for [@coach, @course], html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.coach' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @coach.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.type' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <div class="rdio rdio-default mt5">
+              <%= f.radio_button :type, :private, checked: true %>
+              <label for="course_type_private">私教课</label>
+            </div>
+            <div class="rdio rdio-default">
+              <%= f.radio_button :type, :open %>
+              <label for="course_type_open">公开课</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.name' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.price' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :price, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.valid_months' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :valid_months, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.maximum_lessons' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :maximum_lessons, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.maximum_students' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :maximum_students, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.description' %></label>
+          <div class="col-sm-8">
+            <%= f.cktext_area :description, cols: 40, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', courses_path, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

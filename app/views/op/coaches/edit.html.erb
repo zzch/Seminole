@@ -1,0 +1,76 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 教练管理 <span>编辑</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @coach %>
+  <div class="panel panel-default">
+    <%= form_for @coach, html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.phone' %></label>
+          <div class="col-sm-6">
+            <%= f.text_field :phone, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.name' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :name, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.portrait' %></label>
+          <div class="col-sm-6">
+            <%= f.file_field :portrait, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.gender' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <div class="rdio rdio-default mt5">
+              <%= f.radio_button :gender, :male, checked: true %>
+              <label for="coach_gender_male">男</label>
+            </div>
+            <div class="rdio rdio-default">
+              <%= f.radio_button :gender, :female %>
+              <label for="coach_gender_female">女</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.title' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :title, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.starting_price' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.text_field :starting_price, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.description' %></label>
+          <div class="col-sm-9">
+            <%= f.cktext_area :description, cols: 40, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.featured' %></label>
+          <div class="col-sm-6">
+            <div class="ckbox ckbox-default mt10">
+              <%= f.check_box :featured %>
+              <label for="coach_featured"></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', @coach, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -56,8 +56,23 @@ module ApplicationHelper
     end
   end
 
-  def user_options_for_set_up_tab
+  def te_course_type type
+    case type
+    when :open then '公开课'
+    when :private then '私教课'
+    end
+  end
+
+  def user_options
     User.where(id: Membership.where(member_id: @current_club.member_ids).map(&:user_id).uniq).map{|user| ["#{PinYin.abbr(user.name).upcase} | #{user.name}#{" | #{user.phone}" unless user.phone.blank?}", user.id]}
+  end
+
+  def coach_options
+    @current_club.coaches.map{|coach| ["#{PinYin.abbr(coach.name).upcase} | #{coach.name}#{" | #{coach.phone}" unless coach.phone.blank?}", coach.id]}
+  end
+
+  def courses_options
+    grouped_options_for_select(@current_club.coaches.map{|coach| ["#{PinYin.abbr(coach.name).upcase} | #{coach.name}#{" | #{coach.phone}" unless coach.phone.blank?}", coach.courses.map{|course| [course.name, course.id]}]})
   end
 
   def provision_options

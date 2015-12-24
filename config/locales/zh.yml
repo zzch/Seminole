@@ -351,8 +351,39 @@ zh:
         created_at: 时间
         type: 类型
         item: 内容
+        amount: 额度
       card_vacancy_price:
         vacancy: 打位
+      coach:
+        phone: 手机号
+        name: 姓名
+        portrait: 头像
+        gender: 性别
+        title: 头衔
+        starting_price: 课程起售价
+        description: 简介
+        featured: 特殊展示
+      course:
+        coach: 教练
+        type: 类型
+        name: 名称
+        price: 价格
+        valid_months: 有效期
+        maximum_lessons: 课时数量
+        maximum_students: 学生数量
+        description: 简介
+      student:
+        user: 用户
+        coach: 教练
+        course: 课程
+        price: 价格
+        total_lessons: 课时数
+        expired_at: 有效期
+        state: 状态
+        state/progressing: 正常
+        state/finished: 已完成
+        state/cancelled: 已取消
+        state/expired: 已过期
       announcement:
         title: 标题
         content: 内容

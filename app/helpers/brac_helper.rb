@@ -36,6 +36,10 @@ module BracHelper
     datetime.try(:strftime, '%Y-%m-%d %H:%M') || 'N/A'
   end
 
+  def brac_boolean boolean
+    boolean ? '是' : '否'
+  end
+
   def brac_flash
     dismiss_btn = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'
     if flash[:alert]
