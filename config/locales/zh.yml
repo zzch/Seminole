@@ -384,6 +384,7 @@ zh:
         state/finished: 已完成
         state/cancelled: 已取消
         state/expired: 已过期
+        created_at: 报名时间
       announcement:
         title: 标题
         content: 内容

@@ -3,7 +3,7 @@ class Op::StudentsController < Op::BaseController
   before_action :find_student, only: %w(show edit update)
   
   def index
-    @students = @current_club.students.page(params[:page])
+    @students = Student.where(course: @current_club.courses).page(params[:page])
   end
   
   def show

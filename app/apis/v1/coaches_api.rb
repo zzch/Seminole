@@ -21,7 +21,17 @@ module V1
         expose :description
       end
 
+      class Student < Grape::Entity
+        expose :uuid
+        expose :course do |m, o|
+          { name: m.course.name, type: m.course.type }
+        end
+        expose :total_lessons
+        with_options(format_with: :timestamp){expose :expired_at}
+      end
+
       class List < Grape::Entity
+        expose :students, using: Coaches::Entities::Student
         expose :featured, using: Coaches::Entities::Course
         expose :normal, using: Coaches::Entities::Course
       end
@@ -71,6 +81,22 @@ module V1
         rescue ActiveRecord::RecordNotFound
           api_error_or_exception(10001)
         end
+      end
+    end
+
+    resource :students_and_coaches do
+      desc '课程及教练列表'
+      params do
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
+        optional :page, type: Integer, desc: '页码'
+      end
+      get do
+        students = @current_user.students.progressing
+        featured_coaches = @current_club.coaches.select{|coach| coach.featured?}
+        normal_coaches = @current_club.coaches.select{|coach| !coach.featured?}
+        list = { students: students, featured: featured_coaches, normal: normal_coaches }
+        present list, with: Coaches::Entities::List
       end
     end
   end
