@@ -6,7 +6,9 @@ module V1
         expose :uuid
         expose :name
         expose :price
-        expose :lessons
+        expose :lessons do |m, o|
+          m.maximum_lessons
+        end
       end
 
       class Course < Grape::Entity
