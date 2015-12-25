@@ -5,7 +5,9 @@ module V1
       class Detail < Grape::Entity
         expose :name
         expose :price
-        expose :lessons
+        expose :lessons do |m, o|
+          m.maximum_lessons
+        end
         expose :valid_months
         expose :maximum_students
         expose :description
