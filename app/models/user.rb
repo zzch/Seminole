@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :reservations
   has_many :students
   has_many :curriculums
+  has_many :vouchers
 
   def name
     if !last_name.blank? and !first_name.blank?

@@ -22,6 +22,7 @@ class Club < ActiveRecord::Base
   has_many :salesmen
   has_many :vacancy_tags
   has_many :promotions
+  has_many :vouchers
   scope :nearest, ->(latitude, longitude) {
     near([latitude, longitude], 5000, unit: :km)
   }
