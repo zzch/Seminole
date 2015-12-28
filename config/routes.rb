@@ -114,4 +114,7 @@ Rails.application.routes.draw do
     post :sign_in, to: 'sessions#create'
     get :sign_out, to: 'sessions#destroy', as: :sign_out
   end
+  namespace :social do
+    resources :vouchers
+  end
 end

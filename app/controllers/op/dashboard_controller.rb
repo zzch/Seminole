@@ -2,10 +2,10 @@
 class Op::DashboardController < Op::BaseController
   
   def index
-    weekly_tabs = @current_club.tabs.where('entrance_time >= ?', Time.now.beginning_of_week).where('entrance_time <= ?', Time.now)
-    today_tabs = @current_club.tabs.where('entrance_time >= ?', Time.now.beginning_of_day).where('entrance_time <= ?', Time.now)
-    yesterday_tabs = @current_club.tabs.where('entrance_time >= ?', (Time.now - 1.day).beginning_of_day).where('entrance_time <= ?', (Time.now - 1.day).end_of_day)
-    recently_tabs = @current_club.tabs.where('entrance_time >= ?', (Time.now - 8.days).beginning_of_day).where('entrance_time <= ?', Time.now.yesterday.end_of_day)
+    weekly_tabs = @current_club.tabs.finished.where('departure_time >= ?', Time.now.beginning_of_week).where('departure_time <= ?', Time.now)
+    today_tabs = @current_club.tabs.finished.where('departure_time >= ?', Time.now.beginning_of_day).where('departure_time <= ?', Time.now)
+    yesterday_tabs = @current_club.tabs.finished.where('departure_time >= ?', (Time.now - 1.day).beginning_of_day).where('departure_time <= ?', (Time.now - 1.day).end_of_day)
+    recently_tabs = @current_club.tabs.finished.where('entrance_time >= ?', (Time.now - 8.days).beginning_of_day).where('entrance_time <= ?', Time.now.yesterday.end_of_day)
     today_members = @current_club.members.where('created_at >= ?', Time.now.beginning_of_day).where('created_at <= ?', Time.now)
     yesterday_members = @current_club.members.where('created_at >= ?', (Time.now - 1.day).beginning_of_day).where('created_at <= ?', (Time.now - 1.day).end_of_day)
     
