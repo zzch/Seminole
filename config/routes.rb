@@ -107,6 +107,7 @@ Rails.application.routes.draw do
     resources :courses
     resources :students
     resources :salesmen
+    resources :preferences
     resource :profile do
       get :edit_password
       put :update_password

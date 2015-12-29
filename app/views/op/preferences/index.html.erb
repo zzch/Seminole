@@ -1,0 +1,22 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 参数管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-bordered table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'preference.name' %></th>
+          <th><%= brac_arat 'preference.value' %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= brac_arat 'preference.print_receipt' %></td>
+          <td><%= @current_club.preference(:print_receipt, true) %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

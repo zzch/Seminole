@@ -10,12 +10,18 @@ class Op::VacancyPricesController < Op::BaseController
     params[:op_bulk_create_vacancy_prices][:vacancy_ids].reject!{|vacancy_id| vacancy_id.to_i.zero?}
     @nar_form = Op::BulkCreateVacancyPrices.new(params[:op_bulk_create_vacancy_prices])
     if @nar_form.valid?
-      if @nar_form.mode == 'set'
-        CardVacancyPrice.bulk_create(@current_club, @card, @nar_form)
-      elsif @nar_form.mode == 'destroy'
-        CardVacancyPrice.bulk_destroy(@current_club, @card, @nar_form)
+      begin
+        if @nar_form.mode == 'set_price' or @nar_form.mode == 'set_discount'
+          CardVacancyPrice.bulk_create(@current_club, @card, @nar_form)
+        elsif @nar_form.mode == 'destroy'
+          CardVacancyPrice.bulk_destroy(@current_club, @card, @nar_form)
+        end
+        redirect_to @card, notice: '操作成功！'
+      rescue OriginPriceNotFound
+        redirect_to bulk_new_card_vacancy_prices_path(@card), alert: '操作失败！门市价不存在！'
+      rescue InvalidDiscount
+        redirect_to bulk_new_card_vacancy_prices_path(@card), alert: '操作失败！折扣率不正确！'
       end
-      redirect_to @card, notice: '操作成功！'
     else
       render action: 'bulk_new'
     end

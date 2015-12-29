@@ -23,6 +23,7 @@ class Club < ActiveRecord::Base
   has_many :vacancy_tags
   has_many :promotions
   has_many :vouchers
+  has_many :preferences
   scope :nearest, ->(latitude, longitude) {
     near([latitude, longitude], 5000, unit: :km)
   }
@@ -32,4 +33,8 @@ class Club < ActiveRecord::Base
   validates :longitude, presence: true, numericality: true
   validates :latitude, presence: true, numericality: true
   validates :address, length: { maximum: 400 }
+
+  def preference name, human_readable = false
+    self.preferences.where(name: name).first.try(:to_value, human_readable) || self.preferences.create!(name: name, value: Preference.default_value_of(name)).to_value(human_readable)
+  end
 end

@@ -399,6 +399,10 @@ zh:
         state/trashed: 已删除
       salesman:
         name: 姓名
+      preference:
+        name: 参数名
+        value: 参数值
+        print_receipt: 前台确认时打印小票
       version:
         name: 版本号
         build: BUILD
@@ -443,6 +447,7 @@ zh:
       op/bulk_create_vacancy_prices:
         vacancies: 打位
         mode: 操作模式
+        keep_decimal: 保留小数位
         usual_price_per_hour: 每小时平日价
         holiday_price_per_hour: 每小时假日价
         usual_price_per_bucket: 每筐球平日价

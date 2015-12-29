@@ -30,5 +30,7 @@ exceptions = %w(
   InvalidBucket
   InvalidConfirmMethod
   InvalidUser
+  OriginPriceNotFound
+  InvalidDiscount
 )
 exceptions.each{|e| Object.const_set(e, Class.new(StandardError))} 

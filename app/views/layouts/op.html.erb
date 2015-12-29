@@ -65,6 +65,9 @@
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 销售列表"), salesmen_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建销售"), new_salesman_path %></li>
             <% end %>
+            <%= brac_nav '系统设置', 'fa fa-gear', %w(preferences) do %>
+              <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 参数设置"), preferences_path %></li>
+            <% end %>
           </ul>
           <!--div class="infosummary">
             <h5 class="sidebartitle">Information Summary</h5>    

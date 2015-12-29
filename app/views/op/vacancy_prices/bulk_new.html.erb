@@ -33,16 +33,37 @@
         </div>
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_amat 'op/bulk_create_vacancy_prices.mode' %></label>
-          <div class="col-sm-1">
-            <div class="rdio rdio-primary mt5">
-              <%= f.radio_button :mode, :set, checked: true %>
-              <label for="op_bulk_create_vacancy_prices_mode_set">设置</label>
+          <div class="col-sm-2">
+            <div class="rdio rdio-primary mt10">
+              <%= f.radio_button :mode, :set_price, checked: true %>
+              <label for="op_bulk_create_vacancy_prices_mode_set_price">设置价格</label>
             </div>
           </div>
-          <div class="col-sm-1">
-            <div class="rdio rdio-danger mt5">
+          <div class="col-sm-2">
+            <div class="rdio rdio-primary mt10">
+              <%= f.radio_button :mode, :set_discount %>
+              <label for="op_bulk_create_vacancy_prices_mode_set_discount">设置折扣</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="rdio rdio-danger mt10">
               <%= f.radio_button :mode, :destroy %>
               <label for="op_bulk_create_vacancy_prices_mode_destroy">删除</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group mode-set-discount">
+          <label class="col-sm-3 control-label"><%= brac_amat 'op/bulk_create_vacancy_prices.keep_decimal' %></label>
+          <div class="col-sm-2">
+            <div class="rdio rdio-success mt10">
+              <%= f.radio_button :keep_decimal, true, checked: true %>
+              <label for="op_bulk_create_vacancy_prices_keep_decimal_true">保留</label>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="rdio rdio-danger mt10">
+              <%= f.radio_button :keep_decimal, false %>
+              <label for="op_bulk_create_vacancy_prices_keep_decimal_false">不保留</label>
             </div>
           </div>
         </div>
@@ -52,14 +73,14 @@
             <div class="input-group">
               <span class="input-group-addon"><%= brac_arat 'vacancy.usual_price' %></span>
               <%= f.text_field :usual_price_per_hour, class: 'form-control vacancy-price' %>
-              <span class="input-group-addon">元</span>
+              <span class="input-group-addon vacancy-unit">元</span>
             </div>
           </div>
           <div class="col-sm-3">
             <div class="input-group">
               <span class="input-group-addon"><%= brac_arat 'vacancy.holiday_price' %></span>
               <%= f.text_field :holiday_price_per_hour, class: 'form-control vacancy-price' %>
-              <span class="input-group-addon">元</span>
+              <span class="input-group-addon vacancy-unit">元</span>
             </div>
           </div>
         </div>
@@ -69,14 +90,14 @@
             <div class="input-group">
               <span class="input-group-addon"><%= brac_arat 'vacancy.usual_price' %></span>
               <%= f.text_field :usual_price_per_bucket, class: 'form-control vacancy-price' %>
-              <span class="input-group-addon">元</span>
+              <span class="input-group-addon vacancy-unit">元</span>
             </div>
           </div>
           <div class="col-sm-3">
             <div class="input-group">
               <span class="input-group-addon"><%= brac_arat 'vacancy.holiday_price' %></span>
               <%= f.text_field :holiday_price_per_bucket, class: 'form-control vacancy-price' %>
-              <span class="input-group-addon">元</span>
+              <span class="input-group-addon vacancy-unit">元</span>
             </div>
           </div>
         </div>
@@ -100,11 +121,26 @@
       }
     }
     jQuery(document).ready(function() {
-      $('#op_bulk_create_vacancy_prices_mode_set').on('click', function () {
+      if ($('#op_bulk_create_vacancy_prices_mode_set_price').is(':checked')) {
+        $('.mode-set-discount').hide();
+        $('.vacancy-unit').html('元');
+      } else if ($('#op_bulk_create_vacancy_prices_mode_set_price').is(':checked')) {
+        $('.mode-set-discount').show();
+        $('.vacancy-unit').html('折');
+      }
+      $('#op_bulk_create_vacancy_prices_mode_set_price').on('click', function () {
         $('.vacancy-price').prop('disabled', false);
+        $('.vacancy-unit').html('元');
+        $('.mode-set-discount').hide('blind');
+      })
+      $('#op_bulk_create_vacancy_prices_mode_set_discount').on('click', function () {
+        $('.vacancy-price').prop('disabled', false);
+        $('.vacancy-unit').html('折');
+        $('.mode-set-discount').show('blind');
       })
       $('#op_bulk_create_vacancy_prices_mode_destroy').on('click', function () {
         $('.vacancy-price').prop('disabled', true);
+        $('.mode-set-discount').hide('blind');
       })
     });
   </script>
