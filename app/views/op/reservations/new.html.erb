@@ -1,0 +1,55 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 预约管理 <span>新建</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @reservation %>
+  <div class="panel panel-default">
+    <%= form_for @reservation, html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'reservation.user' %> <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <%= f.select :user_id, user_options, prompt: '请选择', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'reservation.vacancy' %></label>
+          <div class="col-sm-6">
+            <%= f.select :vacancy_id, vacancy_options, prompt: '不限', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'reservation.will_playing_at' %></label>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <%= f.text_field :will_playing_at_date, value: brac_date(Time.now), class: 'form-control' %>
+              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="input-group">
+              <div class="bootstrap-timepicker"><%= f.text_field :will_playing_at_time, class: 'form-control' %></div>
+              <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', reservations_path, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function(){
+      $('#reservation_user_id').chosen({'width': '100%', 'white-space': 'nowrap'});
+      $('#reservation_vacancy_id').chosen({'width': '100%', 'white-space': 'nowrap'});
+      $('#reservation_will_playing_at_date').datepicker({dateFormat: 'yy-mm-dd'});
+      $('#reservation_will_playing_at_time').timepicker({defaultTIme: false, showMeridian: false, minuteStep: 5});
+    });
+  </script>
+<% end %>

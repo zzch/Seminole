@@ -2,7 +2,7 @@
 class Social::VouchersController < Social::BaseController
 
   def new
-    
+    @voucher = Voucher.new
   end
   
   def create

@@ -354,6 +354,10 @@ zh:
         amount: 额度
       card_vacancy_price:
         vacancy: 打位
+      reservation:
+        user: 会员
+        vacancy: 打位
+        will_playing_at: 预约时间
       coach:
         phone: 手机号
         name: 姓名

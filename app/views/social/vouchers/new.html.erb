@@ -1,1 +1,9 @@
-ddd
+<div class="voucher-page">
+  <%= image_tag 'social/voucher.jpg', class: 'voucher-title' %>
+  <div class="voucher-action">
+    <%= form_for [:social, @voucher] do |f| %>
+    <input type="tel" class="phone-number" placeholder="请输入手机号" maxlength="11" />
+    <%= link_to '点击领取', 'javascript:return false;', class: 'submit-btn' %>
+    <% end %>
+  </div>
+</div>

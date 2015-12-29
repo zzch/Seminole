@@ -9,6 +9,7 @@ class Op::DashboardController < Op::BaseController
     today_members = @current_club.members.where('created_at >= ?', Time.now.beginning_of_day).where('created_at <= ?', Time.now)
     yesterday_members = @current_club.members.where('created_at >= ?', (Time.now - 1.day).beginning_of_day).where('created_at <= ?', (Time.now - 1.day).end_of_day)
     
+    @recently_reservations = @current_club.reservations.where('will_playing_at >= ?', Time.now.beginning_of_day).where('will_playing_at <= ?', Time.now.end_of_day + 2.days).order(will_playing_at: :desc)
     @member_users_count = @current_club.memberships.map(&:user_id).uniq.count
     @weekly_member_users_count = weekly_tabs.select{|tab| tab.user.activated?}.map(&:user_id).uniq.count
     @weekly_visitor_users_count = weekly_tabs.select{|tab| !tab.user.activated?}.map(&:user_id).uniq.count

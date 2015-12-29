@@ -99,6 +99,7 @@ Rails.application.routes.draw do
         get :async_show
       end
     end
+    resources :reservations
     resources :announcements
     resources :coaches do
       resources :courses

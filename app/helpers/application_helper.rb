@@ -67,6 +67,10 @@ module ApplicationHelper
     User.where(id: Membership.where(member_id: @current_club.member_ids).map(&:user_id).uniq).map{|user| ["#{PinYin.abbr(user.name).upcase} | #{user.name}#{" | #{user.phone}" unless user.phone.blank?}", user.id]}
   end
 
+  def vacancy_options
+    @current_club.vacancies.map{|vacancy| ["#{te_vacancy_location(vacancy.location)} | #{vacancy.name}", vacancy.id]}
+  end
+
   def coach_options
     @current_club.coaches.map{|coach| ["#{PinYin.abbr(coach.name).upcase} | #{coach.name}#{" | #{coach.phone}" unless coach.phone.blank?}", coach.id]}
   end
@@ -117,7 +121,7 @@ module ApplicationHelper
   end
 
   def vacancy_tags tags
-    raw tags.map{|tag| "<span class=\"label label-success\">#{tag.name}</span>"}.join(' ')
+    raw(tags.blank? ? '<div class="mt10 text-danger">无任何标签！</div>' : tags.map{|tag| "<span class=\"label label-success\">#{tag.name}</span>"}.join(' '))
   end
 
   def styled_payment_method_tag item

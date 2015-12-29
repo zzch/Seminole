@@ -24,6 +24,14 @@ module BracHelper
     end
   end
 
+  def brac_nav name, icon, controllers = [], remote_url = nil, &block
+    raw(if block_given?
+      "<li class=\"nav-parent#{' nav-active active' if controllers.include?(controller_name)}\"><a href=\"\"><i class=\"#{icon}\"></i> <span>#{name}</span></a><ul class=\"children\"#{raw(' style="display: block"') if controllers.include?(controller_name)}>#{capture(&block)}</ul></li>"
+    else
+      "<li#{raw(' class="active"') if controllers.include?(controller_name)}>#{link_to raw("<i class=\"#{icon}\"></i> <span>#{name}</span>"), remote_url}</li>"
+    end)
+  end
+
   def brac_date date
     date.try(:strftime, '%Y-%m-%d') || 'N/A'
   end
@@ -69,5 +77,24 @@ module BracHelper
     minutes = ((total_seconds / 60) % 60).round
     hours = (total_seconds / 60 / 60).floor
     (hours.zero? ? '' : "#{hours}小时") + (minutes.zero? ? '不足一分钟' : "#{minutes}分钟")
+  end
+
+  def brac_day date
+    if Time.now.beginning_of_day <= date and Time.now.end_of_day >= date then '今天'
+    elsif Time.now.tomorrow.beginning_of_day <= date and Time.now.tomorrow.end_of_day >= date then '明天'
+    else '后天'
+    end
+  end
+
+  def brac_wday wday
+    case wday
+    when 0 then '星期日'
+    when 1 then '星期一'
+    when 2 then '星期二'
+    when 3 then '星期三'
+    when 4 then '星期四'
+    when 5 then '星期五'
+    when 6 then '星期六'
+    end
   end
 end

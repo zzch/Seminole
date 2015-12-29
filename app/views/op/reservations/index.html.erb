@@ -1,0 +1,36 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 预约管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-bordered table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'reservation.will_playing_at' %></th>
+          <th><%= brac_arat 'reservation.user' %></th>
+          <th><%= brac_arat 'reservation.vacancy' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="table-paginate"><%= brac_paginate @reservations %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @reservations.each do |reservation| %>
+        <tr>
+          <td><%= brac_datetime(reservation.will_playing_at) %></td>
+          <td><%= reservation.user.name %></td>
+          <td><%= (reservation.vacancy.try(:name) || '不限') %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), reservation %>
+            <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_reservation_path(reservation) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -112,7 +112,6 @@
             <td class="text-right">
               <span class="label label-primary">可用</span>
               <span class="label label-danger">使用中</span>
-              <span class="label label-warning">已预约</span>
               <span class="label label-default">已关闭</span>
             </td>
           </tr>
@@ -143,6 +142,39 @@
         </tbody>
       </table>
     </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">近期预约</h4>
+    </div>
+    <% if @recently_reservations.blank? %>
+    <div class="panel-body">
+      没有任何预约
+    </div>
+    <% else %>
+    <div class="table-responsive">
+      <table class="table table-striped mb30">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th><%= brac_arat 'reservation.will_playing_at' %></th>
+            <th><%= brac_arat 'reservation.user' %></th>
+            <th><%= brac_arat 'reservation.vacancy' %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @recently_reservations.each do |reservation| %>
+          <tr>
+            <td><%= brac_day(reservation.will_playing_at) %>，<%= brac_wday(reservation.will_playing_at.wday) %></td>
+            <td><%= brac_datetime(reservation.will_playing_at) %></td>
+            <td><%= reservation.user.name %></td>
+            <td><%= (reservation.vacancy.try(:name) || '不限') %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
   </div>
   <div class="panel panel-default">
     <div class="panel-body">

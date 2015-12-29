@@ -20,7 +20,7 @@ class Op::VacanciesController < Op::BaseController
     @vacancy = @current_club.vacancies.new(vacancy_params)
     if @vacancy.save
       @vacancy.reset_tags_by_raw_string
-      redirect_to @vacancy, notice: '操作成功！'
+      redirect_to @vacancy, notice: "<h4>操作成功！</h4><p>接下来您可能希望：#{view_context.link_to('继续创建打位', new_vacancy_path)} 或 #{view_context.link_to('批量创建打位', bulk_new_vacancies_path)}"
     else
       render action: 'new'
     end

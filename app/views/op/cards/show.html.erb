@@ -129,7 +129,7 @@
         <% unless @current_club.vacancies.located(location).blank? %>
           <% @current_club.vacancies.located(location).each do |vacancy| %>
           <tr>
-            <td><span data-toggle="tooltip" title="<%= vacancy.tags.map(&:name).join(' ')%>"><%= "#{te_vacancy_location(location.to_sym)} - #{vacancy.name}" %></span></td>
+            <td><span title="<%= vacancy.tags.map(&:name).join(' ') %>" data-placement="right" data-toggle="tooltip" class="tooltips"><%= "#{te_vacancy_location(location.to_sym)} - #{vacancy.name}" %></span></td>
             <% if @card.has_right?(vacancy) %>
             <td><%= raw brac_price(@card_vacancy_prices[vacancy.id].try(:usual_price_per_hour)).try(:prepend, '<strong class="text-danger">').try(:concat, '</strong>') || '-' %></td>
             <td>
