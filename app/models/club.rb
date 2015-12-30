@@ -37,4 +37,8 @@ class Club < ActiveRecord::Base
   def preference name, human_readable = false
     self.preferences.where(name: name).first.try(:to_value, human_readable) || self.preferences.create!(name: name, value: Preference.default_value_of(name)).to_value(human_readable)
   end
+
+  def available_vacancy_tags
+    self.vacancy_tags.select{|vacancy_tag| !vacancy_tag.vacancy_taggables.blank?}
+  end
 end

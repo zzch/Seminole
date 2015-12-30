@@ -26,8 +26,8 @@
             </div>
             <% end %>
             <% end %>
-            <% @current_club.vacancy_tags.each do |vacancy_tag| %>
-            <%= link_to vacancy_tag.name, 'javascript:false;', onclick: "toggleVacancy(#{vacancy_tag.id})", class: 'btn btn-primary btn-xs' %>&nbsp;
+            <% @current_club.available_vacancy_tags.each do |vacancy_tag| %>
+            <%= link_to vacancy_tag.name, 'javascript:false;', onclick: "toggleVacancy(#{vacancy_tag.id})", class: 'btn btn-primary btn-xs mb5' %>&nbsp;
             <% end %>
           </div>
         </div>
