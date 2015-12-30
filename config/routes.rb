@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     get :dashboard, to: 'dashboard#index', as: :dashboard
     resources :users do
       collection do
+        get :initial
         get :async_uniqueness_check
       end
     end
@@ -104,9 +105,13 @@ Rails.application.routes.draw do
     resources :coaches do
       resources :courses
     end
-    resources :courses
+    resources :courses do
+      resources :lessons
+    end
+    resources :lessons
     resources :students
     resources :salesmen
+    resources :feedbacks
     resources :preferences
     resource :profile do
       get :edit_password

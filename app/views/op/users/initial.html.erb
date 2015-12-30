@@ -5,7 +5,7 @@
   <%= brac_flash %>
   <ul class="letter-list">
     <% 'a'.upto('z') do |initial| %>
-    <li><%= link_to initial, initial_users_path(letter: initial) %></li>
+    <li><%= link_to initial, initial_users_path %></li>
     <% end %>
   </ul>
   <div class="mb30"></div>
@@ -20,11 +20,6 @@
           <th></th>
         </tr>
       </thead>
-      <tfoot>
-        <tr>
-          <td colspan="6" class="table-paginate"><%= brac_paginate @users %></td>
-        </tr>
-      </tfoot>
       <tbody>
         <% @users.each do |user| %>
         <tr>

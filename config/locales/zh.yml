@@ -376,6 +376,13 @@ zh:
         maximum_lessons: 课时数量
         maximum_students: 学生数量
         description: 简介
+      lesson:
+        coach: 教练
+        course: 课程
+        name: 名称
+        started_at: 开始时间
+        finished_at: 结束时间
+        maximum_students: 最大学生数
       student:
         user: 用户
         coach: 教练
@@ -399,6 +406,11 @@ zh:
         state/trashed: 已删除
       salesman:
         name: 姓名
+      feedback:
+        user: 用户
+        type: 类型
+        content: 内容
+        created_at: 提交时间
       preference:
         name: 参数名
         value: 参数值

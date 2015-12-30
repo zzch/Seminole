@@ -24,7 +24,7 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'coach.portrait' %></label>
           <div class="col-sm-6">
-            <%= image_tag @coach.portrait, class: 'img-responsive' %>
+            <%= image_tag @coach.portrait.w300_h300_ft_q80.url, class: 'img-responsive' %>
           </div>
         </div>
         <div class="form-group">

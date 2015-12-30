@@ -2,6 +2,7 @@ class Course < ActiveRecord::Base
   include UUID
   as_enum :type, [:open, :private], prefix: true, map: :string
   belongs_to :coach
+  has_many :lessons
   validates :type, presence: true
   validates :name, presence: true, length: { maximum: 100 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }

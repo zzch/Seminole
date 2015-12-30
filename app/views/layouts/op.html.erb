@@ -51,7 +51,7 @@
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 餐饮列表"), provisions_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建餐饮"), new_provision_path %></li>
             <% end %>
-            <%= brac_nav '教学管理', 'fa fa-comments-o', %w(coaches students) do %>
+            <%= brac_nav '教学管理', 'fa fa-comments-o', %w(coaches students courses lessons) do %>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 教练列表"), coaches_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建教练"), new_coach_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 学员列表"), students_path %></li>
@@ -65,7 +65,8 @@
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 销售列表"), salesmen_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建销售"), new_salesman_path %></li>
             <% end %>
-            <%= brac_nav '系统设置', 'fa fa-gear', %w(preferences) do %>
+            <%= brac_nav '系统管理', 'fa fa-gear', %w(preferences feedbacks) do %>
+              <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 意见反馈"), feedbacks_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 参数设置"), preferences_path %></li>
             <% end %>
           </ul>

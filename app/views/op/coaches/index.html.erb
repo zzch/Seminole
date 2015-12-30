@@ -3,36 +3,35 @@
 </div>
 <div class="contentpanel">
   <%= brac_flash %>
-  <div class="table-responsive">
-    <table class="table table-primary table-bordered table-striped mb30">
-      <thead>
-        <tr>
-          <th><%= brac_arat 'coach.phone' %></th>
-          <th><%= brac_arat 'coach.name' %></th>
-          <th><%= brac_arat 'coach.title' %></th>
-          <th><%= brac_arat 'coach.starting_price' %></th>
-          <th></th>
-        </tr>
-      </thead>
-      <tfoot>
-        <tr>
-          <td colspan="5" class="table-paginate"><%= brac_paginate @coaches %></td>
-        </tr>
-      </tfoot>
-      <tbody>
-        <% @coaches.each do |coach| %>
-        <tr>
-          <td><%= coach.name %></td>
-          <td><%= coach.name %></td>
-          <td><%= coach.title %></td>
-          <td><%= brac_price(coach.starting_price) %></td>
-          <td class="table-action">
-            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), coach %>
-            <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_coach_path(coach) %>
-          </td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="people-list">
+    <div class="row">
+      <% @coaches.each do |coach| %>
+      <div class="col-md-6">
+        <div class="people-item">
+          <div class="media">
+            <%= link_to image_tag((coach.portrait.w300_h300_ft_q80.url || 'bracket/extension/user_portrait_110px@2x.jpg'), class: 'thumbnail media-object'), coach, class: 'pull-left' %>
+            <div class="media-body">
+              <h4 class="person-name"><%= link_to coach.name, coach %></h4>
+              <div class="text-muted"><i class="fa fa-phone"></i> <%= coach.phone %></div>
+              <div class="text-muted"><i class="fa fa-tag"></i> <%= coach.title %></div>
+              <div class="text-muted">
+                <% if coach.featured? %>
+                <i class="fa fa-star"></i> 精英教练
+                <% else %>
+                <i class="fa fa-star-o"></i> 普通教练
+                <% end %>
+              </div>
+              <div class="text-muted">课程起售价：<%= brac_price(coach.starting_price) %></div>
+              <ul class="social-list">
+                <% coach.courses.order(created_at: :desc).first(8).each do |course| %>
+                <li><%= link_to (course.type_open? ? '公' : '私'), course, data: { toggle: 'tooltip', placement: 'top' }, title: course.name, class: 'tooltips' %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
   </div>
 </div>

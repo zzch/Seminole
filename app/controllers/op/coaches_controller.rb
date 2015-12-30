@@ -3,7 +3,7 @@ class Op::CoachesController < Op::BaseController
   before_action :find_coach, only: %w(show edit update)
   
   def index
-    @coaches = @current_club.coaches.page(params[:page])
+    @coaches = @current_club.coaches.order(featured: :desc)
   end
   
   def show

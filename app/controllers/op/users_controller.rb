@@ -25,6 +25,10 @@ class Op::UsersController < Op::BaseController
     end
   end
 
+  def initial
+    @users = User.where(id: @current_club.memberships.map(&:user_id).uniq).order(created_at: :desc).select{|user| PinYin.abbr(user.name)[0] == params[:letter]}
+  end
+
   def async_uniqueness_check
     user = User.where(phone: params[:phone]).first
     if user.blank?

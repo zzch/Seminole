@@ -9,9 +9,9 @@
         <table class="table table-primary table-striped mb30">
           <thead>
             <tr>
-              <th><%= brac_arat 'feedback.feedback' %></th>
+              <th><%= brac_arat 'feedback.user' %></th>
               <th><%= brac_arat 'feedback.content' %></th>
-              <th><%= brac_arat 'created_at' %></th>
+              <th><%= brac_arat 'feedback.created_at' %></th>
               <th></th>
             </tr>
           </thead>
@@ -23,7 +23,7 @@
           <tbody>
             <% @feedbacks.each do |feedback| %>
             <tr>
-              <td><%= feedback.user.nickname %></td>
+              <td><%= feedback.user.name %></td>
               <td><%= feedback.content %></td>
               <td><%= brac_datetime(feedback.created_at) %></td>
               <td class="table-action">

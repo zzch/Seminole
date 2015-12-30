@@ -4,6 +4,9 @@
 <div class="contentpanel">
   <%= brac_flash %>
   <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">课程信息</h4>
+    </div>
     <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
       <div class="panel-body panel-body-nopadding">
         <div class="form-group">
@@ -59,6 +62,45 @@
     <div class="panel-footer">
       <%= link_to '返回', @course.coach, class: 'btn btn-default' %>&nbsp;
       <%= link_to '编辑', edit_course_path(@course), class: 'btn btn-primary' %>&nbsp;
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">课时列表</h4>
+    </div>
+    <% if @course.lessons.blank? %>
+    <div class="panel-body">
+      无任何记录
+    </div>
+    <% else %>
+    <div class="table-responsive table-expense">
+      <table class="table mb30">
+        <thead>
+          <tr>
+            <th><%= brac_arat 'lesson.name' %></th>
+            <th><%= brac_arat 'lesson.duration' %></th>
+            <th><%= brac_arat 'lesson.maximum_students' %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @course.lessons.each do |lesson| %>
+          <tr>
+            <td><%= lesson.name %></td>
+            <td><%= brac_datetime(lesson.started_at) %> - <%= lesson.finished_at.strftime('%H:%M') %></td>
+            <td><%= lesson.maximum_students %></td>
+            <td class="table-action">
+              <%= link_to raw('<i class="fa fa-file-text-o"></i>'), lesson %>
+              <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_lesson_path(lesson) %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '创建', new_course_lesson_path(@course), class: 'btn btn-primary' %>&nbsp;
     </div>
   </div>
 </div>
