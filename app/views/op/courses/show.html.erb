@@ -64,6 +64,7 @@
       <%= link_to '编辑', edit_course_path(@course), class: 'btn btn-primary' %>&nbsp;
     </div>
   </div>
+  <% if @course.type_open? %>
   <div class="panel">
     <div class="panel-heading">
       <h4 class="panel-title">课时列表</h4>
@@ -103,4 +104,46 @@
       <%= link_to '创建', new_course_lesson_path(@course), class: 'btn btn-primary' %>&nbsp;
     </div>
   </div>
+  <% elsif @course.type_private? %>
+  <div class="panel">
+    <div class="panel-heading">
+      <h4 class="panel-title">学员及课时信息</h4>
+    </div>
+    <% if @course.students.blank? %>
+    <div class="panel-body">
+      无任何记录
+    </div>
+    <% else %>
+    <div class="table-responsive table-expense">
+      <table class="table mb30">
+        <thead>
+          <tr>
+            <th><%= brac_arat 'student.user' %></th>
+            <th><%= brac_arat 'student.created_at' %></th>
+            <th><%= brac_arat 'student.expired_at' %></th>
+            <th><%= brac_arat 'student.total_lessons' %></th>
+            <th><%= brac_arat 'student.state' %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @course.students.each do |student| %>
+          <tr>
+            <td><%= student.user.name %></td>
+            <td><%= brac_date(student.created_at) %></td>
+            <td><%= brac_date(student.expired_at) %></td>
+            <td><%= student.total_lessons %></td>
+            <td><%= student.aasm.human_state %></td>
+            <td class="table-action">
+              <%= link_to raw('<i class="fa fa-file-text-o"></i>'), student %>
+              <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_student_path(student) %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% end %>
+  </div>
+  <% end %>
 </div>

@@ -81,9 +81,9 @@
         </div>
         <% elsif @card.type_by_time? %>
         <div class="form-group">
-          <label class="col-sm-3 control-label"><%= brac_arat 'card.minute_amount' %></label>
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.hour_amount' %></label>
           <div class="col-sm-6">
-            <%= f.text_field :minute_amount, class: 'form-control' %>
+            <%= f.text_field :hour_amount, class: 'form-control' %>
           </div>
         </div>
         <% elsif @card.type_stored? %>
