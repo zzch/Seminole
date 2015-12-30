@@ -382,6 +382,7 @@ zh:
         name: 名称
         started_at: 开始时间
         finished_at: 结束时间
+        duration: 上课时间
         maximum_students: 最大学生数
       student:
         user: 用户

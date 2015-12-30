@@ -4,6 +4,7 @@
 <div class="contentpanel">
   <%= brac_flash %>
   <ul class="letter-list">
+    <li><%= link_to '全', users_path, class: 'active' %></li>
     <% 'a'.upto('z') do |initial| %>
     <li><%= link_to initial, initial_users_path(letter: initial) %></li>
     <% end %>

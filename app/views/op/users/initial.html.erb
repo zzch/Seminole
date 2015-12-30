@@ -1,11 +1,12 @@
 <div class="pageheader">
-  <h2><i class="fa fa-list"></i> 会员管理 <span>会员列表</span></h2>
+  <h2><i class="fa fa-list"></i> 会员管理 <span>“<%= params[:letter].upcase %>”会员列表</span></h2>
 </div>
 <div class="contentpanel">
   <%= brac_flash %>
   <ul class="letter-list">
+    <li><%= link_to '全', users_path %></li>
     <% 'a'.upto('z') do |initial| %>
-    <li><%= link_to initial, initial_users_path %></li>
+    <li><%= link_to initial, initial_users_path(letter: initial), class: "#{'active' if initial == params[:letter]}" %></li>
     <% end %>
   </ul>
   <div class="mb30"></div>

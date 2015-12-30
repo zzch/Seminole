@@ -2763,6 +2763,12 @@ div.error label.error:before {
     transition: all 0.2s ease-out 0s;
 }
 
+.letter-list li a.active {
+    background: #428BCA;
+    color: #f7f7f7;
+    font-weight: bold;
+}
+
 .letter-list li:first-child a {
     -moz-border-radius: 3px 0 0 3px;
     -webkit-border-radius: 3px 0 0 3px;
