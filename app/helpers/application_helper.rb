@@ -76,7 +76,7 @@ module ApplicationHelper
   end
 
   def courses_options
-    grouped_options_for_select(@current_club.coaches.map{|coach| ["#{PinYin.abbr(coach.name).upcase} | #{coach.name}#{" | #{coach.phone}" unless coach.phone.blank?}", coach.courses.map{|course| [course.name, course.id]}]})
+    grouped_options_for_select(@current_club.coaches.map{|coach| ["#{PinYin.abbr(coach.name).upcase} | #{coach.name}#{" | #{coach.phone}" unless coach.phone.blank?}", coach.courses.map{|course| ["#{course.name} | #{te_course_type(course.type)}", course.id]}]})
   end
 
   def provision_options

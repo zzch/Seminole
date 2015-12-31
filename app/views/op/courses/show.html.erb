@@ -74,7 +74,7 @@
       无任何记录
     </div>
     <% else %>
-    <div class="table-responsive table-expense">
+    <div class="table-responsive">
       <table class="table mb30">
         <thead>
           <tr>
@@ -107,14 +107,14 @@
   <% elsif @course.type_private? %>
   <div class="panel">
     <div class="panel-heading">
-      <h4 class="panel-title">学员及课时信息</h4>
+      <h4 class="panel-title">学员信息</h4>
     </div>
     <% if @course.students.blank? %>
     <div class="panel-body">
       无任何记录
     </div>
     <% else %>
-    <div class="table-responsive table-expense">
+    <div class="table-responsive">
       <table class="table mb30">
         <thead>
           <tr>

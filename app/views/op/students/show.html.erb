@@ -25,6 +25,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'course.type' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, te_course_type(@student.course.type), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'student.price' %></label>
           <div class="col-sm-6">
             <%= text_field_tag nil, brac_price(@student.price), readonly: true, class: 'form-control' %>

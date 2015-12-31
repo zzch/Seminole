@@ -10,4 +10,8 @@ class Course < ActiveRecord::Base
   validates :valid_months, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :maximum_lessons, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :maximum_students, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+
+  def unstarted_lessons
+    self.lessons.where('started_at > ?', Time.now)
+  end
 end

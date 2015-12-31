@@ -5,6 +5,7 @@ class Lesson < ActiveRecord::Base
   attr_accessor :finished_at_date
   attr_accessor :finished_at_time
   belongs_to :course
+  has_many :curriculums
   validates :started_at, presence: true
   validates :finished_at, presence: true
   validates :maximum_students, presence: true, numericality: { only_integer: true }

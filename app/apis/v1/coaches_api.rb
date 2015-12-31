@@ -24,9 +24,8 @@ module V1
       end
 
       class Student < Grape::Entity
-        expose :uuid
         expose :course do |m, o|
-          { name: m.course.name, type: m.course.type }
+          { uuid: m.course.uuid, name: m.course.name, type: m.course.type }
         end
         expose :total_lessons
         with_options(format_with: :timestamp){expose :expired_at}

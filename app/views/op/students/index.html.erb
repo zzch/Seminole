@@ -10,6 +10,7 @@
           <th><%= brac_arat 'student.user' %></th>
           <th><%= brac_arat 'student.coach' %></th>
           <th><%= brac_arat 'student.course' %></th>
+          <th><%= brac_arat 'course.type' %></th>
           <th><%= brac_arat 'student.created_at' %></th>
           <th><%= brac_arat 'student.state' %></th>
           <th></th>
@@ -26,6 +27,7 @@
           <td><%= student.user.name %></td>
           <td><%= student.course.coach.name %></td>
           <td><%= student.course.name %></td>
+          <td><%= te_course_type(student.course.type) %></td>
           <td><%= brac_datetime(student.created_at) %></td>
           <td><%= student.aasm.human_state %></td>
           <td class="table-action">

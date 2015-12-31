@@ -31,9 +31,6 @@
             </div>
             <% end %>
             <% end %>
-            <% @current_club.vacancy_tags.each do |vacancy_tag| %>
-            <%= link_to vacancy_tag.name, 'javascript:false;', onclick: "toggleVacancy(#{vacancy_tag.id})", class: 'btn btn-primary btn-xs' %>&nbsp;
-            <% end %>
           </div>
         </div>
       </div>
@@ -125,13 +122,6 @@
 </div>
 <% content_for :javascript do %>
   <script>
-    function toggleVacancy(tagId) {
-      if ($('.tag-' + tagId + ':not([disabled]):checked').length == $('.tag-' + tagId + ':not([disabled])').length) {
-        $('.tag-' + tagId + ':not([disabled])').prop('checked', false);
-      } else {
-        $('.tag-' + tagId + ':not([disabled])').prop('checked', true);
-      }
-    }
     jQuery(document).ready(function(){
       $('#tab_user_id').chosen({'width': '100%', 'white-space': 'nowrap'});
       $('#op_visitor_set_up_tab_phone').mask("999 - 9999 - 9999");
