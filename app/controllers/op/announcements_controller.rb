@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Op::AnnouncementsController < Op::BaseController
-  before_action :find_announcement, only: %w(show edit update)
+  before_action :find_announcement, only: %w(show edit update publish)
   
   def index
     @announcements = @current_club.announcements.page(params[:page])
@@ -32,6 +32,11 @@ class Op::AnnouncementsController < Op::BaseController
     else
       render action: 'edit'
     end
+  end
+
+  def publish
+    @announcement.publish!
+    redirect_to @announcement, notice: '操作成功！'
   end
 
   protected

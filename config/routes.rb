@@ -105,7 +105,11 @@ Rails.application.routes.draw do
       end
     end
     resources :reservations
-    resources :announcements
+    resources :announcements do
+      member do
+        put :publish
+      end
+    end
     resources :coaches do
       resources :courses
     end
