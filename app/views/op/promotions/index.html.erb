@@ -1,0 +1,38 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 促销管理 <span>列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-bordered table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'promotion.image' %></th>
+          <th><%= brac_arat 'promotion.title' %></th>
+          <th><%= brac_arat 'promotion.published_at' %></th>
+          <th><%= brac_arat 'promotion.state' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="5" class="table-paginate"><%= brac_paginate @promotions %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @promotions.each do |promotion| %>
+        <tr>
+          <td><%= image_tag(promotion.image.w600_h200_fl_q80.url) %></td>
+          <td><%= promotion.title %></td>
+          <td><%= brac_datetime(promotion.published_at) %></td>
+          <td><%= promotion.aasm.human_state %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), promotion %>
+            <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_promotion_path(promotion) %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -110,6 +110,7 @@ Rails.application.routes.draw do
         put :publish
       end
     end
+    resources :promotions
     resources :coaches do
       resources :courses
     end

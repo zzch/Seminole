@@ -61,6 +61,10 @@
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 公告列表"), announcements_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建公告"), new_announcement_path %></li>
             <% end %>
+            <%= brac_nav '商城管理', 'fa fa-building', %w(promotions) do %>
+              <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 促销列表"), promotions_path %></li>
+              <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建促销"), new_promotion_path %></li>
+            <% end %>
             <%= brac_nav '销售管理', 'fa fa-smile-o', %w(salesmen) do %>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 销售列表"), salesmen_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建销售"), new_salesman_path %></li>

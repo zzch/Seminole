@@ -1,0 +1,46 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 促销管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'promotion.image' %></label>
+          <div class="col-sm-6">
+            <%= image_tag @promotion.image.w600_h200_fl_q80.url, class: 'img-responsive' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'promotion.title' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @promotion.title, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'promotion.content' %></label>
+          <div class="col-sm-6">
+            <%= cktext_area_tag :content, @promotion.content, cols: 40, ckeditor: { readOnly: 'true', toolbar: [] }, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'promotion.published_at' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_datetime(@promotion.published_at), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'promotion.state' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @promotion.aasm.human_state, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', promotions_path, class: 'btn btn-default' %>&nbsp;
+      <%= link_to '编辑', edit_promotion_path(@promotion), class: 'btn btn-primary' %>&nbsp;
+    </div>
+  </div>
+</div>
