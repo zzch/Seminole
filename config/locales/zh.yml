@@ -247,6 +247,7 @@ zh:
         member_count: 会籍
       club:
         name: 名称
+        short_name: 简写
         code: 代号
         floors: 楼层
         position: 位置
@@ -417,6 +418,7 @@ zh:
         value: 参数值
         print_receipt: 前台确认时打印小票
       version:
+        latest: 最新版本
         name: 版本号
         build: BUILD
         content: 更新内容

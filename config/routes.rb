@@ -11,7 +11,11 @@ Rails.application.routes.draw do
       resources :operators
     end
     resources :operators
-    resources :versions
+    resources :versions do
+      member do
+        put :publish
+      end
+    end
     resource :profile do
       get :edit_password
       put :update_password

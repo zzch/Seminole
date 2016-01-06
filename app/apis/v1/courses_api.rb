@@ -29,8 +29,14 @@ module V1
           m.curriculums.count
         end
         expose :maximum_students
-        expose :reservable do |m, o|
-          m.curriculums.where(user_id: o[:current_user].id).blank?
+        expose :state do |m, o|
+          if m.curriculums.count >= m.maximum_students
+            'full'
+          elsif !m.curriculums.where(user_id: o[:current_user].id).blank?
+            'reserved'
+          else
+            'available'
+          end
         end
       end
 
@@ -39,6 +45,20 @@ module V1
         expose :description
         expose :coach, using: Courses::Entities::Coach
         expose :unstarted_lessons, using: Courses::Entities::Lessons
+      end
+
+      class PrivateDetail < Grape::Entity
+        expose :name
+        expose :description
+        expose :coach, using: Courses::Entities::Coach
+        expose :recently_schedule do |m, o|
+          (Date.today..(Date.today + 2.days)).map do |date|
+            current_time = date.to_time + 7.hours + 45.minutes
+            { date: date, schedule: (56.times.map do
+              { time: (current_time += 15.minutes).strftime('%H:%M'), state: 'available' }
+            end) }
+          end
+        end
       end
     end
   end
@@ -79,6 +99,31 @@ module V1
         rescue ActiveRecord::RecordNotFound
           api_error_or_exception(10001)
         end
+      end
+
+      post :reserve do
+
+      end
+    end
+
+    resource :private_courses do
+      desc '私教课程详情'
+      params do
+        requires :token, type: String, desc: 'Token'
+        requires :club_uuid, type: String, desc: '球场UUID'
+        requires :uuid, type: String, desc: '课程UUID'
+      end
+      get :detail do
+        begin
+          course = @current_club.courses.type_privates.find_uuid(params[:uuid])
+          present course, with: Courses::Entities::PrivateDetail, current_user: @current_user
+        rescue ActiveRecord::RecordNotFound
+          api_error_or_exception(10001)
+        end
+      end
+
+      post :reserve do
+
       end
     end
   end

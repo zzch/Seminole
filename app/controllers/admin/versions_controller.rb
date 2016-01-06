@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Admin::VersionsController < Admin::BaseController
+  before_action :find_version, only: %w(show edit update publish)
   
   def index
     @versions = Version.page(params[:page])
   end
   
   def show
-    @version = Version.find(params[:id])
   end
   
   def new
@@ -14,7 +14,6 @@ class Admin::VersionsController < Admin::BaseController
   end
   
   def edit
-    @version = Version.find(params[:id])
   end
   
   def create
@@ -27,7 +26,6 @@ class Admin::VersionsController < Admin::BaseController
   end
   
   def update
-    @version = Version.find(params[:id])
     if @version.update(version_params)
       redirect_to [:admin, @version], notice: '操作成功！'
     else
@@ -35,7 +33,16 @@ class Admin::VersionsController < Admin::BaseController
     end
   end
 
+  def publish
+    @version.publish!
+    redirect_to [:admin, @version], notice: '操作成功！'
+  end
+
   protected
+    def find_version
+      @version = Version.find(params[:id])
+    end
+
     def version_params
       params.require(:version).permit!
     end

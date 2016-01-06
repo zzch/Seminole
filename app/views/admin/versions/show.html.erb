@@ -27,14 +27,15 @@
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'version.state' %></label>
           <div class="col-sm-6">
-            <%= text_field_tag nil, @version.state, readonly: true, class: 'form-control' %>
+            <%= text_field_tag nil, @version.aasm.human_state, readonly: true, class: 'form-control' %>
           </div>
         </div>
       </div>
     <% end %>
     <div class="panel-footer">
       <%= link_to '返回', admin_versions_path, class: 'btn btn-default' %>&nbsp;
-      <%= link_to '编辑', edit_admin_version_path(@version), class: 'btn btn-primary' %>
+      <%= link_to '编辑', edit_admin_version_path(@version), class: 'btn btn-primary' %>&nbsp;
+      <%= link_to '发布', publish_admin_version_path(@version), method: :put, class: 'btn btn-primary' if @version.pending? %>&nbsp;
     </div>
   </div>
 </div>
