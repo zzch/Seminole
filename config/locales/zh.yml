@@ -364,7 +364,8 @@ zh:
       coach:
         phone: 手机号
         name: 姓名
-        portrait: 头像
+        headshot: 头像(大)
+        portrait: 头像(小)
         gender: 性别
         title: 头衔
         starting_price: 课程起售价
