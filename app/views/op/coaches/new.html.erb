@@ -19,6 +19,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'coach.headshot' %></label>
+          <div class="col-sm-6">
+            <%= f.file_field :headshot, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'coach.portrait' %></label>
           <div class="col-sm-6">
             <%= f.file_field :portrait, class: 'form-control' %>

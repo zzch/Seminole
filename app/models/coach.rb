@@ -1,6 +1,7 @@
 class Coach < ActiveRecord::Base
   include UUID
   mount_uploader :portrait, CoachPortraitUploader
+  mount_uploader :headshot, CoachHeadshotUploader
   as_enum :gender, [:male, :female], prefix: true, map: :string
   belongs_to :club
   has_many :courses
