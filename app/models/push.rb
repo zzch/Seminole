@@ -9,7 +9,7 @@ class Push
       http.use_ssl = true
       request = Net::HTTP::Post.new(uri.request_uri)
       request.basic_auth Setting.key[:jpush][:api_key], Setting.key[:jpush][:api_secret]
-      request.body = { platform: options[:platform], audience: options[:audience], notification: options[:notification], options: { apns_production: false } }.to_json
+      request.body = { platform: options[:platform], audience: options[:audience], notification: options[:notification], options: { apns_production: Rails.env.production? } }.to_json
       http.request(request)
     end
 
