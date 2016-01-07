@@ -20,8 +20,9 @@ module V1
         expose :gender
         expose :title
         expose :starting_price
-        expose :short_description
-        expose :description
+        expose :description do |m, o|
+          m.short_description
+        end
       end
 
       class NormalCoach < Grape::Entity
@@ -33,7 +34,6 @@ module V1
         expose :gender
         expose :title
         expose :starting_price
-        expose :short_description
         expose :description
       end
 
