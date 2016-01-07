@@ -1,0 +1,35 @@
+<div class="pageheader">
+  <h2><i class="fa fa-list"></i> 消费单管理 <span>待确认列表</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="table-responsive">
+    <table class="table table-primary table-striped mb30">
+      <thead>
+        <tr>
+          <th><%= brac_arat 'tab.sequence' %></th>
+          <th><%= brac_arat 'user.name' %></th>
+          <th><%= brac_arat 'tab.vacancy' %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="table-paginate"><%= brac_paginate @tabs %></td>
+        </tr>
+      </tfoot>
+      <tbody>
+        <% @tabs.each do |tab| %>
+        <tr>
+          <td><%= tab.sequence %></td>
+          <td><%= tab.user.name %></td>
+          <td><%= tab.vacancies.map(&:name).join(', ') %></td>
+          <td class="table-action">
+            <%= link_to raw('<i class="fa fa-file-text-o"></i>'), tab %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -106,6 +106,10 @@ class Op::TabsController < Op::BaseController
     @tabs = @current_club.tabs.progressing.order(entrance_time: :desc).page(params[:page])
   end
 
+  def confirming
+    @tabs = @current_club.tabs.confirming.order(entrance_time: :desc).page(params[:page])
+  end
+
   def finished
     @tabs = @current_club.tabs.finished.order(departure_time: :desc).page(params[:page])
   end

@@ -366,7 +366,8 @@ zh:
         gender: 性别
         title: 头衔
         starting_price: 课程起售价
-        description: 简介
+        short_description: 简短描述
+        description: 详细描述
         featured: 特殊展示
       course:
         coach: 教练

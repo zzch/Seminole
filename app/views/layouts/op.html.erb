@@ -26,7 +26,9 @@
             <%= brac_nav '控制面板', 'fa fa-home', %w(dashboard), dashboard_path %>
             <%= brac_nav '营业管理', 'fa fa-jpy', %w(tabs reservations) do %>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 进行中消费单"), progressing_tabs_path %></li>
+              <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 待确认消费单"), confirming_tabs_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 已完成消费单"), finished_tabs_path %></li>
+              <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 已取消消费单"), cancelled_tabs_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建消费单"), new_tab_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 预约列表"), reservations_path %></li>
               <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建预约"), new_reservation_path %></li>

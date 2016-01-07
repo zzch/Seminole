@@ -11,7 +11,7 @@ module V1
         end
       end
 
-      class Course < Grape::Entity
+      class FeaturedCoach < Grape::Entity
         expose :uuid
         expose :name
         expose :portrait do |m, o|
@@ -20,6 +20,20 @@ module V1
         expose :gender
         expose :title
         expose :starting_price
+        expose :short_description
+        expose :description
+      end
+
+      class NormalCoach < Grape::Entity
+        expose :uuid
+        expose :name
+        expose :portrait do |m, o|
+          m.portrait.w300_h300_fl_q80.url
+        end
+        expose :gender
+        expose :title
+        expose :starting_price
+        expose :short_description
         expose :description
       end
 
@@ -33,8 +47,8 @@ module V1
 
       class List < Grape::Entity
         expose :students, using: Coaches::Entities::Student
-        expose :featured, using: Coaches::Entities::Course
-        expose :normal, using: Coaches::Entities::Course
+        expose :featured, using: Coaches::Entities::FeaturedCoach
+        expose :normal, using: Coaches::Entities::NormalCoach
       end
 
       class Detail < Grape::Entity

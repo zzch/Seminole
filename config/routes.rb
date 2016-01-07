@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       resources :extra_items
       collection do
         get :progressing
+        get :confirming
         get :finished
         get :cancelled
         post :member_set_up
