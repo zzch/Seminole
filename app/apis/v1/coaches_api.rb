@@ -29,7 +29,7 @@ module V1
         expose :uuid
         expose :name
         expose :portrait do |m, o|
-          m.portrait.w300_h300_fl_q80.url
+          m.headshot.w300_h300_fl_q80.url
         end
         expose :gender
         expose :title
