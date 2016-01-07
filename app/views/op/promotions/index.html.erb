@@ -22,7 +22,7 @@
       <tbody>
         <% @promotions.each do |promotion| %>
         <tr>
-          <td><%= image_tag(promotion.image.w600_h200_fl_q80.url) %></td>
+          <td><%= image_tag(promotion.image.w640_h350_fl_q80.url, class: 'img-responsive') %></td>
           <td><%= promotion.title %></td>
           <td><%= brac_datetime(promotion.published_at) %></td>
           <td><%= promotion.aasm.human_state %></td>
