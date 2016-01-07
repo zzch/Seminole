@@ -341,7 +341,9 @@ zh:
         name: 名称
       provision:
         category: 分类
+        serial_number: 代号
         name: 名称
+        image: 图片
         price: 价格
         description: 描述
         state: 状态

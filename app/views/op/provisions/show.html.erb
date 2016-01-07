@@ -13,9 +13,21 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision.serial_number' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @provision.serial_number, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'provision.name' %></label>
           <div class="col-sm-6">
             <%= text_field_tag nil, @provision.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'provision.image' %></label>
+          <div class="col-sm-6">
+            <%= image_tag @provision.image.w290_h220_fl_q80.url, class: 'img-responsive' %>
           </div>
         </div>
         <div class="form-group">

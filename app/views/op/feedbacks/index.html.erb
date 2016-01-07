@@ -27,7 +27,7 @@
               <td><%= feedback.content %></td>
               <td><%= brac_datetime(feedback.created_at) %></td>
               <td class="table-action">
-                <%= link_to raw('<i class="fa fa-file-text-o"></i>'), [:cms, feedback] %>
+                <%= link_to raw('<i class="fa fa-file-text-o"></i>'), feedback %>
               </td>
             </tr>
             <% end %>
