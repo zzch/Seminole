@@ -5,7 +5,7 @@ module V1
       class Detail < Grape::Entity
         expose :name
         expose :image do |m, o|
-          m.image.w150_h150_fl_q50.url
+          m.image.w290_h220_fl_q80.url
         end
         expose :price
       end

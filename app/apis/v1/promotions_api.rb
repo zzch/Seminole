@@ -5,7 +5,7 @@ module V1
       class List < Grape::Entity
         expose :uuid
         expose :image do |m, o|
-          m.image.w600_h200_fl_q80.url
+          m.image.w640_h350_fl_q80.url
         end
         with_options(format_with: :timestamp){expose :published_at}
       end
