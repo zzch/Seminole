@@ -35,7 +35,6 @@ class VerificationCode < ActiveRecord::Base
     end
 
     def validate_sign_in options = {}
-      raise InvalidPhone.new unless options[:user].verification_codes.type_sign_ins.order(created_at: :desc).first.try(:phone) == options[:phone]
       if Rails.env.production?
         raise IncorrectVerificationCode.new unless options[:user].verification_codes.type_sign_ups.order(created_at: :desc).first.try(:content) == options[:verification_code]
       else
