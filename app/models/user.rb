@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include UUID
   mount_uploader :portrait, UserPortraitUploader
   as_enum :gender, [:male, :female], prefix: true, map: :string
+  has_many :verification_codes
   has_many :memberships
   has_many :members, through: :memberships
   has_many :tabs
