@@ -41,6 +41,7 @@ module V1
           user = User.where(phone: params[:phone]).first
           raise UserNotFound.new if user.nil?
           raise UnactivatedUser.new unless user.activated?
+          VerificationCode.send_sign_in(user: user, phone: params[:phone])
           present user, with: Sessions::Entities::Welcome, club: user.nearest_club(params[:latitude], params[:longitude])
         rescue UserNotFound
           api_error_or_exception(20001)

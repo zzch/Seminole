@@ -8,7 +8,7 @@ class VerificationCode < ActiveRecord::Base
     Time.now <= self.expired_at
   end
 
-  def use!
+  def expired!
     update!(used: true)
   end
 
@@ -18,6 +18,15 @@ class VerificationCode < ActiveRecord::Base
       raise TooManyRequest.new if where(phone: options[:phone]).where('created_at >= ?', Time.now.beginning_of_day).where('created_at <= ?', Time.now.end_of_day).count > 15
       content = rand(1234..9876)
       create!(user: options[:user], type: options[:type], phone: (options[:phone] || options[:user].phone), content: content, expired_at: Time.now + 30.minutes)
+      if Rails.env.production?
+        uri = URI.parse('https://sms-api.luosimao.com/v1/send.json')
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        request = Net::HTTP::Post.new(uri.request_uri)
+        request.basic_auth 'api', "key-#{Setting.key[:luosimao_sms][:api_key]}"
+        request.set_form_data(mobile: options[:phone], message: "您的验证码为#{content}，请勿泄露给他人。【练球宝】")
+        http.request(request)
+      end
     end
 
     def send_sign_in options = {}
@@ -27,8 +36,11 @@ class VerificationCode < ActiveRecord::Base
 
     def validate_sign_in options = {}
       raise InvalidPhone.new unless options[:user].verification_codes.type_sign_ins.order(created_at: :desc).first.try(:phone) == options[:phone]
-      # raise IncorrectVerificationCode.new unless options[:user].verification_codes.type_sign_ups.order(created_at: :desc).first.try(:content) == options[:verification_code]
-      raise IncorrectVerificationCode.new unless options[:verification_code] == '8888'
+      if Rails.env.production?
+        raise IncorrectVerificationCode.new unless options[:user].verification_codes.type_sign_ups.order(created_at: :desc).first.try(:content) == options[:verification_code]
+      else
+        raise IncorrectVerificationCode.new unless options[:verification_code] == '8888'
+      end
     end
   end
 end

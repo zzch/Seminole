@@ -1,1 +1,55 @@
-WELCOME~
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>练球宝</title>
+    <%= stylesheet_link_tag 'public', media: 'all', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">练球场服务管理云平台</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="#">首页</a></li>
+                  <li><a href="#">关于我们</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="inner cover">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-4"><%= image_tag 'public/iphone.png', class: 'img-responsive' %></div>
+                <div class="col-sm-8">
+                  <p>《我爱高尔夫》拥有丰富的线下教学与教练资源，并通过云计算和大数据应用于高尔夫，打造线上高尔夫平台的第一品牌。</p>
+                  <ul>
+                    <li>简单记分卡：清晰明了的录入界面，友好的用户体验，永久的云端储存从此告别纸质记分卡。</li>
+                    <li>专业记分卡：独创的专业记分录入系统，简洁的界面让您轻松的录入整场比赛成绩；赛后能够从铁杆、短杆、推杆、切杆等方面得到详细的数据分析。是的！只需要录入码数，专业记分卡都可以搞定！</li>
+                    <li>大数据分析：根据用户历史数据《我爱高尔夫》将为您提供数百项多维度数据分析报告，进而帮您找到问题的所在让用户更有针对性的提高球技，更有职业选手与您同台竞技。</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Copyright ©2015-2016 <a>Beijing iSports Co., Ltd.</a> All Rights Reserved</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= javascript_include_tag 'public', 'data-turbolinks-track' => true %>
+  </body>
+</html>
