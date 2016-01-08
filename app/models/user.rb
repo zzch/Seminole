@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
       where(phone: phone).first.tap do |user|
         raise UserNotFound.new if user.nil?
         raise UnactivatedUser.new unless user.activated?
-        raise IncorrectVerificationCode.new if verification_code != 8888
+        VerificationCode.validate_sign_in(user: user, phone: phone, verification_code: verification_code)
         user.update!(token: SecureRandom.urlsafe_base64)
       end
     end
