@@ -1,0 +1,45 @@
+<div class="pageheader">
+  <h2><i class="fa fa-pencil-square-o"></i> 会员管理 <span>充值</span></h2>
+</div>
+<div class="contentpanel">
+  <%= render "op/commons/error_messages", target: @member %>
+  <div class="panel panel-default">
+    <%= form_for @member, url: recharging_member_path(@member), html: { class: 'form-horizontal form-bordered' } do |f| %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.name' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @member.card.name, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'card.type' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, te_card_type(@member.card.type), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'member.balance' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @member.balance, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">充值额度 <span class="asterisk">*</span></label>
+          <div class="col-sm-6">
+            <div class="input-group">
+              <%= text_field_tag :amount, nil, class: 'form-control' %>
+              <span class="input-group-addon"><%= te_card_unit(@member.card) %></span>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
+            <%= link_to '返回', @member, class: 'btn btn-default' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

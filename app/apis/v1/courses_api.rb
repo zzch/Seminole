@@ -54,7 +54,7 @@ module V1
         expose :recently_schedule do |m, o|
           (Date.today..(Date.today + 2.days)).map do |date|
             current_time = date.to_time + 7.hours + 45.minutes
-            { date: date, schedule: (56.times.map do
+            { date: date.to_time.to_i, schedule: (56.times.map do
               { time: (current_time += 15.minutes).strftime('%H:%M'), state: 'available' }
             end) }
           end

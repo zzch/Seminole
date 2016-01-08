@@ -63,6 +63,14 @@ module ApplicationHelper
     end
   end
 
+  def te_card_unit card
+    case card.type
+    when :by_ball then '粒球'
+    when :by_time then '小时'
+    when :stored then '元'
+    end
+  end
+
   def user_options
     User.where(id: Membership.where(member_id: @current_club.member_ids).map(&:user_id).uniq).map{|user| ["#{PinYin.abbr(user.name).upcase} | #{user.name}#{" | #{user.phone}" unless user.phone.blank?}", user.id]}
   end

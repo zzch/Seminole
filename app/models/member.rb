@@ -43,6 +43,15 @@ class Member < ActiveRecord::Base
     self.expired_at.beginning_of_day > Time.now.beginning_of_day and self.activated?
   end
 
+  def recharging options = {}
+    case self.card.type
+    when :by_ball then self.ball_amount += options[:amount].to_i
+    when :by_time then self.minute_amount += (options[:amount].to_i * 60)
+    when :stored then self.deposit += options[:amount].to_f
+    end
+    self.save!
+  end
+
   class << self
     def search club, keyword
       User.where(id: club.members.map{|member| member.users.map{|user| user.id}}.flatten).where('phone LIKE ? OR CONCAT(last_name, first_name) LIKE ?', "%#{keyword}%", "%#{keyword}%").first || raise(DoesNotExist.new)

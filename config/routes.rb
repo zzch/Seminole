@@ -36,6 +36,10 @@ Rails.application.routes.draw do
     end
     resources :members do
       resources :memberships
+      member do
+        get :recharging, to: 'members#recharging_form'
+        patch :recharging, to: 'members#recharging'
+      end
     end
     resources :memberships
     get :search, to: 'search#create', as: :search
