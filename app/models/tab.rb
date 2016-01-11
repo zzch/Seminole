@@ -77,11 +77,11 @@ class Tab < ActiveRecord::Base
         when :by_ball_member
           raise InvalidCardType.new unless playing_item.member.card.type_by_ball?
           raise InvalidCharingType.new unless playing_item.charging_type_by_ball?
-          member_expenses << MemberExpense.new(member: playing_item.member, item: playing_item)
+          member_expenses << MemberExpense.new(member: playing_item.member, item: playing_item) if playing_item.total_balls > 0
         when :by_time_member
           raise InvalidCardType.new unless playing_item.member.card.type_by_time?
           raise InvalidCharingType.new unless playing_item.charging_type_by_time?
-          member_expenses << MemberExpense.new(member: playing_item.member, item: playing_item)
+          member_expenses << MemberExpense.new(member: playing_item.member, item: playing_item) if ((playing_item.finished_at - playing_item.started_at) / 60) > self.club.minimum_charging_minutes
         when :stored_member
           raise InvalidCardType.new unless playing_item.member.card.type_stored?
           member_expenses << MemberExpense.new(member: playing_item.member, item: playing_item) if playing_item.total_price > 0

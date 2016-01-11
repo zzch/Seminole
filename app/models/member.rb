@@ -44,12 +44,16 @@ class Member < ActiveRecord::Base
   end
 
   def recharging options = {}
-    case self.card.type
-    when :by_ball then self.ball_amount += options[:amount].to_i
-    when :by_time then self.minute_amount += (options[:amount].to_i * 60)
-    when :stored then self.deposit += options[:amount].to_f
+    ActiveRecord::Base.transaction do
+      self.lock!
+      case self.card.type
+      when :by_ball then before_amount = self.ball_amount; self.ball_amount += options[:amount].to_i; after_amount = self.ball_amount
+      when :by_time then before_amount = self.minute_amount; self.minute_amount += (options[:amount].to_i * 60); after_amount = self.minute_amount
+      when :stored then before_amount = self.deposit; self.deposit += options[:amount].to_f; after_amount = self.deposit
+      end
+      self.save!
+      TransactionRecord.create_income(member: self, operator: options[:operator], amount: options[:amount], before_amount: before_amount, after_amount: after_amount)
     end
-    self.save!
   end
 
   class << self
