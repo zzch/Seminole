@@ -38,7 +38,8 @@ class VerificationCode < ActiveRecord::Base
       if Rails.env.production?
         raise IncorrectVerificationCode.new unless options[:user].verification_codes.type_sign_ins.order(created_at: :desc).first.try(:content) == options[:verification_code].to_s
       else
-        raise IncorrectVerificationCode.new unless options[:verification_code] == '8888'
+
+        raise IncorrectVerificationCode.new unless '8888' == options[:verification_code].to_s
       end
     end
   end
