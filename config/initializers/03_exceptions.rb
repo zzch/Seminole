@@ -34,5 +34,7 @@ exceptions = %w(
   InvalidDiscount
   FrequentRequest
   TooManyRequest
+  FullLesson
+  AlreadyReserved
 )
 exceptions.each{|e| Object.const_set(e, Class.new(StandardError))} 

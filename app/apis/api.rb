@@ -65,6 +65,7 @@ class API < Grape::API
     mount V1::AnnouncementsAPI
     mount V1::CoachesAPI
     mount V1::CoursesAPI
+    mount V1::LessonsAPI
     mount V1::WeathersAPI
     mount V1::ReservationsAPI
     mount V1::ProvisionsAPI

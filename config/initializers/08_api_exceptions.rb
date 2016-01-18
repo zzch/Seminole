@@ -6,6 +6,7 @@ class APIException
     20003 => { message: '验证码不正确' },
     20004 => { message: '重复预约' },
     20005 => { message: '无效的状态' },
+    20006 => { message: '课程预约已满' },
   }
 
   class << self

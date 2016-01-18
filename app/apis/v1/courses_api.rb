@@ -22,6 +22,7 @@ module V1
       end
 
       class Lessons < Grape::Entity
+        expose :uuid
         expose :name
         with_options(format_with: :timestamp){expose :started_at}
         with_options(format_with: :timestamp){expose :finished_at}
