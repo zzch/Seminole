@@ -13,5 +13,11 @@ module UUID
     def find_uuid uuid
       self.where(uuid: uuid).first || raise(ActiveRecord::RecordNotFound)
     end
+
+    def rebuild_uuid!
+      self.all.select{|m| m.uuid.blank?}.each do |m|
+        m.update!(uuid: SecureRandom.uuid)
+      end
+    end
   end
 end
