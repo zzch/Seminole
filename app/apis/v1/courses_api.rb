@@ -102,10 +102,6 @@ module V1
           api_error_or_exception(10001)
         end
       end
-
-      post :reserve do
-
-      end
     end
 
     resource :private_courses do
