@@ -26,13 +26,9 @@ module V1
 
       class List < Grape::Entity
         expose :uuid
-        expose :lesson, using: Curriculums::Entities::Lesson
-        expose :rating
-        expose :state
-      end
-
-      class Detail < Grape::Entity
-        expose :uuid
+        expose :club_name do |m, o|
+          m.lesson.course.coach.club.name
+        end
         expose :lesson, using: Curriculums::Entities::Lesson
         expose :rating
         expose :state
