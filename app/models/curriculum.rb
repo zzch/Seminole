@@ -19,6 +19,8 @@ class Curriculum < ActiveRecord::Base
   end
 
   def rate score
-    self.update!(rating: score)
+    self.rating = score
+    self.finish
+    self.save!
   end
 end
