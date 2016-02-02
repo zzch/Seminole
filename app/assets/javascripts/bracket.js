@@ -25,4 +25,5 @@
 //= require bracket/jquery.maskedinput.min
 //= require bracket/chosen.jquery.min
 //= require bracket/select2
+//= require bracket/color_picker
 //= require bracket/bracket
