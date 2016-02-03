@@ -18,7 +18,7 @@ class VerificationCode < ActiveRecord::Base
       raise TooManyRequest.new if where(phone: options[:phone]).where('created_at >= ?', Time.now.beginning_of_day).where('created_at <= ?', Time.now.end_of_day).count > 15
       content = rand(1234..9876)
       create!(user: options[:user], type: options[:type], phone: (options[:phone] || options[:user].phone), content: content, expired_at: Time.now + 30.minutes)
-      if Rails.env.production?
+      if Rails.env.production? and options[:phone] != 13911320927
         uri = URI.parse('https://sms-api.luosimao.com/v1/send.json')
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
