@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   mount API => '/'
   namespace :public do
     get :welcome, to: 'home#welcome', as: :welcome
+    get :get, to: 'home#get', as: :get
   end
   namespace :admin do
     root 'dashboard#index'
