@@ -19,7 +19,7 @@ module V1
         expose :club, using: Tabs::Entities::Club, if: lambda {|m, o| o[:include_club]}
         expose :items do |m, o|
           m.playing_items.map do |playing_item|
-            { name: "#{playing_item.vacancy.name}打位", total_price: playing_item.total_price, payment_method: playing_item.payment_method }
+            { name: "#{playing_item.vacancy.name}打位", total_price: "#{sprintf('%0.02f', playing_item.total_price)}元", payment_method: playing_item.payment_method }
           end +
           m.provision_items.map do |provision_item|
             { name: "#{provision_item.provision.name}x#{provision_item.quantity}", total_price: "#{sprintf('%0.02f', provision_item.total_price)}元", payment_method: provision_item.payment_method }
