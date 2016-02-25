@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   end
 
   def update_registration_id registration_id
+    Rails.logger.info("****************** registration_id: [#{registration_id}]")
     User.where(registration_id: registration_id).update_all(registration_id: nil)
     self.update!(registration_id: registration_id)
   end
