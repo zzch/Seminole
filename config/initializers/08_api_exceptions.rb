@@ -7,6 +7,7 @@ class APIException
     20004 => { message: '重复预约' },
     20005 => { message: '无效的状态' },
     20006 => { message: '课程预约已满' },
+    20007 => { message: '请求过于频繁' },
   }
 
   class << self
