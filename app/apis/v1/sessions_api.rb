@@ -61,7 +61,7 @@ module V1
       end
       post do
         begin
-          verification_code = if params[:phone] == 13911320927 and params[:verification_code] == 8888
+          verification_code = if Rails.env.production? and params[:phone] == 13911320927 and params[:verification_code] == 8888
             User.where(phone: 13911320927).first.verification_codes.type_sign_ins.order(created_at: :desc).first.try(:content)
           else
             params[:verification_code]
