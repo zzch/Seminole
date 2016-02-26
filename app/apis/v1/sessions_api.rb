@@ -19,7 +19,7 @@ module V1
 
       class SignIn < Grape::Entity
         expose :user do |m, o|
-          { name: m.name, gender: m.gender, portrait: m.portrait.w150_h150_fl_q50.url, birthday: m.birthday.try(:to_i), token: m.token }
+          { uuid: m.uuid, name: m.name, gender: m.gender, portrait: m.portrait.w150_h150_fl_q50.url, birthday: m.birthday.try(:to_i), token: m.token }
         end
         expose :club do |m, o|
           { uuid: o[:club].uuid }
