@@ -30,23 +30,23 @@
                   <th><%= brac_arat 'tab.sequence' %></th>
                   <th><%= brac_arat 'user.name' %></th>
                   <th><%= brac_arat 'tab.vacancy' %></th>
-                  <th></th>
+                  <th>进出场时间</th>
+                  <th><%= brac_arat 'tab.state' %></th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
-                  <td colspan="4" class="table-paginate"><%= brac_paginate @tabs %></td>
+                  <td colspan="5" class="table-paginate"><%= brac_paginate @tabs %></td>
                 </tr>
               </tfoot>
               <tbody>
                 <% @tabs.each do |tab| %>
                 <tr>
-                  <td><%= "No. #{tab.sequence.to_s.rjust(6, '0')}" %></td>
+                  <td><%= link_to "No. #{tab.sequence.to_s.rjust(6, '0')}", tab %></td>
                   <td><%= tab.user.name %></td>
                   <td><%= tab.playing_items.map{|playing_item| playing_item.vacancy.name}.join(', ') %></td>
-                  <td class="table-action">
-                    <%= link_to raw('<i class="fa fa-file-text-o"></i>'), tab %>
-                  </td>
+                  <td><%= brac_datetime(tab.entrance_time) %> - <%= tab.departure_time.try(:strftime, '%H:%M') || '未出场' %></td>
+                  <td><%= tab.aasm.human_state %></td>
                 </tr>
                 <% end %>
               </tbody>
