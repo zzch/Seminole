@@ -17,6 +17,6 @@ $(document).ready(function(){
       document.location = "https://itunes.apple.com/us/app/lian-qiu-bao/id1058814578";
     }
   } else {
-    // document.location = "http://lianqiubao.com";
+    document.location = "http://lianqiubao.com";
   }
 });
