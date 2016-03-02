@@ -23,7 +23,7 @@
         <tr>
           <td><%= tab.sequence %></td>
           <td><%= tab.user.name %></td>
-          <td><%= tab.vacancies.map(&:name).join(', ') %></td>
+          <td><%= tab.playing_items.map{|playing_item| playing_item.vacancy.name}.join(', ') %></td>
           <td class="table-action">
             <%= link_to raw('<i class="fa fa-file-text-o"></i>'), tab %>
           </td>

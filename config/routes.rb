@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   scope module: :op do
     root 'dashboard#index'
     get :dashboard, to: 'dashboard#index', as: :dashboard
+    get :search, to: 'search#create', as: :search
     resources :users do
       collection do
         get :initial
@@ -43,7 +44,6 @@ Rails.application.routes.draw do
       end
     end
     resources :memberships
-    get :search, to: 'search#create', as: :search
     resources :tabs do
       resources :playing_items
       resources :provision_items
@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         get :cancelled
         post :member_set_up
         post :visitor_set_up
+        get :search
       end
       member do
         put :cancel

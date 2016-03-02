@@ -163,6 +163,13 @@ class Tab < ActiveRecord::Base
         end
       end
     end
+
+    def search conditions
+      tab = Tab.order(created_at: :desc)
+      tab = tab.where('entrance_time >= ?', conditions[:started_at].to_time.beginning_of_day) unless conditions[:started_at].blank?
+      tab = tab.where('entrance_time <= ?', conditions[:end_at].to_time.end_of_day) unless conditions[:end_at].blank?
+      tab
+    end
   end
   
   protected

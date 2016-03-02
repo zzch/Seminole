@@ -1,0 +1,67 @@
+<div class="pageheader">
+    <h2><i class="fa fa-search"></i> 消费单管理 <span>搜索</span></h2>
+  </div>
+  <div class="contentpanel">
+    <div class="row">
+      <div class="col-sm-4 col-md-3">
+        <%= form_tag search_tabs_path, method: :get do %>
+        <h4 class="subtitle mb5">开始日期</h4>
+        <div class="input-group">
+          <%= text_field_tag :started_at, nil, class: 'form-control' %>
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+        <br />
+        <h4 class="subtitle mb5">结束日期</h4>
+        <div class="input-group">
+          <%= text_field_tag :end_at, nil, class: 'form-control' %>
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+        </div>
+        <br />
+        <%= submit_tag '搜索', class: 'btn btn-primary' %>&nbsp;
+        <%= link_to '导出', dashboard_path, class: 'btn btn-danger' %>
+        <% end %>
+      </div>
+      <div class="col-sm-8 col-md-9">
+        <div class="panel panel-default">
+          <div class="table-responsive">
+            <table class="table table-default table-striped mb30">
+              <thead>
+                <tr>
+                  <th><%= brac_arat 'tab.sequence' %></th>
+                  <th><%= brac_arat 'user.name' %></th>
+                  <th><%= brac_arat 'tab.vacancy' %></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <td colspan="4" class="table-paginate"><%= brac_paginate @tabs %></td>
+                </tr>
+              </tfoot>
+              <tbody>
+                <% @tabs.each do |tab| %>
+                <tr>
+                  <td><%= "No. #{tab.sequence.to_s.rjust(6, '0')}" %></td>
+                  <td><%= tab.user.name %></td>
+                  <td><%= tab.playing_items.map{|playing_item| playing_item.vacancy.name}.join(', ') %></td>
+                  <td class="table-action">
+                    <%= link_to raw('<i class="fa fa-file-text-o"></i>'), tab %>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% content_for :javascript do %>
+  <script>
+    jQuery(document).ready(function() {
+      $("#started_at").mask("9999/99/99");
+      $("#end_at").mask("9999/99/99");
+    });
+  </script>
+<% end %>

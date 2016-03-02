@@ -118,6 +118,10 @@ class Op::TabsController < Op::BaseController
     @tabs = @current_club.tabs.cancelled.order(entrance_time: :desc).page(params[:page])
   end
 
+  def search
+    @tabs = Tab.search(params).page(params[:page])
+  end
+
   protected
     def tab_params
       params.require(:tab).permit!
