@@ -3,7 +3,7 @@
 $(document).ready(function(){
   var ua = navigator.userAgent.toLowerCase();
   if (ua.indexOf('android') > -1) {
-    document.location = "http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.zcty.ILovegolf.activity";
+    document.location = "http://a.app.qq.com/o/simple.jsp?pkgname=com.zhongchuangtiyu.denarau";
   } else if (ua.indexOf('iphone') > -1) {
     if (ua.match(/MicroMessenger/i) == "micromessenger") {
       $("#weixin").show();
