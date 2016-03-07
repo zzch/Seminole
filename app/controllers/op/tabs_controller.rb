@@ -102,6 +102,15 @@ class Op::TabsController < Op::BaseController
     end
   end
 
+  def drop
+    begin
+      @tab.drop!
+      redirect_to @tab, notice: '撤单成功！'
+    rescue AlreadyInUse
+      render action: 'new'
+    end
+  end
+
   def progressing
     @tabs = @current_club.tabs.progressing.order(entrance_time: :desc).page(params[:page])
   end

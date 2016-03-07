@@ -62,6 +62,7 @@ Rails.application.routes.draw do
         get :checkout
         get :print
         put :checking
+        put :drop
       end
     end
     resources :playing_items do

@@ -13,7 +13,7 @@ class Op::BaseController < ApplicationController
 
   protected
     def render_error status, exception
-      #Error.create(caller: "Administrator-#{session['administrator']['id']}", name: exception.class.to_s, message: exception.message, backtrace: "<p>#{exception.backtrace.try(:join, '</p><p>')}</p>")
+      ServiceException.create!(module: :op, caller_id: (session['operator'].try(:[], 'id') || 0), name: exception.class.to_s, message: exception.message, backtrace: "<p>#{exception.backtrace.try(:join, '</p><p>')}</p>")
       render template: "op/errors/error_#{status}", status: status
     end
 

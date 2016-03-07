@@ -8,6 +8,7 @@ class Tab < ActiveRecord::Base
   has_many :playing_items
   has_many :extra_items
   has_many :vacancies
+  has_many :transaction_records
   aasm column: 'state' do
     state :progressing, initial: true
     state :cancelled
@@ -23,7 +24,7 @@ class Tab < ActiveRecord::Base
     event :finish do
       transitions from: [:progressing, :confirming], to: :finished
     end
-    event :drop do
+    event :aasm_drop do
       transitions from: :finished, to: :voided
     end
   end
@@ -155,6 +156,27 @@ class Tab < ActiveRecord::Base
       self.finish!
     rescue AASM::InvalidTransition
       raise InvalidState.new
+    end
+  end
+
+  def drop
+    ActiveRecord::Base.transaction do
+      begin
+        self.lock!
+        self.transaction_records do |transaction_record|
+          case transaction_record.member.card.type
+          when :by_ball
+            transaction_record.member.ball_amount += transaction_record.amount
+          when :by_time
+            transaction_record.member.minute_amount += transaction_record.amount
+          when :stored
+            transaction_record.member.deposit += transaction_record.amount
+          end
+        end
+        self.aasm_drop!
+      rescue AASM::InvalidTransition
+        raise InvalidState.new
+      end
     end
   end
 
