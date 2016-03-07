@@ -1,7 +1,7 @@
 class CreateTransactionRecords < ActiveRecord::Migration
   def change
     create_table :transaction_records do |t|
-    	t.references :member, null: false
+      t.references :member, null: false
       t.references :operator, null: false
       t.string :type_cd, limit: 20, null: false
       t.references :tab

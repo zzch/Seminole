@@ -11,7 +11,7 @@
           <th><%= brac_arat 'user.phone' %></th>
           <th><%= brac_arat 'card.type' %></th>
           <th><%= brac_arat 'card.name' %></th>
-          <th><%= brac_arat 'member.created_at' %></th>
+          <th><%= brac_arat 'member.balance' %></th>
           <th><%= brac_arat 'member.expired_at' %></th>
           <th></th>
         </tr>
@@ -24,7 +24,7 @@
           <td><%= membership.user.phone %></td>
           <td><%= te_card_type(membership.member.card.type) %></td>
           <td><%= membership.member.card.name %></td>
-          <td><%= brac_date(membership.member.created_at) %></td>
+          <td><%= member.balance %></td>
           <td><%= brac_date(membership.member.expired_at) %></td>
           <td class="table-action">
             <%= link_to raw('<i class="fa fa-file-text-o"></i>'), membership.member %>

@@ -13,6 +13,7 @@ class Tab < ActiveRecord::Base
     state :cancelled
     state :confirming
     state :finished
+    state :voided
     event :cancel, before: :before_cancel do
       transitions from: :progressing, to: :cancelled
     end
@@ -21,6 +22,9 @@ class Tab < ActiveRecord::Base
     end
     event :finish do
       transitions from: [:progressing, :confirming], to: :finished
+    end
+    event :drop do
+      transitions from: :finished, to: :voided
     end
   end
   before_create :set_sequence, :set_entrance_time
@@ -67,10 +71,8 @@ class Tab < ActiveRecord::Base
       else
         raise InvalidConfirmMethod.new
       end
-      self.vacancies.each do |vacancy|
-        vacancy.update!(tab: nil)
-      end
-      member_expenses = []
+      self.vacancies.each{|vacancy| vacancy.update!(tab: nil)}
+      member_expenses, transaction_records = [], {}
       self.playing_items.each do |playing_item|
         playing_item.update!(finished_at: Time.now) if playing_item.finished_at.blank?
         case playing_item.payment_method
@@ -97,6 +99,7 @@ class Tab < ActiveRecord::Base
       end
       member_expenses.each do |member_expense|
         member_expense.item.member.lock!
+        transaction_records[member_expense.item.member.id] = TransactionRecord.new(member: member_expense.item.member, operator_id: self.operator_id, type: :expenditure, tab_id: self.id, before_amount: member_expense.item.member.raw_balance, amount: 0) if transaction_records[member_expense.item.member.id].blank?
         if member_expense.item.is_a? PlayingItem
           case member_expense.item.payment_method
           when :by_ball_member
@@ -104,30 +107,39 @@ class Tab < ActiveRecord::Base
             before_ball_amount = member_expense.item.member.ball_amount
             member_expense.item.member.update!(ball_amount: before_ball_amount - member_expense.item.total_balls)
             member_expense.update!(before_amount: before_ball_amount, amount: member_expense.item.total_balls, after_amount: member_expense.item.member.ball_amount)
+            transaction_records[member_expense.item.member.id].amount += member_expense.item.total_balls
           when :by_time_member
             raise InsufficientMinute.new if member_expense.item.member.minute_amount < member_expense.item.minutes
             before_minute_amount = member_expense.item.member.minute_amount
             member_expense.item.member.update!(minute_amount: member_expense.item.member.minute_amount - member_expense.item.minutes)
             member_expense.update!(before_amount: before_minute_amount, amount: member_expense.item.total_balls, after_amount: member_expense.item.member.minute_amount)
+            transaction_records[member_expense.item.member.id].amount += member_expense.item.minutes
           when :stored_member
             raise InsufficientDeposit.new if member_expense.item.member.deposit < member_expense.item.total_price
             before_deposit = member_expense.item.member.deposit
             member_expense.item.member.update!(deposit: member_expense.item.member.deposit - member_expense.item.total_price)
             member_expense.update!(before_amount: before_deposit, amount: member_expense.item.total_price, after_amount: member_expense.item.member.deposit)
+            transaction_records[member_expense.item.member.id].amount += member_expense.item.total_price
           end
         elsif member_expense.item.is_a? ProvisionItem
           raise InsufficientDeposit.new if member_expense.item.member.deposit < member_expense.item.total_price
           before_deposit = member_expense.item.member.deposit
           member_expense.item.member.update!(deposit: member_expense.item.member.deposit - member_expense.item.total_price)
           member_expense.update!(before_amount: before_deposit, amount: member_expense.item.total_price, after_amount: member_expense.item.member.deposit)
+          transaction_records[member_expense.item.member.id].amount += member_expense.item.total_price
         elsif member_expense.item.is_a? ExtraItem
           raise InsufficientDeposit.new if member_expense.item.member.deposit < member_expense.item.price
           before_deposit = member_expense.item.member.deposit
           member_expense.item.member.update!(deposit: member_expense.item.member.deposit - member_expense.item.price)
           member_expense.update!(before_amount: before_deposit, amount: member_expense.item.price, after_amount: member_expense.item.member.deposit)
+          transaction_records[member_expense.item.member.id].amount += member_expense.item.price
         else
           raise InvalidItem.new
         end
+      end
+      transaction_records.each do |id, transaction_record|
+        transaction_record.after_amount = transaction_record.before_amount - transaction_record.amount
+        transaction_record.save!
       end
       if method == :app
         Thread.new do

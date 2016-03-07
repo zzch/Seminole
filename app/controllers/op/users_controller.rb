@@ -14,7 +14,7 @@ class Op::UsersController < Op::BaseController
   
   def update
     begin
-      raise NonUniqueMember.new @user.members.map{|member| member.club_id}.uniq.count > 1
+      raise NonUniqueMember.new if @user.members.map{|member| member.club_id}.uniq.count > 1
       if @user.update(user_params)
         redirect_to @user, notice: '操作成功！'
       else

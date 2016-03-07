@@ -24,6 +24,14 @@ class Member < ActiveRecord::Base
     memberships.select{|membership| membership.role_holder?}.first.user
   end
 
+  def raw_balance
+    case self.card.type
+    when :by_ball then self.ball_amount
+    when :by_time then self.minute_amount
+    when :stored then self.deposit
+    end
+  end
+
   def balance
     case self.card.type
     when :by_ball then "#{self.ball_amount}粒球（#{(self.ball_amount / self.club.balls_per_bucket).round}筐球）"
