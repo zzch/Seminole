@@ -8,6 +8,7 @@ class Member < ActiveRecord::Base
   has_many :memberships
   has_many :users, through: :memberships
   has_many :expenses, class_name: 'MemberExpense'
+  has_many :transaction_records
   aasm column: 'state' do
     state :activated, initial: true
     state :deactivated

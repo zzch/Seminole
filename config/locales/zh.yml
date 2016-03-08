@@ -301,6 +301,7 @@ zh:
         state/confirming: 等待确认
         state/finished: 已完成
         state/cancelled: 已取消
+        state/voided: 已撤销
         created_at: 下单时间
       playing_item:
         started_at: 开始时间
@@ -355,6 +356,10 @@ zh:
         type: 类型
         item: 内容
         amount: 额度
+      transaction_record:
+        created_at: 时间
+        type: 类型
+        remarks: 备注
       card_vacancy_price:
         vacancy: 打位
       reservation:

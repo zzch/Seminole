@@ -239,4 +239,18 @@ module ApplicationHelper
       brac_price(expense.amount)
     end
   end
+
+  def transaction_record_type type
+    case type
+    when :income then '收入'
+    when :expenditure then '支出'
+    end
+  end
+
+  def transaction_record_content transaction_record
+    html = "#{transaction_record.hr_before_amount}"
+    html += " <span class=\"transaction-record transaction-record-#{transaction_record.type}\">#{transaction_record.type_income? ? '+' : '-'} #{transaction_record.hr_amount}</span>"
+    html += " = #{transaction_record.hr_after_amount}"
+    raw(html)
+  end
 end

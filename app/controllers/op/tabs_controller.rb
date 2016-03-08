@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Op::TabsController < Op::BaseController
-  before_action :find_tab, only: %w(show cancel checkout print checking)
+  before_action :find_tab, only: %w(show cancel checkout print checking drop)
   
   def index
     @tabs = Tab.page(params[:page])
@@ -104,7 +104,7 @@ class Op::TabsController < Op::BaseController
 
   def drop
     begin
-      @tab.drop!
+      @tab.drop(session['operator']['id'])
       redirect_to @tab, notice: '撤单成功！'
     rescue AlreadyInUse
       render action: 'new'

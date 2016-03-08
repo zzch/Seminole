@@ -95,28 +95,28 @@
     <div class="panel-heading">
       <h4 class="panel-title">消费记录</h4>
     </div>
-    <% if @member.expenses.blank? %>
+    <% if @member.transaction_records.blank? %>
     <div class="panel-body">
       无任何记录
     </div>
     <% else %>
-    <div class="table-responsive table-expense">
+    <div class="table-responsive table-transaction-record">
       <table class="table mb30">
         <thead>
           <tr>
-            <th><%= brac_arat 'member_expense.created_at' %></th>
-            <th><%= brac_arat 'member_expense.type' %></th>
-            <th><%= brac_arat 'member_expense.item' %></th>
-            <th><%= brac_arat 'member_expense.amount' %></th>
+            <th><%= brac_arat 'transaction_record.created_at' %></th>
+            <th><%= brac_arat 'transaction_record.type' %></th>
+            <th>余额变化</th>
+            <th><%= brac_arat 'transaction_record.remarks' %></th>
           </tr>
         </thead>
         <tbody>
-          <% @member.expenses.each do |expense| %>
+          <% @member.transaction_records.each do |transaction_record| %>
           <tr>
-            <td><%= brac_datetime(expense.created_at) %></td>
-            <td><%= member_expense_type(expense.item) %></td>
-            <td><%= member_expense_item(expense.item) %></td>
-            <td><%= member_expense_amount(expense) %></td>
+            <td><%= brac_datetime(transaction_record.created_at) %></td>
+            <td><%= transaction_record_type(transaction_record.type) %></td>
+            <td><%= transaction_record_content(transaction_record) %></td>
+            <td><%= transaction_record.remarks %></td>
           </tr>
           <% end %>
         </tbody>
