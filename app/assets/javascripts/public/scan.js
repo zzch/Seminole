@@ -3,7 +3,7 @@
 $(document).ready(function(){
   var ua = navigator.userAgent.toLowerCase();
   if (ua.indexOf('android') > -1) {
-    document.location = "http://a.app.qq.com/o/simple.jsp?pkgname=com.zhongchuangtiyu.denarau";
+    document.location = "http://assets.lianqiubao.com/apk/Lianqiubao_v1.0.0.apk";
   } else if (ua.indexOf('iphone') > -1) {
     if (ua.match(/MicroMessenger/i) == "micromessenger") {
       $("#weixin").show();
