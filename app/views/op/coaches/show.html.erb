@@ -112,7 +112,8 @@
     </div>
     <% end %>
     <div class="panel-footer">
-      <%= link_to '创建', new_coach_course_path(@coach), class: 'btn btn-primary' %>&nbsp;
+      <%= link_to '创建新课程', new_coach_course_path(@coach), class: 'btn btn-primary' %>&nbsp;
+      <%= link_to '创建已有课程', new_by_exist_coach_courses_path(@coach), class: 'btn btn-success' %>&nbsp;
     </div>
   </div>
 </div>

@@ -120,7 +120,12 @@ Rails.application.routes.draw do
     end
     resources :promotions
     resources :coaches do
-      resources :courses
+      resources :courses do
+        collection do
+          get :new_by_exist
+          post :create_by_exist
+        end
+      end
     end
     resources :courses do
       resources :lessons

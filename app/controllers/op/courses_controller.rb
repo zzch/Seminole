@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Op::CoursesController < Op::BaseController
   before_action :find_course, only: %w(show edit update)
-  before_action :find_coach, only: %w(new create)
+  before_action :find_coach, only: %w(new create new_by_exist create_by_exist)
   
   def index
     @courses = @current_club.courses.page(params[:page])
@@ -32,6 +32,15 @@ class Op::CoursesController < Op::BaseController
     else
       render action: 'edit'
     end
+  end
+
+  def new_by_exist
+  end
+
+  def create_by_exist
+    @exist_course = @current_club.courses.find(params[:course_id])
+    @course = @coach.courses.create!(type: @exist_course.type, name: @exist_course.name, price: @exist_course.price, maximum_lessons: @exist_course.maximum_lessons, valid_months: @exist_course.valid_months, maximum_students: @exist_course.maximum_students, description: @exist_course.description)
+    redirect_to @course, notice: '操作成功！'
   end
 
   def async_show
