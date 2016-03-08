@@ -3,7 +3,7 @@
 $(document).ready(function(){
   var ua = navigator.userAgent.toLowerCase();
   if (ua.indexOf('android') > -1) {
-    document.location = "http://assets.lianqiubao.com/apk/Lianqiubao_v1.0.0.apk";
+    document.location = "http://fusion.qq.com/app_download?appid=1105163992&platform=qzone&via=QZ.MOBILEDETAIL.QRCODE&u=3046917960";
   } else if (ua.indexOf('iphone') > -1) {
     if (ua.match(/MicroMessenger/i) == "micromessenger") {
       $("#weixin").show();
