@@ -443,6 +443,10 @@ zh:
         state: 状态
         state/pending: 等待发布
         state/published: 已发布
+      salesman:
+        name: 姓名
+        members: 会籍
+        sales: 销售额
   activemodel:
     attributes:
       op/create_member:
