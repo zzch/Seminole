@@ -36,6 +36,11 @@
                 <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 创建版本"), new_admin_version_path %></li>
               </ul>
             </li>
+            <li class="nav-parent"><a href=""><i class="fa fa-cog"></i> <span>系统管理</span></a>
+              <ul class="children">
+                <li><%= link_to raw("<i class=\"fa fa-caret-right\"></i> 错误列表"), admin_service_exceptions_path %></li>
+              </ul>
+            </li>
           </ul>
           <!--div class="infosummary">
             <h5 class="sidebartitle">Information Summary</h5>    

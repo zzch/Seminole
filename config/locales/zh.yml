@@ -447,6 +447,11 @@ zh:
         name: 姓名
         members: 会籍
         sales: 销售额
+      service_exception:
+        module: 模块
+        message: 错误信息
+        backtrace: 回溯信息
+        created_at: 发生时间
   activemodel:
     attributes:
       op/create_member:

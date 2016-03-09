@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         put :publish
       end
     end
+    resources :service_exceptions
     resource :profile do
       get :edit_password
       put :update_password

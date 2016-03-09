@@ -1,0 +1,39 @@
+<div class="pageheader">
+  <h2><i class="fa fa-file-text-o"></i> 错误管理 <span>查看</span></h2>
+</div>
+<div class="contentpanel">
+  <%= brac_flash %>
+  <div class="panel">
+    <%= form_tag nil, class: 'form-horizontal form-bordered' do %>
+      <div class="panel-body panel-body-nopadding">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'service_exception.module' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @service_exception.module, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'service_exception.message' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, @service_exception.message, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'service_exception.backtrace' %></label>
+          <div class="col-sm-6">
+            <%= text_area_tag nil, @service_exception.backtrace, readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'service_exception.created_at' %></label>
+          <div class="col-sm-6">
+            <%= text_field_tag nil, brac_datetime(@service_exception.created_at), readonly: true, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="panel-footer">
+      <%= link_to '返回', admin_service_exceptions_path, class: 'btn btn-default' %>&nbsp;
+    </div>
+  </div>
+</div>
