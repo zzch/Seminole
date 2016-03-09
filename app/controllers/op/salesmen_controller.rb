@@ -1,9 +1,12 @@
 # -*- encoding : utf-8 -*-
 class Op::SalesmenController < Op::BaseController
-  before_action :find_salesman, only: %w(edit update)
+  before_action :find_salesman, only: %w(show edit update)
   
   def index
     @salesmen = @current_club.salesmen.page(params[:page])
+  end
+
+  def show
   end
   
   def new
