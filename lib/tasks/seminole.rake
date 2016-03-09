@@ -557,6 +557,36 @@ namespace :data do
     end
   end
 
+  desc 'Initialize unlimited memberships for Green Driving Range.'
+  task green_unlimited_init: :environment do
+    club = Club.where(code: 'perfect').first
+    club.cards.find(35).tap do |card|
+      members = [{number:'LS051',last_name:'贵',first_name:'岩',gender: :male,phone:'13146363390',expired_at:'2016-8-18'},
+      {number:'LS052',last_name:'赵',first_name:'入月',gender: :male,phone:'13901003169',expired_at:'2015-12-5'},
+      {number:'LS053',last_name:'左',first_name:'准泽',gender: :male,phone:'13801252805',expired_at:'2016-7-31'},
+      {number:'LS054',last_name:'高',first_name:'志跃',gender: :male,phone:'13611244632',expired_at:'2016-7-16'},
+      {number:'LS055',last_name:'张',first_name:'斌',gender: :male,phone:'13716144221',expired_at:'2016-4-19'},
+      {number:'LS056',last_name:'林',first_name:'子方',gender: :male,phone:'13701310400',expired_at:'2016-5-1'},
+      {number:'LS057',last_name:'刘',first_name:'晓东',gender: :male,phone:'18611969881',expired_at:'2016-5-5'},
+      {number:'LS058',last_name:'隋',first_name:'全为',gender: :male,phone:'13901017271',expired_at:'2016-5-5'},
+      {number:'LS059',last_name:'刘',first_name:'克磊',gender: :male,phone:'18601979330',expired_at:'2016-5-26'},
+      {number:'LS060',last_name:'徐',first_name:'磊',gender: :male,phone:'13811650050',expired_at:'2016-6-9'},
+      {number:'LS061',last_name:'陈',first_name:'骥',gender: :male,phone:'18600681758',expired_at:'2016-6-13'},
+      {number:'LS062',last_name:'王',first_name:'鑫',gender: :male,phone:'13488889313',expired_at:'2016-12-4'},
+      {number:'LS063',last_name:'姚',gender: :male,phone:'13011117988',expired_at:'2016-6-15'},
+      {number:'LS064',last_name:'陈',first_name:'向南',gender: :male,phone:'13601365111',expired_at:'2016-8-1'},
+      {number:'LS065',last_name:'徐',first_name:'开宏',gender: :male,phone:'13601105267',expired_at:'2016-10-28'},
+      {number:'LS066',last_name:'贾',first_name:'冬明',gender: :male,phone:'13552103036',expired_at:'2016-7-5'},
+      {number:'LS067',last_name:'迟',first_name:'永纯',gender: :male,phone:'13911150365',expired_at:'2016-6-1'}]
+      members.each do |member|
+        club.members.create_with_user(club, Op::CreateMember.new(phone: member[:phone], last_name: member[:last_name], first_name: member[:first_name], gender: member[:gender], number: member[:number], card_id: card.id))
+      end
+      members.each do |member|
+        club.members.where(number: member[:number]).first.update!(expired_at: member[:expired_at])
+      end
+    end
+  end
+
   def fake_image_file options = {}
     if options[:allow_blank]
       rand(1..10) > 3 ? File.open(File.join(Rails.root, 'public', 'abstract_images', "#{rand(1..200).to_s.rjust(3, '0')}.jpg")) : nil
