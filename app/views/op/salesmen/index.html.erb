@@ -8,18 +8,22 @@
       <thead>
         <tr>
           <th><%= brac_arat 'salesman.name' %></th>
+          <th><%= brac_arat 'salesman.phone' %></th>
+          <th><%= brac_arat 'salesman.receive_sms' %></th>
           <th></th>
         </tr>
       </thead>
       <tfoot>
         <tr>
-          <td colspan="2" class="table-paginate"><%= brac_paginate @salesmen %></td>
+          <td colspan="4" class="table-paginate"><%= brac_paginate @salesmen %></td>
         </tr>
       </tfoot>
       <tbody>
         <% @salesmen.each do |salesman| %>
         <tr>
           <td><%= salesman.name %></td>
+          <td><%= salesman.phone %></td>
+          <td><%= brac_boolean(salesman.receive_sms) %></td>
           <td class="table-action">
             <%= link_to raw('<i class="fa fa-file-text-o"></i>'), salesman %>
             <%= link_to raw('<i class="fa fa-pencil"></i>'), edit_salesman_path(salesman) %>

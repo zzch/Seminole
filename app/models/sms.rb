@@ -6,7 +6,7 @@ class Sms
       http.use_ssl = true
       request = Net::HTTP::Post.new(uri.request_uri)
       request.basic_auth 'api', "key-#{Setting.key[:luosimao_sms][:api_key]}"
-      request.body =  { mobile: options[:phone], message: options[:message] }
+      request.set_form_data(mobile: options[:phone], message: options[:message])
       http.request(request)
     end
   end

@@ -13,6 +13,21 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'salesman.phone' %></label>
+          <div class="col-sm-6">
+            <%= f.text_field :phone, class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label"><%= brac_arat 'salesman.receive_sms' %></label>
+          <div class="col-sm-6">
+            <div class="ckbox ckbox-default mt10">
+              <%= f.check_box :receive_sms %>
+              <label for="salesman_receive_sms"></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
           <div class="col-sm-12 text-center">
             <%= f.submit '提交', class: 'btn btn-primary' %>&nbsp;
             <%= link_to '返回', salesmen_path, class: 'btn btn-default' %>

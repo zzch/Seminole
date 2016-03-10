@@ -424,8 +424,6 @@ zh:
         state/pending: 等待发布
         state/published: 已发布
         state/trashed: 已删除
-      salesman:
-        name: 姓名
       feedback:
         user: 用户
         type: 类型
@@ -447,6 +445,9 @@ zh:
         name: 姓名
         members: 会籍
         sales: 销售额
+        name: 姓名
+        phone: 手机号码
+        receive_sms: 是否接收短信
       service_exception:
         module: 模块
         message: 错误信息

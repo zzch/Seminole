@@ -19,13 +19,7 @@ class VerificationCode < ActiveRecord::Base
       content = rand(1234..9876)
       create!(user: options[:user], type: options[:type], phone: (options[:phone] || options[:user].phone), content: content, expired_at: Time.now + 30.minutes)
       if Rails.env.production? and options[:phone] != 13911320927
-        uri = URI.parse('https://sms-api.luosimao.com/v1/send.json')
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = true
-        request = Net::HTTP::Post.new(uri.request_uri)
-        request.basic_auth 'api', "key-#{Setting.key[:luosimao_sms][:api_key]}"
-        request.set_form_data(mobile: options[:phone], message: "您的验证码为#{content}，请勿泄露给他人。【练球宝】")
-        http.request(request)
+        Sms._send(phone: options[:phone], message: "您的验证码为#{content}，请勿泄露给他人。【练球宝】")
       end
     end
 

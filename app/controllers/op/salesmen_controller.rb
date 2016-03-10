@@ -19,7 +19,7 @@ class Op::SalesmenController < Op::BaseController
   def create
     @salesman = @current_club.salesmen.new(salesman_params)
     if @salesman.save
-      redirect_to salesmen_path, notice: '操作成功！'
+      redirect_to @salesman, notice: '操作成功！'
     else
       render action: 'new'
     end
@@ -27,7 +27,7 @@ class Op::SalesmenController < Op::BaseController
   
   def update
     if @salesman.update(salesman_params)
-      redirect_to salesmen_path, notice: '操作成功！'
+      redirect_to @salesman, notice: '操作成功！'
     else
       render action: 'edit'
     end
