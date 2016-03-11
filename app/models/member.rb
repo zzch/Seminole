@@ -43,9 +43,8 @@ class Member < ActiveRecord::Base
   end
 
   def remaining_valid_days
-    ((self.expired_at - Time.now) / 86400).round.tap do |days|
-      days = 0 if days < 0
-    end
+    days = ((self.expired_at - Time.now) / 86400).round
+    days < 0 ? 0 : days
   end
 
   def available?
