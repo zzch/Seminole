@@ -63,6 +63,7 @@ Rails.application.routes.draw do
         get :checkout
         get :print
         put :checking
+        put :confirm
         put :drop
       end
     end

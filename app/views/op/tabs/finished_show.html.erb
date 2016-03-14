@@ -97,7 +97,9 @@
         </tbody>
       </table>
       <div class="text-right btn-invoice">
-        <% if @tab.finished? %>
+        <% if @tab.confirming? %>
+        <%= link_to '确认', confirm_tab_path(@tab), method: :put, data: { confirm: '确定要确认该消费单吗？' }, class: 'btn btn-danger' %>&nbsp;
+        <% elsif @tab.finished? %>
         <%= link_to '撤销', drop_tab_path(@tab), method: :put, data: { confirm: '确定要撤销该消费单吗？' }, class: 'btn btn-danger' %>&nbsp;
         <% end %>
         <%= link_to '返回', finished_tabs_path, class: 'btn btn-default' %>

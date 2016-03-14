@@ -92,22 +92,31 @@ class Op::TabsController < Op::BaseController
       redirect_to checkout_tab_path(@tab), alert: '操作失败！储值卡余额不足！'
     end
   end
+
+  def confirm
+    begin
+      @tab.confirm
+      redirect_to @tab, notice: '操作成功！'
+    rescue InvalidState
+      redirect_to @tab, alert: '操作失败！无效的订单状态！'
+    end
+  end
   
   def cancel
     begin
       @tab.cancel!
-      redirect_to @tab, notice: '取消成功！'
+      redirect_to @tab, notice: '操作成功！'
     rescue AlreadyInUse
-      render action: 'new'
+      redirect_to @tab, alert: '操作失败！'
     end
   end
 
   def drop
     begin
       @tab.drop(session['operator']['id'])
-      redirect_to @tab, notice: '撤单成功！'
+      redirect_to @tab, notice: '操作成功！'
     rescue AlreadyInUse
-      render action: 'new'
+      redirect_to @tab, alert: '操作失败！'
     end
   end
 
