@@ -19,7 +19,13 @@ module V1
         expose :club, using: Tabs::Entities::Club, if: lambda {|m, o| o[:include_club]}
         expose :items do |m, o|
           m.playing_items.map do |playing_item|
-            { name: "#{playing_item.vacancy.name}打位", total_price: "#{sprintf('%0.02f', playing_item.total_price)}元", payment_method: playing_item.payment_method }
+            total_price = case playing_item.payment_method
+            when :by_ball_member then "#{playing_item.total_balls / o[:club].balls_per_bucket}筐球"
+            when :by_time_member then "#{(playing_item.seconds.to_f / 60).round}分钟"
+            when :unlimited_member then '-'
+            else "#{sprintf('%0.02f', playing_item.total_price)}元"
+            end
+            { name: "#{playing_item.vacancy.name}打位", total_price: total_price, payment_method: playing_item.payment_method }
           end +
           m.provision_items.map do |provision_item|
             { name: "#{provision_item.provision.name}x#{provision_item.quantity}", total_price: "#{sprintf('%0.02f', provision_item.total_price)}元", payment_method: provision_item.payment_method }
@@ -44,7 +50,7 @@ module V1
       get do
         find_current_club
         tabs = @current_user.tabs.by_club(@current_club).order(entrance_time: :desc).page(params[:page])
-        present tabs, with: Tabs::Entities::List
+        present tabs, with: Tabs::Entities::List, club: @current_club
       end
 
       desc '全部消费单列表'
@@ -54,7 +60,7 @@ module V1
       end
       get :all do
         tabs = @current_user.tabs.order(entrance_time: :desc).page(params[:page])
-        present tabs, with: Tabs::Entities::List, include_club: true
+        present tabs, with: Tabs::Entities::List, club: @current_club, include_club: true
       end
 
       desc '确认消费单'
