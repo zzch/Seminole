@@ -60,7 +60,7 @@ class Member < ActiveRecord::Base
       when :stored then before_amount = self.deposit; self.deposit += options[:amount].to_f; after_amount = self.deposit
       end
       self.save!
-      TransactionRecord.create_income(member: self, operator: options[:operator], amount: options[:amount], before_amount: before_amount, after_amount: after_amount)
+      TransactionRecord.create_income(member_id: self.id, operator_id: options[:operator].id, amount: options[:amount], before_amount: before_amount, after_amount: after_amount)
     end
   end
 

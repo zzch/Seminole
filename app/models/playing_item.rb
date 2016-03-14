@@ -52,7 +52,7 @@ class PlayingItem < ActiveRecord::Base
           self.vacancy.send("#{prefix}_price_per_hour")
         end)
         ApplicationController.helpers.price_by_time(club: self.tab.club, price_per_hour: price_per_hour, minutes: self.minutes)
-      end 
+      end
     else
       if self.charging_type_by_ball?
         self.vacancy.send("#{prefix}_price_per_bucket") * self.total_balls
