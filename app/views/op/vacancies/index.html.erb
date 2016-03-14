@@ -8,8 +8,9 @@
       <thead>
         <tr>
           <th><%= brac_arat 'vacancy.name' %></th>
-          <th width="60%"><%= brac_arat 'vacancy.tags' %></th>
           <th><%= brac_arat 'vacancy.location' %></th>
+          <th><%= brac_arat 'vacancy.tags' %></th>
+          <th><%= brac_arat 'vacancy.price' %></th>
           <th><%= brac_arat 'vacancy.state' %></th>
           <th></th>
         </tr>
@@ -18,8 +19,9 @@
         <% @vacancies.each do |vacancy| %>
         <tr>
           <td><%= vacancy.name %></td>
-          <td class="vacancy-tags"><%= vacancy_tags(vacancy.tags) %></td>
           <td><%= te_vacancy_location(vacancy.location) %></td>
+          <td class="vacancy-tags"><%= vacancy_tags(vacancy.tags) %></td>
+          <td><%= vacancy_price(vacancy) %></td>
           <td><%= vacancy.aasm.human_state %></td>
           <td class="table-action">
             <%= link_to raw('<i class="fa fa-file-text-o"></i>'), vacancy %>

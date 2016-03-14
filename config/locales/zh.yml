@@ -280,6 +280,7 @@ zh:
         name: 名称
         tags: 标签
         location: 位置
+        price: 价格
         price_per_hour: 每小时费用
         price_per_bucket: 每筐球费用
         usual_price: 平日价

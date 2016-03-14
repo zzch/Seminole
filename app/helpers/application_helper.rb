@@ -132,6 +132,23 @@ module ApplicationHelper
     raw(tags.blank? ? '<div class="mt10 text-danger">无任何标签！</div>' : tags.map{|tag| "<span class=\"label label-success\">#{tag.name}</span>"}.join(' '))
   end
 
+  def vacancy_price vacancy
+    Array.new.tap do |price|
+      if !vacancy.usual_price_per_hour.blank? and !vacancy.holiday_price_per_hour.blank? and vacancy.usual_price_per_hour == vacancy.holiday_price_per_hour
+        price << "#{brac_price(vacancy.usual_price_per_hour)}/时"
+      else
+        price << "#{brac_price(vacancy.usual_price_per_hour)}/时(平日)" unless vacancy.usual_price_per_hour.blank?
+        price << "#{brac_price(vacancy.holiday_price_per_hour)}/时(假日)" unless vacancy.holiday_price_per_hour.blank?
+      end
+      if !vacancy.usual_price_per_bucket.blank? and !vacancy.holiday_price_per_bucket.blank? and vacancy.usual_price_per_bucket == vacancy.holiday_price_per_bucket
+        price << "#{brac_price(vacancy.usual_price_per_bucket)}/筐"
+      else
+        price << "#{brac_price(vacancy.usual_price_per_bucket)}/筐(平日)" unless vacancy.usual_price_per_bucket.blank?
+        price << "#{brac_price(vacancy.holiday_price_per_bucket)}/筐(假日)" unless vacancy.holiday_price_per_bucket.blank?
+      end
+    end.join(' ')
+  end
+
   def styled_payment_method_tag item
     if item.payment_method.blank?
       '请选择'
@@ -190,7 +207,8 @@ module ApplicationHelper
       0
     else
       hours = options[:minutes] / options[:club].unit_charging_minutes
-      hours += 1 if hours.zero? or options[:minutes] % options[:club].unit_charging_minutes > options[:club].unit_charging_minutes
+      hours += 1 if hours.zero?
+      hours += 1 if options[:minutes] > options[:club].unit_charging_minutes and (options[:minutes] % options[:club].unit_charging_minutes) >= options[:club].maximum_discard_minutes
       hours * options[:price_per_hour]
     end
   end
