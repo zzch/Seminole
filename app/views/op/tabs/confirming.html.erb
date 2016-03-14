@@ -9,7 +9,8 @@
         <tr>
           <th><%= brac_arat 'tab.sequence' %></th>
           <th><%= brac_arat 'user.name' %></th>
-          <th><%= brac_arat 'tab.vacancy' %></th>
+          <th><%= brac_arat 'tab.entrance_time' %></th>
+          <th><%= brac_arat 'tab.departure_time' %></th>
           <th></th>
         </tr>
       </thead>
@@ -21,9 +22,10 @@
       <tbody>
         <% @tabs.each do |tab| %>
         <tr>
-          <td><%= tab.sequence %></td>
+          <td><%= "No. #{tab.sequence.to_s.rjust(6, '0')}" %></td>
           <td><%= tab.user.name %></td>
-          <td><%= tab.playing_items.map{|playing_item| playing_item.vacancy.name}.join(', ') %></td>
+          <td><%= tab.entrance_time.strftime('%m月%d日 %H:%M') %></td>
+          <td><%= tab.departure_time.strftime('%m月%d日 %H:%M') %></td>
           <td class="table-action">
             <%= link_to raw('<i class="fa fa-file-text-o"></i>'), tab %>
           </td>
