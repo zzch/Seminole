@@ -209,7 +209,7 @@ module ApplicationHelper
       hours = options[:minutes] / options[:club].unit_charging_minutes
       hours += 1 if hours.zero?
       hours += 1 if options[:minutes] > options[:club].unit_charging_minutes and (options[:minutes] % options[:club].unit_charging_minutes) >= options[:club].maximum_discard_minutes
-      hours * options[:price_per_hour]
+      hours * options[:price_per_hour] * (options[:club].unit_charging_minutes.to_f / 60)
     end
   end
 

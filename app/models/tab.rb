@@ -118,6 +118,7 @@ class Tab < ActiveRecord::Base
           when :stored_member
             raise InsufficientDeposit.new if member_expense.item.member.deposit < member_expense.item.total_price
             before_deposit = member_expense.item.member.deposit
+            member_expense.item.update!(price: member_expense.item.total_price)
             member_expense.item.member.update!(deposit: member_expense.item.member.deposit - member_expense.item.total_price)
             member_expense.update!(before_amount: before_deposit, amount: member_expense.item.total_price, after_amount: member_expense.item.member.deposit)
             transaction_records[member_expense.item.member.id].amount += member_expense.item.total_price
