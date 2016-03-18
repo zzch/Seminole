@@ -1,5 +1,6 @@
 class TransactionRecord < ActiveRecord::Base
   include UUID
+  attr_accessor :item_types
 	belongs_to :member
 	belongs_to :operator
 	belongs_to :tab
@@ -22,7 +23,7 @@ class TransactionRecord < ActiveRecord::Base
   class << self
   	def create_income options = {}
   		create!(type: :income, action: options[:action], member_id: options[:member_id], operator_id: options[:operator_id], tab_id: options[:tab_id], before_amount: options[:before_amount], amount: options[:amount], after_amount: options[:after_amount], remarks: options[:remarks]).tap do |transaction_record|
-        options[:item_types].each do |type|
+        (options[:item_types] || []).each do |type|
           transaction_record.items.create!(type: type)
         end
       end
@@ -31,7 +32,7 @@ class TransactionRecord < ActiveRecord::Base
 
   	def create_expenditure options = {}
   		create!(type: :expenditure, action: options[:action], member_id: options[:member_id], operator_id: options[:operator_id], tab_id: options[:tab_id], before_amount: options[:before_amount], amount: options[:amount], after_amount: options[:after_amount], remarks: options[:remarks]).tap do |transaction_record|
-        options[:item_types].each do |type|
+        (options[:item_types] || []).each do |type|
           transaction_record.items.create!(type: type)
         end
       end

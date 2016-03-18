@@ -101,8 +101,9 @@ class Tab < ActiveRecord::Base
       end
       member_expenses.each do |member_expense|
         member_expense.item.member.lock!
-        transaction_records[member_expense.item.member.id] = TransactionRecord.new(member: member_expense.item.member, operator_id: self.operator_id, type: :expenditure, action: :consumption, tab_id: self.id, before_amount: member_expense.item.member.raw_balance, amount: 0) if transaction_records[member_expense.item.member.id].blank?
+        transaction_records[member_expense.item.member.id] = TransactionRecord.new(member: member_expense.item.member, operator_id: self.operator_id, type: :expenditure, action: :consumption, tab_id: self.id, before_amount: member_expense.item.member.raw_balance, amount: 0, item_types: []) if transaction_records[member_expense.item.member.id].blank?
         if member_expense.item.is_a? PlayingItem
+          transaction_records[member_expense.item.member.id].item_types << :playing
           case member_expense.item.payment_method
           when :by_ball_member
             raise InsufficientBall.new if member_expense.item.member.ball_amount < member_expense.item.total_balls
@@ -125,12 +126,14 @@ class Tab < ActiveRecord::Base
             transaction_records[member_expense.item.member.id].amount += member_expense.item.total_price
           end
         elsif member_expense.item.is_a? ProvisionItem
+          transaction_records[member_expense.item.member.id].item_types << :provision
           raise InsufficientDeposit.new if member_expense.item.member.deposit < member_expense.item.total_price
           before_deposit = member_expense.item.member.deposit
           member_expense.item.member.update!(deposit: member_expense.item.member.deposit - member_expense.item.total_price)
           member_expense.update!(before_amount: before_deposit, amount: member_expense.item.total_price, after_amount: member_expense.item.member.deposit)
           transaction_records[member_expense.item.member.id].amount += member_expense.item.total_price
         elsif member_expense.item.is_a? ExtraItem
+          transaction_records[member_expense.item.member.id].item_types << :extra
           raise InsufficientDeposit.new if member_expense.item.member.deposit < member_expense.item.price
           before_deposit = member_expense.item.member.deposit
           member_expense.item.member.update!(deposit: member_expense.item.member.deposit - member_expense.item.price)
@@ -143,6 +146,9 @@ class Tab < ActiveRecord::Base
       transaction_records.each do |id, transaction_record|
         transaction_record.after_amount = transaction_record.before_amount - transaction_record.amount
         transaction_record.save!
+        transaction_record.item_types.uniq.each do |type|
+          transaction_record.items.create!(type: type)
+        end
       end
       if method == :app
         Thread.new do
