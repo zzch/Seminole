@@ -1,4 +1,5 @@
 class TransactionRecord < ActiveRecord::Base
+  include UUID
 	belongs_to :member
 	belongs_to :operator
 	belongs_to :tab
