@@ -101,7 +101,7 @@ class Tab < ActiveRecord::Base
       end
       member_expenses.each do |member_expense|
         member_expense.item.member.lock!
-        transaction_records[member_expense.item.member.id] = TransactionRecord.new(member: member_expense.item.member, operator_id: self.operator_id, type: :expenditure, tab_id: self.id, before_amount: member_expense.item.member.raw_balance, amount: 0) if transaction_records[member_expense.item.member.id].blank?
+        transaction_records[member_expense.item.member.id] = TransactionRecord.new(member: member_expense.item.member, operator_id: self.operator_id, type: :expenditure, action: :consumption, tab_id: self.id, before_amount: member_expense.item.member.raw_balance, amount: 0) if transaction_records[member_expense.item.member.id].blank?
         if member_expense.item.is_a? PlayingItem
           case member_expense.item.payment_method
           when :by_ball_member
@@ -168,13 +168,13 @@ class Tab < ActiveRecord::Base
         self.transaction_records.each do |transaction_record|
           case transaction_record.member.card.type
           when :by_ball
-            TransactionRecord.create_income(member_id: transaction_record.member.id, operator_id: operator_id, before_amount: transaction_record.member.ball_amount, amount: transaction_record.amount, after_amount: transaction_record.member.ball_amount + transaction_record.amount, remarks: '退款')
+            TransactionRecord.create_income(member_id: transaction_record.member.id, action: :refund, operator_id: operator_id, before_amount: transaction_record.member.ball_amount, amount: transaction_record.amount, after_amount: transaction_record.member.ball_amount + transaction_record.amount, remarks: '退款')
             transaction_record.member.ball_amount += transaction_record.amount
           when :by_time
-            TransactionRecord.create_income(member_id: transaction_record.member.id, operator_id: operator_id, before_amount: transaction_record.member.minute_amount, amount: transaction_record.amount, after_amount: transaction_record.member.minute_amount + transaction_record.amount, remarks: '退款')
+            TransactionRecord.create_income(member_id: transaction_record.member.id, action: :refund, operator_id: operator_id, before_amount: transaction_record.member.minute_amount, amount: transaction_record.amount, after_amount: transaction_record.member.minute_amount + transaction_record.amount, remarks: '退款')
             transaction_record.member.minute_amount += transaction_record.amount
           when :stored
-            TransactionRecord.create_income(member_id: transaction_record.member.id, operator_id: operator_id, before_amount: transaction_record.member.deposit, amount: transaction_record.amount, after_amount: transaction_record.member.deposit + transaction_record.amount, remarks: '退款')
+            TransactionRecord.create_income(member_id: transaction_record.member.id, action: :refund, operator_id: operator_id, before_amount: transaction_record.member.deposit, amount: transaction_record.amount, after_amount: transaction_record.member.deposit + transaction_record.amount, remarks: '退款')
             transaction_record.member.deposit += transaction_record.amount
           end
           transaction_record.member.save!

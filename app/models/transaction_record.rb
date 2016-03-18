@@ -3,7 +3,9 @@ class TransactionRecord < ActiveRecord::Base
 	belongs_to :member
 	belongs_to :operator
 	belongs_to :tab
+  has_many :items, class_name: 'TransactionRecordItem'
   as_enum :type, [:income, :expenditure], prefix: true, map: :string
+  as_enum :action, [:consumption, :charge, :refund], prefix: true, map: :string
 
   def hr_before_amount
     human_readable_amount(self.before_amount)
@@ -19,11 +21,20 @@ class TransactionRecord < ActiveRecord::Base
 
   class << self
   	def create_income options = {}
-  		create!(type: :income, member_id: options[:member_id], operator_id: options[:operator_id], tab_id: options[:tab_id], before_amount: options[:before_amount], amount: options[:amount], after_amount: options[:after_amount], remarks: options[:remarks])
+  		create!(type: :income, action: options[:action], member_id: options[:member_id], operator_id: options[:operator_id], tab_id: options[:tab_id], before_amount: options[:before_amount], amount: options[:amount], after_amount: options[:after_amount], remarks: options[:remarks]).tap do |transaction_record|
+        options[:item_types].each do |type|
+          transaction_record.items.create!(type: type)
+        end
+      end
+      
   	end
 
   	def create_expenditure options = {}
-  		create!(type: :expenditure, member_id: options[:member_id], operator_id: options[:operator_id], tab_id: options[:tab_id], before_amount: options[:before_amount], amount: options[:amount], after_amount: options[:after_amount], remarks: options[:remarks])
+  		create!(type: :expenditure, action: options[:action], member_id: options[:member_id], operator_id: options[:operator_id], tab_id: options[:tab_id], before_amount: options[:before_amount], amount: options[:amount], after_amount: options[:after_amount], remarks: options[:remarks]).tap do |transaction_record|
+        options[:item_types].each do |type|
+          transaction_record.items.create!(type: type)
+        end
+      end
   	end
   end
 

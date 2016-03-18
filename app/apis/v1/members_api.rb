@@ -9,10 +9,17 @@ module V1
         end
       end
 
+      class ItemList < Grape::Entity
+        expose :type
+      end
+
       class TransactionRecordList < Grape::Entity
         expose :uuid
+        expose :type
+        expose :action
         expose :tab, using: Tab
         expose :amount
+        expose :items, using: ItemList
       end
     end
   end
