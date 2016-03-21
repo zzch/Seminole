@@ -7,6 +7,7 @@ class Op::PlayingItemsController < Op::BaseController
 
   def update_started_at
     @playing_item.update!(started_at: convert_picker_to_datetime(playing_item_params[:started_at_date], playing_item_params[:started_at_time]))
+    @playing_item.tab.update!(entrance_time: @playing_item.started_at) if @playing_item.tab.entrance_time > @playing_item.started_at
     redirect_to @playing_item.tab, notice: '操作成功！'
   end
 
