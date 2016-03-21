@@ -25,10 +25,6 @@ module V1
   end
 
   class MembersAPI < Grape::API
-    before do
-      find_current_club
-    end
-
     resource :members do
       desc '会员卡交易记录列表'
       params do
@@ -37,7 +33,7 @@ module V1
         optional :page, type: Integer, desc: '页码'
       end
       get :transaction_records do
-        transaction_records = @current_club.members.find_uuid(params[:member_uuid]).transaction_records.order(created_at: :desc).page(params[:page])
+        transaction_records = @current_user.members.find_uuid(params[:member_uuid]).transaction_records.order(created_at: :desc).page(params[:page])
         present transaction_records, with: Members::Entities::TransactionRecordList
       end
     end
