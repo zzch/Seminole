@@ -99,7 +99,7 @@ module V1
       end
       get :detail do
         tab = @current_user.tabs.find_uuid(params[:uuid])
-        present tab, with: Tabs::Entities::Detail
+        present tab, with: Tabs::Entities::Detail, club: @current_club
       end
 
       desc '确认消费单'
