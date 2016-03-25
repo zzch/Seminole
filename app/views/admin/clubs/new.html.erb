@@ -50,6 +50,9 @@
               <%= f.text_field :latitude, class: 'form-control' %>
             </div>
           </div>
+          <div class="col-sm-3">
+            <div class="mt10"><%= link_to '坐标拾取器', 'http://api.map.baidu.com/lbsapi/getpoint/index.html', target: '_blank' %></div>
+          </div>
         </div>
         <div class="form-group">
           <label class="col-sm-3 control-label"><%= brac_arat 'club.address' %> <span class="asterisk">*</span></label>

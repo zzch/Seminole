@@ -106,6 +106,7 @@
         <thead>
           <tr>
             <th><%= brac_arat 'transaction_record.created_at' %></th>
+            <th><%= brac_arat 'transaction_record.operator' %></th>
             <th><%= brac_arat 'transaction_record.type' %></th>
             <th>余额变化</th>
             <th><%= brac_arat 'transaction_record.remarks' %></th>
@@ -115,6 +116,7 @@
           <% @member.transaction_records.each do |transaction_record| %>
           <tr>
             <td><%= brac_datetime(transaction_record.created_at) %></td>
+            <td><%= transaction_record.operator.name %></td>
             <td><%= transaction_record_type(transaction_record.type) %></td>
             <td><%= transaction_record_content(transaction_record) %></td>
             <td><%= transaction_record.remarks %></td>

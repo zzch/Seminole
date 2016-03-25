@@ -46,7 +46,6 @@ module V1
         end
         with_options(format_with: :timestamp){expose :entrance_time}
         with_options(format_with: :timestamp){expose :departure_time}
-        expose :club
         expose :items do |m, o|
           m.playing_items.map do |playing_item|
             total_price = case playing_item.payment_method

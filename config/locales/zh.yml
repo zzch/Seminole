@@ -359,6 +359,7 @@ zh:
         amount: 额度
       transaction_record:
         created_at: 时间
+        operator: 操作员
         type: 类型
         remarks: 备注
       card_vacancy_price:
