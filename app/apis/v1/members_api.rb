@@ -20,7 +20,7 @@ module V1
         expose :tab, using: Tab
         expose :amount do |m, o|
           case m.member.card.type
-          when :by_ball then "#{m.amount / m.member.balls_per_bucket}筐球"
+          when :by_ball then "#{m.amount / m.member.club.balls_per_bucket}筐球"
           when :by_time then "#{(m.amount.to_f / 60).round}分钟"
           when :stored then "#{sprintf('%0.02f', m.amount)}元"
           else 'N/A'
