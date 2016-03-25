@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       member do
         get :recharging, to: 'members#recharging_form'
         patch :recharging, to: 'members#recharging'
+        put :cancel, to: 'members#cancel'
       end
     end
     resources :memberships

@@ -20,6 +20,7 @@ module V1
         expose :tab, using: Tab
         expose :amount
         expose :items, using: ItemList
+        with_options(format_with: :timestamp){expose :created_at}
       end
     end
   end

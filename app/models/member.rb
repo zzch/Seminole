@@ -12,6 +12,9 @@ class Member < ActiveRecord::Base
   aasm column: 'state' do
     state :activated, initial: true
     state :deactivated
+    event :cancel do
+      transitions from: :activated, to: :deactivated
+    end
   end
   scope :by_club, ->(club) { where(club_id: club.id) }
   scope :by_ball_card, -> { includes(:card).where(cards: { type_cd: :by_ball }) }

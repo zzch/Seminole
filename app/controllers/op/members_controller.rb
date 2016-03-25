@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Op::MembersController < Op::BaseController
-  before_action :find_member, only: %w(show edit update recharging_form recharging)
+  before_action :find_member, only: %w(show edit update recharging_form recharging cancel)
   
   def index
     @members = @current_club.members.order(created_at: :desc, id: :asc).page(params[:page])
@@ -42,6 +42,11 @@ class Op::MembersController < Op::BaseController
 
   def recharging
     @member.recharging(amount: params[:amount], operator: Operator.find(session['operator']['id']))
+    redirect_to @member, notice: '操作成功！'
+  end
+
+  def cancel
+    @member.cancel!
     redirect_to @member, notice: '操作成功！'
   end
 
