@@ -20,7 +20,7 @@ module V1
         expose :items do |m, o|
           m.playing_items.map do |playing_item|
             total_price = case playing_item.payment_method
-            when :by_ball_member then "#{playing_item.total_balls / o[:club].balls_per_bucket}筐球"
+            when :by_ball_member then "#{playing_item.total_balls / (o[:club].try(:balls_per_bucket) || playing_item.member.club.balls_per_bucket)}筐球"
             when :by_time_member then "#{(playing_item.seconds.to_f / 60).round}分钟"
             when :unlimited_member then '-'
             else "#{sprintf('%0.02f', playing_item.total_price)}元"
@@ -49,7 +49,7 @@ module V1
         expose :items do |m, o|
           m.playing_items.map do |playing_item|
             total_price = case playing_item.payment_method
-            when :by_ball_member then "#{playing_item.total_balls / o[:club].balls_per_bucket}筐球"
+            when :by_ball_member then "#{playing_item.total_balls / playing_item.member.club.balls_per_bucket}筐球"
             when :by_time_member then "#{(playing_item.seconds.to_f / 60).round}分钟"
             when :unlimited_member then '-'
             else "#{sprintf('%0.02f', playing_item.total_price)}元"
@@ -89,7 +89,7 @@ module V1
       end
       get :all do
         tabs = @current_user.tabs.handled.order(entrance_time: :desc).page(params[:page])
-        present tabs, with: Tabs::Entities::List, club: @current_club, include_club: true
+        present tabs, with: Tabs::Entities::List, include_club: true
       end
 
       desc '消费单详情'
@@ -99,7 +99,7 @@ module V1
       end
       get :detail do
         tab = @current_user.tabs.find_uuid(params[:uuid])
-        present tab, with: Tabs::Entities::Detail, club: @current_club
+        present tab, with: Tabs::Entities::Detail
       end
 
       desc '确认消费单'
