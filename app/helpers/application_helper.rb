@@ -265,6 +265,14 @@ module ApplicationHelper
     end
   end
 
+  def transaction_record_action action
+    case action
+    when :consumption then '消费'
+    when :charge then '充值'
+    when :refund then '退款'
+    end
+  end
+
   def transaction_record_content transaction_record
     html = "#{transaction_record.hr_before_amount}"
     html += " <span class=\"transaction-record transaction-record-#{transaction_record.type}\">#{transaction_record.type_income? ? '+' : '-'} #{transaction_record.hr_amount}</span>"

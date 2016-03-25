@@ -51,6 +51,10 @@ class Tab < ActiveRecord::Base
     end.flatten.reduce(:+) || 0
   end
 
+  def styled_sequence
+    "No. #{self.sequence.to_s.rjust(6, '0')}"
+  end
+
   def include_undetermined_item?
     !%w(playing provision extra).map do |type|
       self.send("#{type}_items").map do |item|
