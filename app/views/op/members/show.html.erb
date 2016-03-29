@@ -115,7 +115,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @member.transaction_records.each do |transaction_record| %>
+          <% @member.transaction_records.order(created_at: :desc).each do |transaction_record| %>
           <tr>
             <td><%= brac_datetime(transaction_record.created_at) %></td>
             <td><%= transaction_record.operator.name %></td>

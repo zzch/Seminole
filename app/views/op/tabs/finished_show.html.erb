@@ -38,7 +38,7 @@
             <tr>
               <td><strong class="text-primary">打球</strong></td>
               <td>
-                <div class="text-primary"><%= playing_item.vacancy.name %>打位 - <%= brac_seconds(playing_item.seconds) %> / <%= playing_item.total_balls %>颗球</div>
+                <div class="text-primary"><%= playing_item.vacancy.name %>打位 - <%= brac_seconds(playing_item.seconds) %> / <%= playing_item.total_balls / @current_club.balls_per_bucket %>筐</div>
               </td>
               <td>-</td>
               <td><%= te_charging_type(playing_item.charging_type) %></td>
