@@ -34,6 +34,10 @@ class PlayingItem < ActiveRecord::Base
     self.balls.map(&:amount).reduce(:+) || 0
   end
 
+  def total_buckets
+    (self.total_balls.to_f / self.tab.club.balls_per_bucket).round
+  end
+
   def total_price
     if self.price.blank?
       prefix = %w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'
@@ -56,7 +60,7 @@ class PlayingItem < ActiveRecord::Base
         end
       else
         if self.charging_type_by_ball?
-          self.vacancy.send("#{prefix}_price_per_bucket") * self.total_balls
+          self.vacancy.send("#{prefix}_price_per_bucket") * self.total_buckets
         elsif self.charging_type_by_time?
           ApplicationController.helpers.price_by_time(club: self.tab.club, price_per_hour: self.vacancy.send("#{prefix}_price_per_hour"), minutes: self.minutes)
         end

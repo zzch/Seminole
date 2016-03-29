@@ -93,6 +93,10 @@ class Tab < ActiveRecord::Base
         when :stored_member
           raise InvalidCardType.new unless playing_item.member.card.type_stored?
           member_expenses << MemberExpense.new(member: playing_item.member, item: playing_item) if playing_item.total_price > 0
+        when :unlimited_member
+
+        else
+          playing_item.update!(price: playing_item.total_price)
         end
       end
       self.provision_items.select{|provision_item| provision_item.payment_method_stored_member?}.each do |provision_item|
