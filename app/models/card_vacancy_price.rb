@@ -30,7 +30,7 @@ class CardVacancyPrice < ActiveRecord::Base
             card_vacancy_price.update!({ usual_price_per_hour: ((form.usual_price_per_hour.blank? or vacancy.usual_price_per_hour.blank?) ? nil : (form.usual_price_per_hour.to_d * 0.1 * vacancy.usual_price_per_hour).round(form.keep_decimal? ? 2 : 0)),
               holiday_price_per_hour: ((form.holiday_price_per_hour.blank? or vacancy.holiday_price_per_hour.blank?) ? nil : (form.holiday_price_per_hour.to_d * 0.1 * vacancy.holiday_price_per_hour).round(form.keep_decimal? ? 2 : 0)),
               usual_price_per_bucket: ((form.usual_price_per_bucket.blank? or vacancy.usual_price_per_bucket.blank?) ? nil : (form.usual_price_per_bucket.to_d * 0.1 * vacancy.usual_price_per_bucket).round(form.keep_decimal? ? 2 : 0)),
-              holiday_price_per_bucket: ((form.holiday_price_per_bucket.blank? or vacancy.holiday_price_per_bucket.blank?) ? nil : (form.holiday_price_per_bucket.to_d * 0.1 * vacancy.holiday_price_per_bucket).round(form.keep_decimal? ? 2 : 0)) }.select{|k, v| !v.empty?})
+              holiday_price_per_bucket: ((form.holiday_price_per_bucket.blank? or vacancy.holiday_price_per_bucket.blank?) ? nil : (form.holiday_price_per_bucket.to_d * 0.1 * vacancy.holiday_price_per_bucket).round(form.keep_decimal? ? 2 : 0)) }.select{|k, v| !v.blank?})
           end
         end
       end
