@@ -53,6 +53,7 @@ class Op::MembersController < Op::BaseController
   def destroy
     begin
       @member.destroy
+      @member.memberships.destroy_all
       redirect_to members_path, notice: '操作成功！'
     rescue TransactionRecordExists
       redirect_to @member, alert: '操作失败！已存在消费！'
