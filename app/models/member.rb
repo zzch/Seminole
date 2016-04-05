@@ -9,6 +9,7 @@ class Member < ActiveRecord::Base
   has_many :users, through: :memberships
   has_many :expenses, class_name: 'MemberExpense'
   has_many :transaction_records
+  before_destroy :can_be_destroyed?
   aasm column: 'state' do
     state :activated, initial: true
     state :deactivated
@@ -65,6 +66,10 @@ class Member < ActiveRecord::Base
       self.save!
       TransactionRecord.create_income(member_id: self.id, action: :charge, operator_id: options[:operator].id, amount: options[:amount], before_amount: before_amount, after_amount: after_amount)
     end
+  end
+
+  def can_be_destroyed?
+    raise TransactionRecordExists.new unless self.transaction_records.blank?
   end
 
   class << self

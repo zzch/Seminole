@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Op::MembersController < Op::BaseController
-  before_action :find_member, only: %w(show edit update recharging_form recharging cancel)
+  before_action :find_member, only: %w(show edit update recharging_form recharging destroy)
   
   def index
     @members = @current_club.members.order(created_at: :desc, id: :asc).page(params[:page])
@@ -48,6 +48,15 @@ class Op::MembersController < Op::BaseController
   def cancel
     @member.cancel!
     redirect_to @member, notice: '操作成功！'
+  end
+
+  def destroy
+    begin
+      @member.destroy
+      redirect_to members_path, notice: '操作成功！'
+    rescue TransactionRecordExists
+      redirect_to @member, alert: '操作失败！已存在消费！'
+    end
   end
 
   def async_search
