@@ -137,7 +137,7 @@ class Op::TabsController < Op::BaseController
   end
 
   def search
-    @tabs = Tab.search(params).page(params[:page])
+    @tabs = @current_club.tabs.search(params).page(params[:page])
   end
 
   protected
