@@ -202,6 +202,17 @@ module ApplicationHelper
     end
   end
 
+  def minutes_by_time options = {}
+    if options[:minutes] < options[:club].minimum_charging_minutes
+      0
+    else
+      unit_minutes = options[:minutes] / options[:club].unit_charging_minutes
+      unit_minutes += 1 if unit_minutes.zero?
+      unit_minutes += 1 if options[:minutes] > options[:club].unit_charging_minutes and (options[:minutes] % options[:club].unit_charging_minutes) >= options[:club].maximum_discard_minutes
+      unit_minutes * options[:club].unit_charging_minutes
+    end
+  end
+
   def price_by_time options = {}
     if options[:minutes] < options[:club].minimum_charging_minutes
       0

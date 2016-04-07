@@ -47,7 +47,7 @@
                 <% elsif playing_item.payment_method_by_ball_member? %>
                 <%= playing_item.total_balls / @current_club.balls_per_bucket %>筐
                 <% elsif playing_item.payment_method_by_time_member? %>
-                <%= brac_seconds(playing_item.seconds) %>
+                <%= minutes_by_time(club: @current_club, price_per_hour: playing_item.vacancy.send("#{%w(6 7).include?(Time.now.day) ? 'holiday' : 'usual'}_price_per_hour"), minutes: playing_item.minutes) %>分钟
                 <% elsif playing_item.payment_method_unlimited_member? %>
                 -
                 <% else %>

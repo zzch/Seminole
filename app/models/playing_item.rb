@@ -30,6 +30,18 @@ class PlayingItem < ActiveRecord::Base
     (self.seconds / 60).round
   end
 
+  def calced_minutes
+    puts "*********************************************"
+    if self.minutes < self.tab.club.minimum_charging_minutes
+      0
+    else
+      unit_minutes = self.minutes / self.tab.club.unit_charging_minutes
+      unit_minutes += 1 if unit_minutes.zero?
+      unit_minutes += 1 if self.minutes > self.tab.club.unit_charging_minutes and (self.minutes % self.tab.club.unit_charging_minutes) >= self.tab.club.maximum_discard_minutes
+      unit_minutes * self.tab.club.unit_charging_minutes
+    end
+  end
+
   def total_balls
     self.balls.map(&:amount).reduce(:+) || 0
   end

@@ -43,7 +43,7 @@ class TransactionRecord < ActiveRecord::Base
     def human_readable_amount amount
       case self.member.card.type
       when :by_ball then "#{(amount / self.member.club.balls_per_bucket).round}筐球"
-      when :by_time then "#{(amount / 60).round}小时"
+      when :by_time then "#{(amount / 60).floor}小时#{(amount % 60).round}分钟"
       when :stored then "#{amount}元"
       end
     end

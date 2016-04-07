@@ -89,7 +89,7 @@ class Tab < ActiveRecord::Base
         when :by_time_member
           raise InvalidCardType.new unless playing_item.member.card.type_by_time?
           raise InvalidCharingType.new unless playing_item.charging_type_by_time?
-          member_expenses << MemberExpense.new(member: playing_item.member, item: playing_item) if ((playing_item.finished_at - playing_item.started_at) / 60) > self.club.minimum_charging_minutes
+          member_expenses << MemberExpense.new(member: playing_item.member, item: playing_item) if ((playing_item.finished_at - playing_item.started_at).to_f / 60) > self.club.minimum_charging_minutes
         when :stored_member
           raise InvalidCardType.new unless playing_item.member.card.type_stored?
           member_expenses << MemberExpense.new(member: playing_item.member, item: playing_item) if playing_item.total_price > 0
@@ -120,11 +120,11 @@ class Tab < ActiveRecord::Base
             member_expense.update!(before_amount: before_ball_amount, amount: member_expense.item.total_balls, after_amount: member_expense.item.member.ball_amount)
             transaction_records[member_expense.item.member.id].amount += member_expense.item.total_balls
           when :by_time_member
-            raise InsufficientMinute.new if member_expense.item.member.minute_amount < member_expense.item.minutes
+            raise InsufficientMinute.new if member_expense.item.member.minute_amount < member_expense.item.calced_minutes
             before_minute_amount = member_expense.item.member.minute_amount
-            member_expense.item.member.update!(minute_amount: member_expense.item.member.minute_amount - member_expense.item.minutes)
-            member_expense.update!(before_amount: before_minute_amount, amount: member_expense.item.total_balls, after_amount: member_expense.item.member.minute_amount)
-            transaction_records[member_expense.item.member.id].amount += member_expense.item.minutes
+            member_expense.item.member.update!(minute_amount: member_expense.item.member.minute_amount - member_expense.item.calced_minutes)
+            member_expense.update!(before_amount: before_minute_amount, amount: member_expense.item.calced_minutes, after_amount: member_expense.item.member.minute_amount)
+            transaction_records[member_expense.item.member.id].amount += member_expense.item.calced_minutes
           when :stored_member
             raise InsufficientDeposit.new if member_expense.item.member.deposit < member_expense.item.total_price
             before_deposit = member_expense.item.member.deposit
