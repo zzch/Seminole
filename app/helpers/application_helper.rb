@@ -66,7 +66,7 @@ module ApplicationHelper
   def te_card_unit card
     case card.type
     when :by_ball then '粒球'
-    when :by_time then '小时'
+    when :by_time then '分钟'
     when :stored then '元'
     end
   end

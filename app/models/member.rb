@@ -60,7 +60,7 @@ class Member < ActiveRecord::Base
       self.lock!
       case self.card.type
       when :by_ball then before_amount = self.ball_amount; self.ball_amount += options[:amount].to_i; after_amount = self.ball_amount
-      when :by_time then before_amount = self.minute_amount; self.minute_amount += (options[:amount].to_i * 60); after_amount = self.minute_amount
+      when :by_time then before_amount = self.minute_amount; self.minute_amount += options[:amount].to_i; after_amount = self.minute_amount
       when :stored then before_amount = self.deposit; self.deposit += options[:amount].to_f; after_amount = self.deposit
       end
       self.save!
