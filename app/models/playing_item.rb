@@ -31,7 +31,6 @@ class PlayingItem < ActiveRecord::Base
   end
 
   def calced_minutes
-    puts "*********************************************"
     if self.minutes < self.tab.club.minimum_charging_minutes
       0
     else
