@@ -18,6 +18,10 @@ class Card < ActiveRecord::Base
   validates :valid_months, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   validates :maximum_vacancies, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, unless: "unlimited_maximum_vacancies == '1'"
 
+  def name_with_latest_number
+    "#{self.name} （最近办理：#{self.members.order(number: :desc).first.try(:number) || '无'}）"
+  end
+  
   def has_right? vacancy
     VacancyTaggable.where(tag_id: self.vacancy_tags.map(&:id)).map{|taggable| taggable.vacancy_id}.uniq.include?(vacancy.id)
   end
