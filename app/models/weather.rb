@@ -27,12 +27,13 @@ class Weather < ActiveRecord::Base
   class << self
     def fetch
       Club.all.each do |club|
-        uri = URI.parse("https://api.thinkpage.cn/v2/weather/future.json?city=#{club.latitude.to_f}:#{club.longitude.to_f}&language=zh-chs&unit=c&key=#{Setting.key[:thinkpage][:api_key]}")
+        uri = URI.parse("https://api.thinkpage.cn/v3/weather/daily.json?location=#{club.latitude.to_f}:#{club.longitude.to_f}&language=zh-Hans&unit=c&key=#{Setting.key[:thinkpage][:api_key]}")
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         request = Net::HTTP::Get.new(uri.request_uri)
         response = http.request(request)
-        JSON.parse(response.body)['weather'][0]['future'].each do |future_weather|
+        puts "******* #{JSON.parse(response.body)['results'][0]['daily']}"
+        JSON.parse(response.body)['results'][0]['daily'].each do |future_weather|
           Weather.find_or_create_by!(club_id: club.id, date: future_weather['date']).tap do |weather|
             weather.content = future_weather['text']
             weather.day_code = future_weather['code1']
