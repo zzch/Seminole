@@ -1,6 +1,7 @@
 class Card < ActiveRecord::Base
   include UUID
   attr_accessor :vacancy_tag_ids, :unlimited_total_amount, :unlimited_maximum_vacancies
+  as_enum :type, [:by_ball, :by_time, :unlimited, :stored], prefix: true, map: :string
   belongs_to :club
   has_many :use_rights
   has_many :vacancy_tags, through: :use_rights
@@ -8,7 +9,7 @@ class Card < ActiveRecord::Base
   has_many :members
   before_save :set_total_amount_and_maximum_vacancies
   before_destroy :can_be_destroyed?
-  as_enum :type, [:by_ball, :by_time, :unlimited, :stored], prefix: true, map: :string
+  scope :by_type, ->(type) { where(type_cd: type) }
   validates :name, presence: true, length: { maximum: 50 }
   validates :type, presence: true
   validates :background_color, presence: true, length: { is: 6 }
