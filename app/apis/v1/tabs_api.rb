@@ -78,7 +78,7 @@ module V1
       end
       get do
         find_current_club
-        tabs = @current_user.tabs.handled.by_club(@current_club).order(entrance_time: :desc).page(params[:page])
+        tabs = @current_user.tabs.handled.by_club(@current_club).order(entrance_time: :desc).page(params[:page]).per(10)
         present tabs, with: Tabs::Entities::List, club: @current_club
       end
 
@@ -88,7 +88,7 @@ module V1
         optional :page, type: Integer, desc: '页码'
       end
       get :all do
-        tabs = @current_user.tabs.handled.order(entrance_time: :desc).page(params[:page])
+        tabs = @current_user.tabs.handled.order(entrance_time: :desc).page(params[:page]).per(10)
         present tabs, with: Tabs::Entities::List, include_club: true
       end
 
