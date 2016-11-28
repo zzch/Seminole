@@ -22,6 +22,11 @@ Rails.application.routes.draw do
       get :edit_password
       put :update_password
     end
+    resources :data do
+      collection do
+        get :export
+      end
+    end
     get :sign_in, to: 'sessions#new', as: :sign_in
     post :sign_in, to: 'sessions#create'
     get :sign_out, to: 'sessions#destroy', as: :sign_out
